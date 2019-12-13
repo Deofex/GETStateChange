@@ -1,0 +1,61 @@
+h1 a, h2 a {
+    color: #01C696;
+}
+
+.page-header {
+    background-color: #000000;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #000000;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.hiddenRow {
+    padding: 0 !important;
+}
+
+p.blocktext {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40em
+}
+
+.pagination {
+    background-color: #000000;
+}
+
+body {
+    background-color: #000000;
+}
+
+.page-link {
+    color: #ffffff;
+}
+
+.page-item .page-link {
+    background-color: #454d55;
+    border-color: #454d55;
+}
+
+.page-item.active .page-link {
+    background-color: #01C696;
+    border-color: #01C696;
+}
+
+.card {
+    background-color: #343a40;
+}
+
+body {
+    color: #ffffff
+}
+
+.btn-primary {
+    background-color: #01C696;
+    border-color: #01C696;
+}
