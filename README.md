@@ -115,7 +115,7 @@ sudo chown %WEBADMINUSER% -R /var/www/getsite
 
 
 ### Clone the github repository
-git clone https://github.com/Deofex/GETStateChanges-.git /var/www/getsite
+git clone https://github.com/Deofex/GETStateChange.git /var/www/getsite
 
 ### Create the Python virtual environment
 Create a Python vitual environment with the following commands (first create a root folder, than create the virtual environment)
