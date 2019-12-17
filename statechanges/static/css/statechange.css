@@ -59,3 +59,7 @@ body {
     background-color: #01C696;
     border-color: #01C696;
 }
+
+.card.graph {
+    margin-bottom: 10px;
+}

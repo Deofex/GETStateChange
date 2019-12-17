@@ -158,8 +158,12 @@ def get_daygraphinfo():
         # processed
         periodname = str(startdate.day) + "-" + str(startdate.month)
 
+        # Loop through each state changes and add the number of state changes to
+        # the sumstatechanges variabele
         for statechangebatch in statechangebatches:
             sumstatechanges += statechangebatch.sumstatechanges
+
+        # Add the period to the graphinfo
         graphinfo.append(GraphInfo(
             periodname,
             sumstatechanges
@@ -171,6 +175,43 @@ def get_daygraphinfo():
     # Return the list with the graph info
     return graphinfo
 
+# This function creates the info for the daily wiring graph
+def get_wiringgraphinfo():
+    currentday = datetime.now().day
+    currentmonth = datetime.now().month
+    currentyear = datetime.now().year
+    startdate = datetime(currentyear,currentmonth,currentday)
+    enddate = startdate + timedelta(days=1)
+    graphinfo = []
+    for i in range(1,31):
+        startdate = startdate - timedelta(days=1)
+        enddate = enddate - timedelta(days=1)
+        # Get all statechanges batches in the timerange
+        statechangebatches = StateChange.objects.filter(
+            date__range=[startdate,enddate])
+        # Loop through the batches and get the sum of all state changes
+        wiringstatechanges = 0
+
+        # Period name = a minus character + the number of days in the past being
+        # processed
+        periodname = str(startdate.day) + "-" + str(startdate.month)
+
+        # Loop through each state changes and add the number of wirings to
+        # the wiring statechanges variabele
+        for statechangebatch in statechangebatches:
+            wiringstatechanges += statechangebatch.wiringscount
+
+        # Add the period to the graphinfo
+        graphinfo.append(GraphInfo(
+            periodname,
+            wiringstatechanges
+        ))
+
+    # Reverse the list created to get the oldest date on top
+    graphinfo.reverse()
+
+    # Return the list with the graph info
+    return graphinfo
 
 
 
@@ -194,12 +235,14 @@ def transaction_list(request):
 
     monthgraphinfo = get_monthgraphinfo()
     daygraphinfo = get_daygraphinfo()
+    wiringgraphinfo = get_wiringgraphinfo()
 
     return render(request,'statechanges/statechanges.html',{
         'statechanges':statechanges,
         'pagenrs':pagenrs,
         'monthgraphinfo':monthgraphinfo,
-        'daygraphinfo':daygraphinfo
+        'daygraphinfo':daygraphinfo,
+        'wiringgraphinfo':wiringgraphinfo
         })
 
 

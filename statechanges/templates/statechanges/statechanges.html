@@ -26,21 +26,26 @@
         <div class="row">
             <div class="col">
                 <div class="col">
-                    <div class="card">
+                    <div class="card graph">
                         <div class="card-body">
                             <canvas id="ChartStateChangesMonth"></canvas>
                         </div>
                     </div>
                 </div>
-                <br>
                 <div class="col">
-                    <div class="card">
+                    <div class="card graph">
                         <div class="card-body">
                             <canvas id="ChartStateChangesDay"></canvas>
                         </div>
                     </div>
                 </div>
-                <br>
+                <div class="col">
+                    <div class="card graph">
+                        <div class="card-body">
+                            <canvas id="ChartWiringsDay"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col">
                 <table border=1 class="table table-condensed table-hover table-bordered table-dark table-sm"
@@ -266,6 +271,59 @@
             borderColor: '#01C696',
             data: [
                 {% for info in daygraphinfo %}
+                        '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+                    ],
+        pointBorderColor: '#01C696',
+            pointBackgroundColor: '#ffffff',
+                fontColor: '#ffffff',
+                }]
+            },
+
+        // Configuration options go here
+        options: {
+            responsive: true,
+                tooltips: {
+                mode: 'index',
+                    intersect: false,
+                },
+            hover: {
+                mode: 'nearest',
+                    intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Last 30 days',
+                        padding: 1
+                    }
+                }]
+            }
+        }
+        });
+    </script>
+
+    <script>
+        var ctx = document.getElementById('ChartWiringsDay').getContext('2d');
+        Chart.defaults.global.defaultFontColor = '#ffffff';
+        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+        Chart.defaults.global.defaultFontSize = 16;
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    {% for info in wiringgraphinfo %}
+                    '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+                ],
+        datasets: [{
+            label: 'New petri-nets (new events)',
+            backgroundColor: '#000000',
+            borderColor: '#01C696',
+            data: [
+                {% for info in wiringgraphinfo %}
                         '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
         {% endfor %}
                     ],
