@@ -49,7 +49,7 @@ def get_monthtimerange():
     currentmonth = datetime.now().month
     currentyear = datetime.now().year
     # Create a list where to store the date ranges (this will be returned)
-    dateranges = []
+    timeranges = []
     # The Startdate of the first timerange is the first day of the current month
     startdate = datetime(currentyear,currentmonth,1)
     # Determine the first day of the next month and save this
@@ -57,8 +57,8 @@ def get_monthtimerange():
         enddate = datetime((currentyear + 1), 1, 1)
     else:
         enddate = datetime(currentyear,(currentmonth + 1),1)
-    # Combine the start and end date and add this in the dateranges list
-    dateranges.append(TimeRange(
+    # Combine the start and end date and add this in the timeranges list
+    timeranges.append(TimeRange(
         startdate,
         enddate - timedelta(seconds=1)
     ))
@@ -72,15 +72,51 @@ def get_monthtimerange():
         else:
             currentmonth = currentmonth - 1
         startdate = datetime(currentyear,(currentmonth ),1)
-        dateranges.append(TimeRange(
+        timeranges.append(TimeRange(
             startdate,
             enddate - timedelta(seconds=1)
         ))
     # Reverse the list
-    dateranges.reverse()
-    # Return the dateranges
-    return dateranges
+    timeranges.reverse()
+    # Return the timeranges
+    return timeranges
 
+def get_quartertimerange():
+    # Get the current year and month
+    date = datetime.now()
+    currentmonth = datetime.now().month
+    currentyear = datetime.now().year
+    # Create a list where to store the date ranges (this will be returned)
+    timeranges = []
+
+    # Get the last 12 quarters
+    for x in range(12):
+        if date.month < 4:
+            startdate = datetime(date.year, 1, 1)
+            enddate = datetime(date.year, 3, 31, 23, 59, 59)
+        elif date.month < 7:
+            startdate = datetime(date.year, 4, 1)
+            enddate = datetime(date.year, 6, 30, 23, 59, 59)
+        elif date.month < 10:
+            startdate = datetime(date.year, 7, 1)
+            enddate = datetime(date.year, 9, 30, 23, 59, 59)
+        else:
+            startdate = datetime(date.year, 10, 1)
+            enddate = datetime(date.year, 12, 31, 23, 59, 59)
+
+        # Add the quarter to the timerange
+        timeranges.append(TimeRange(
+            startdate,
+            enddate - timedelta(seconds=1)
+        ))
+        # Set the date to a previous quarter (1 seconds before the start time)
+        # to let the next run get the previous quarter dates.
+        date = startdate - timedelta(seconds=1)
+
+    # Reverse the list
+    timeranges.reverse()
+    # Return the timeranges
+    return timeranges
 
 # This function creates the info for the monthly statechanges graph
 def get_monthgraphinfo():
@@ -136,6 +172,46 @@ def get_monthgraphinfo():
 
     # Return the list with the graph info
     return graphinfo
+
+# This function creates the info for the quarter statechanges graph
+def get_quartergraphinfo():
+    # Get the last 12 time ranges
+    timeranges = get_quartertimerange()
+    # Create an empty list to store the graph info in
+    graphinfo = []
+    # Foreach timerange retrieve the amount of statechanges and translate the
+    # month number and save both in the created list and return this object.
+    for timerange in timeranges:
+        # Get all statechanges batches in the timerange
+        statechangebatches = StateChange.objects.filter(
+            date__range=[timerange.startdate,timerange.enddate])
+
+        # Loop through the batches and get the sum of all state changes
+        sumstatechanges = 0
+        for statechangebatch in statechangebatches:
+            sumstatechanges += statechangebatch.sumstatechanges
+
+        # Translate the month number of the timerange to a readable quarter
+        if timerange.startdate.month < 4:
+            periodname = "Q1 " + str(timerange.startdate.year)
+        elif timerange.startdate.month < 7:
+            periodname = "Q2 " + str(timerange.startdate.year)
+        elif timerange.startdate.month < 10:
+            periodname = "Q3 " + str(timerange.startdate.year)
+        else:
+            periodname = "Q4 " + str(timerange.startdate.year)
+
+        # Add the sum of the state changes and period name in an object and add
+        # this to the list
+        if sumstatechanges != 0:
+            graphinfo.append(GraphInfo(
+                periodname,
+                sumstatechanges
+            ))
+
+    # Return the list with the graph info
+    return graphinfo
+
 
 # This function creates the info for the daily statechanges graph
 def get_daygraphinfo():
@@ -235,6 +311,7 @@ def transaction_list(request):
 
     monthgraphinfo = get_monthgraphinfo()
     daygraphinfo = get_daygraphinfo()
+    quartergraphinfo = get_quartergraphinfo()
     wiringgraphinfo = get_wiringgraphinfo()
 
     return render(request,'statechanges/statechanges.html',{
@@ -242,14 +319,6 @@ def transaction_list(request):
         'pagenrs':pagenrs,
         'monthgraphinfo':monthgraphinfo,
         'daygraphinfo':daygraphinfo,
+        'quartergraphinfo':quartergraphinfo,
         'wiringgraphinfo':wiringgraphinfo
         })
-
-
-
-
-
-
-#startdate = datetime(2019, 12, 10)
-#enddate = datetime(2019, 12, 11)
-#dec =StateChange.objects.filter(date__range=[startdate,enddate])

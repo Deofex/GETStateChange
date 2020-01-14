@@ -15,7 +15,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-8">
                 <div class="page-header">
                     <h1><img src="{% static 'images/headerimage.png' %}" class="img-rounded" alt="GET header image"><a
                             href="/">GET
@@ -24,14 +24,8 @@
             </div>
         </div>
         <div class="row">
+
             <div class="col">
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body">
-                            <canvas id="ChartStateChangesMonth"></canvas>
-                        </div>
-                    </div>
-                </div>
                 <div class="col">
                     <div class="card graph">
                         <div class="card-body">
@@ -39,6 +33,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col">
+                    <div class="card graph">
+                        <div class="card-body">
+                            <canvas id="ChartStateChangesMonth"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card graph">
+                        <div class="card-body">
+                            <canvas id="ChartStateChangesQuarter"></canvas>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col">
                     <div class="card graph">
                         <div class="card-body">
@@ -48,125 +59,145 @@
                 </div>
             </div>
             <div class="col">
-                <table border=1 class="table table-condensed table-hover table-bordered table-dark table-sm"
-                    style="border-collapse:collapse;">
-                    <thead>
-                        <tr>
-                            <th>
-                                <p>Date</p>
-                            </th>
-                            <th>
-                                <p>Blocknumber</p>
-                            </th>
-                            <th>
-                                <p>Total state changes</p>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for statechange in statechanges %}
-                        <tr data-toggle="collapse" data-target="#statechange{{ statechange.blocknumber }}"
-                            class="accordion-toggle">
-                            <td>
-                                <p>{{ statechange.date |date:"d-m-Y H:i" }}</p>
-                            </td>
-                            <td>
-                                <p>{{ statechange.blocknumber }}</p>
-                            </td>
-                            <td>
-                                <p>{{ statechange.sumstatechanges }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="hiddenRow">
-                                <div style="text-align: center;" class="accordian-body collapse"
-                                    id="statechange{{ statechange.blocknumber }}">
-                                    <p>The following state changes have been found in this block:</p>
-                                    <div style="display: inline-block; text-align: left;">
-                                        <p>
-                                            <table border=2 class="table table-bordered table-dark">
-                                                <tr>
-                                                    <td><i>Firings 0</i></td>
-                                                    <td>{{ statechange.firings0count }}</td>
-                                                    <td><i>Firings 1</i></td>
-                                                    <td>{{ statechange.firings1count }}</td>
-                                                    <td><i>Firings 2</i></td>
-                                                    <td>{{ statechange.firings2count }}</td>
-                                                    <td><i>Firings 3</i></td>
-                                                    <td>{{ statechange.firings3count }}</td>
+                <div class="col">
+                    <table border=1 class="table table-condensed table-hover table-bordered table-dark table-sm"
+                        style="border-collapse:collapse;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <p>Date</p>
+                                </th>
+                                <th>
+                                    <p>Blocknumber</p>
+                                </th>
+                                <th>
+                                    <p>Total state changes</p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for statechange in statechanges %}
+                            <tr data-toggle="collapse" data-target="#statechange{{ statechange.blocknumber }}"
+                                class="accordion-toggle">
+                                <td>
+                                    <p>{{ statechange.date |date:"d-m-Y H:i" }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ statechange.blocknumber }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ statechange.sumstatechanges }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="hiddenRow">
+                                    <div style="text-align: center;" class="accordian-body collapse"
+                                        id="statechange{{ statechange.blocknumber }}">
+                                        <p>The following state changes have been found in this block:</p>
+                                        <div style="display: inline-block; text-align: left;">
+                                            <p>
+                                                <table border=2 class="table table-bordered table-dark">
+                                                    <tr>
+                                                        <td><i>Firings 0</i></td>
+                                                        <td>{{ statechange.firings0count }}</td>
+                                                        <td><i>Firings 1</i></td>
+                                                        <td>{{ statechange.firings1count }}</td>
+                                                        <td><i>Firings 2</i></td>
+                                                        <td>{{ statechange.firings2count }}</td>
+                                                        <td><i>Firings 3</i></td>
+                                                        <td>{{ statechange.firings3count }}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><i>Firings 4</i></td>
-                                                    <td>{{ statechange.firings4count }}</td>
-                                                    <td><i>Firings 5</i></td>
-                                                    <td>{{ statechange.firings5count }}</td>
-                                                    <td><i>Firings 6</i></td>
-                                                    <td>{{ statechange.firings6count }}</td>
-                                                    <td><i>Firings 7</i></td>
-                                                    <td>{{ statechange.firings7count }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i>Firings 4</i></td>
+                                                        <td>{{ statechange.firings4count }}</td>
+                                                        <td><i>Firings 5</i></td>
+                                                        <td>{{ statechange.firings5count }}</td>
+                                                        <td><i>Firings 6</i></td>
+                                                        <td>{{ statechange.firings6count }}</td>
+                                                        <td><i>Firings 7</i></td>
+                                                        <td>{{ statechange.firings7count }}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><i>Firings 8</i></td>
-                                                    <td>{{ statechange.firings8count }}</td>
-                                                    <td><i>Firings 9</i></td>
-                                                    <td>{{ statechange.firings9count }}</td>
-                                                    <td><i>Firings 10</i></td>
-                                                    <td>{{ statechange.firings10count }}</td>
-                                                    <td><i>Firings 11</i></td>
-                                                    <td>{{ statechange.firings11count }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i>Firings 8</i></td>
+                                                        <td>{{ statechange.firings8count }}</td>
+                                                        <td><i>Firings 9</i></td>
+                                                        <td>{{ statechange.firings9count }}</td>
+                                                        <td><i>Firings 10</i></td>
+                                                        <td>{{ statechange.firings10count }}</td>
+                                                        <td><i>Firings 11</i></td>
+                                                        <td>{{ statechange.firings11count }}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><i>Firings 12</i></td>
-                                                    <td>{{ statechange.firings12count }}</td>
-                                                    <td><i>Firings 13</i></td>
-                                                    <td>{{ statechange.firings13count }}</td>
-                                                    <td><i>Wirings</i></td>
-                                                    <td>{{ statechange.wiringscount }}</td>
-                                                    <td><i>Unknown</i></td>
-                                                    <td>{{ statechange.unknownscount }}</td>
-                                                </tr>
-                                            </table>
-                                        </p>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i>Firings 12</i></td>
+                                                        <td>{{ statechange.firings12count }}</td>
+                                                        <td><i>Firings 13</i></td>
+                                                        <td>{{ statechange.firings13count }}</td>
+                                                        <td><i>Wirings</i></td>
+                                                        <td>{{ statechange.wiringscount }}</td>
+                                                        <td><i>Unknown</i></td>
+                                                        <td>{{ statechange.unknownscount }}</td>
+                                                    </tr>
+                                                </table>
+                                            </p>
+                                        </div>
                                     </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                            {% if statechanges.has_previous %}
+                            <li class="page-item"><a class="page-link"
+                                    href="?page={{ statechanges.previous_page_number }}">Previous</a>
+                            </li>
+                            {% endif %}
+                            {% for pagenr in pagenrs %}
+                            {% if pagenr == statechanges.number %}
+                            <li class="page-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
+                            </li>
+                            {% endif %}
+                            {% if pagenr != statechanges.number %}
+                            <li class="page-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if statechanges.has_next %}
+                            <li class="page-item"><a class="page-link"
+                                    href="?page={{ statechanges.next_page_number }}">Next</a>
+                            </li>
+                            <li class="page-item"><a class="page-link"
+                                    href="?page={{ statechanges.paginator.num_pages }}">Last</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col">
+                    <div class="card prognose">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-sm-3">
+                                <img src="{% static 'images/deofex.png' %}" class="card-img-middle" alt="Deofex Avatar">
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">A word</h5>
+                                    <p>Hi guys, I'm trying to maintain this site when possible. When you have new idea's
+                                        for widgets, or want to see more data, please speak to me on Telegram. All data
+                                        on this site is dynamic and updated 5 minutes after each full hour.</p>
+                                    <p>Cheers, Deofex</p>
                                 </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-
-
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                        {% if statechanges.has_previous %}
-                        <li class="page-item"><a class="page-link"
-                                href="?page={{ statechanges.previous_page_number }}">Previous</a>
-                        </li>
-                        {% endif %}
-                        {% for pagenr in pagenrs %}
-                        {% if pagenr == statechanges.number %}
-                        <li class="page-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
-                        </li>
-                        {% endif %}
-                        {% if pagenr != statechanges.number %}
-                        <li class="page-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
-                        {% endif %}
-                        {% endfor %}
-                        {% if statechanges.has_next %}
-                        <li class="page-item"><a class="page-link"
-                                href="?page={{ statechanges.next_page_number }}">Next</a>
-                        </li>
-                        <li class="page-item"><a class="page-link"
-                                href="?page={{ statechanges.paginator.num_pages }}">Last</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -250,6 +281,58 @@
             }
         }
         });
+    </script>
+
+    <script>
+        var ctx = document.getElementById('ChartStateChangesQuarter').getContext('2d');
+        Chart.defaults.global.defaultFontColor = '#ffffff';
+        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+        Chart.defaults.global.defaultFontSize = 16;
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    {% for info in quartergraphinfo %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+            ],
+        datasets: [{
+            label: 'State Changes per Quarter',
+            backgroundColor: '#000000',
+            borderColor: '#01C696',
+            data: [
+                {% for info in quartergraphinfo %}
+                    '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+                ],
+        pointBorderColor: '#01C696',
+            pointBackgroundColor: '#ffffff',
+                fontColor: '#ffffff',
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            responsive: true,
+                tooltips: {
+                mode: 'index',
+                    intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                    intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Month'
+                    }
+                }]
+            }
+        }
+    });
     </script>
 
     <script>
@@ -357,6 +440,7 @@
         }
         });
     </script>
+
 </body>
 
 </html>

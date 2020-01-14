@@ -63,3 +63,11 @@ body {
 .card.graph {
     margin-bottom: 10px;
 }
+
+.card.prognose {
+    margin-bottom: 10px;
+}
+
+img {
+    max-width: 100%;
+}
