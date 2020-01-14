@@ -152,33 +152,33 @@
 
 
 
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+
+                        <ul class="nav nav-fill pagination">
+                            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
                             {% if statechanges.has_previous %}
-                            <li class="page-item"><a class="page-link"
+                            <li class="nav-item"><a class="page-link"
                                     href="?page={{ statechanges.previous_page_number }}">Previous</a>
                             </li>
                             {% endif %}
                             {% for pagenr in pagenrs %}
                             {% if pagenr == statechanges.number %}
-                            <li class="page-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
+                            <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
                             </li>
                             {% endif %}
                             {% if pagenr != statechanges.number %}
-                            <li class="page-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
+                            <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
                             {% endif %}
                             {% endfor %}
                             {% if statechanges.has_next %}
-                            <li class="page-item"><a class="page-link"
+                            <li class="nav-item"><a class="page-link"
                                     href="?page={{ statechanges.next_page_number }}">Next</a>
                             </li>
-                            <li class="page-item"><a class="page-link"
+                            <li class="nav-item"><a class="page-link"
                                     href="?page={{ statechanges.paginator.num_pages }}">Last</a>
                             </li>
                             {% endif %}
                         </ul>
-                    </nav>
+
                 </div>
                 <div class="col">
                     <div class="card prognose">

@@ -29,6 +29,10 @@ p.blocktext {
     background-color: #000000;
 }
 
+.nav.pagination{
+    margin-bottom: 10px;
+}
+
 body {
     background-color: #000000;
 }
@@ -37,12 +41,12 @@ body {
     color: #ffffff;
 }
 
-.page-item .page-link {
+.nav-item .page-link {
     background-color: #454d55;
     border-color: #454d55;
 }
 
-.page-item.active .page-link {
+.nav-item.active .page-link {
     background-color: #01C696;
     border-color: #01C696;
 }
