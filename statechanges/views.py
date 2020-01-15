@@ -222,8 +222,6 @@ def get_daygraphinfo():
     enddate = startdate + timedelta(days=1)
     graphinfo = []
     for i in range(1,31):
-        startdate = startdate - timedelta(days=1)
-        enddate = enddate - timedelta(days=1)
         # Get all statechanges batches in the timerange
         statechangebatches = StateChange.objects.filter(
             date__range=[startdate,enddate])
@@ -244,6 +242,9 @@ def get_daygraphinfo():
             periodname,
             sumstatechanges
         ))
+        # Go back in time 1 day for the next run
+        startdate = startdate - timedelta(days=1)
+        enddate = enddate - timedelta(days=1)
 
     # Reverse the list created to get the oldest date on top
     graphinfo.reverse()
