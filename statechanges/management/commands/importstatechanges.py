@@ -43,7 +43,7 @@ class StateChange():
         # from the blockchain.
         txurl = "https://api.etherscan.io/api" + \
         "?module=proxy&action=eth_getTransactionByHash" + \
-        "&apikey=D" + etherscanapikey + \
+        "&apikey=" + etherscanapikey + \
         "&txhash="
         # Add the tx hash to the url
         txurl = txurl + self.hash
@@ -150,7 +150,7 @@ def retrieve_statechanges(etherscanapikey, ethregaddress, afterblocknumber):
         "?module=account&action=txlist" + \
         "&address=" + ethregaddress + \
         "&endblock=99999999&sort=asc" + \
-        "&apikey=D" + etherscanapikey
+        "&apikey=" + etherscanapikey
 
     # The startblock is the first block after the blocknumber specified
     startblock =  str(int(afterblocknumber) + 1)
