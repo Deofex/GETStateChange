@@ -207,7 +207,7 @@ Provide 'run' permissions to the file
 
 Add the following to the crontab, to make it run once a hour (5 minutes past the hour)
 ```
-5 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_importprice.sh' > /tmp/cron_importprice.log 2>&1
+*/5 * * * * /usr/bin/env bash -c '/etc/getsite/cron_importprice.sh' > /tmp/cron_importprice.log 2>&1
 ```
 
 ## Development environment
