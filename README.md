@@ -167,7 +167,7 @@ python /var/www/getsite/manage.py collectstatic
 ```
 
 ### Create Cronjob to import new transactions
-Create /etc/getsite/cron.sh with the following content
+Create /etc/getsite/cron_importtransactions.sh with the following content
 ```
 source /usr/local/venv/getsite/bin/activate
 
@@ -185,7 +185,29 @@ Provide 'run' permissions to the file
 
 Add the following to the crontab, to make it run once a hour (5 minutes past the hour)
 ```
-5 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron.sh' > /tmp/cron.log 2>&1
+5 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_importtransactions.sh' > /tmp/cron_importtransactions.log 2>&1
+```
+
+### Create Cronjob to import the crypto prices
+Create /etc/getsite/cron_importprice.sh with the following content
+```
+source /usr/local/venv/getsite/bin/activate
+
+export getsite_secret_key='%DJANGOSECRETKEY%'
+export getsite_debug='False'
+export getsite_etherscan_apikey='%ETHERSCANAPIKEY%'
+export getsite_environment='Production'
+export getsite_dbpassword='%DATABASEPASSWORD%'
+
+
+/var/www/getsite/manage.py importprices
+```
+
+Provide 'run' permissions to the file
+
+Add the following to the crontab, to make it run once a hour (5 minutes past the hour)
+```
+5 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_importprice.sh' > /tmp/cron_importprice.log 2>&1
 ```
 
 ## Development environment
