@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import StateChange
+from .models import CryptoPrice
 from django.core.paginator import Paginator
 from datetime import datetime
 from datetime import timedelta
@@ -261,8 +262,6 @@ def get_wiringgraphinfo():
     enddate = startdate + timedelta(days=1)
     graphinfo = []
     for i in range(1,31):
-        startdate = startdate - timedelta(days=1)
-        enddate = enddate - timedelta(days=1)
         # Get all statechanges batches in the timerange
         statechangebatches = StateChange.objects.filter(
             date__range=[startdate,enddate])
@@ -284,12 +283,56 @@ def get_wiringgraphinfo():
             wiringstatechanges
         ))
 
+        # Go back in time 1 day for the next run
+        startdate = startdate - timedelta(days=1)
+        enddate = enddate - timedelta(days=1)
+
     # Reverse the list created to get the oldest date on top
     graphinfo.reverse()
 
     # Return the list with the graph info
     return graphinfo
 
+def get_statechangetypeslast30days():
+    currentday = datetime.now().day
+    currentmonth = datetime.now().month
+    currentyear = datetime.now().year
+    enddate = datetime(currentyear,currentmonth,currentday)
+    startdate = enddate - timedelta(days=20)
+    statechangebatches = StateChange.objects.filter(
+            date__range=[startdate,enddate])
+    graphinfo = []
+    for i in range(0,14):
+        statechanges = 0
+        for statechangebatch in statechangebatches:
+            statechanges = statechanges + getattr(
+                statechangebatch, 'firings%dcount' %i)
+
+        nameconvert = {
+            0: "Tickets created",
+            1: "Tickets blocked",
+            2: "Tickets sold in the primary market",
+            3: "Tickets sold in secondary market",
+            4: "Tickets bought back",
+            5: "Tickets cancelled",
+            6: "Ticket put for sale",
+            7: "No Show",
+            8: "Not resold",
+            9: "Not sold in primary market",
+            10: "Not sold in secondary market",
+            11: "Tickets scanned",
+            12: "Show over",
+            13: "Tickets unblocked"
+        }
+        label = nameconvert.get(i, "Unknown")
+
+        if statechanges != 0:
+            graphinfo.append(GraphInfo(
+                label,
+                statechanges
+            ))
+
+    return graphinfo
 
 
 
@@ -310,10 +353,30 @@ def transaction_list(request):
         statechange_paginator.num_pages
     )
 
+    # Create graphs
     monthgraphinfo = get_monthgraphinfo()
     daygraphinfo = get_daygraphinfo()
     quartergraphinfo = get_quartergraphinfo()
     wiringgraphinfo = get_wiringgraphinfo()
+    statechangetypeslast30day = get_statechangetypeslast30days()
+
+    # Get Burnback info:
+    # GET price
+    geteurprice = CryptoPrice.objects.filter(name="GET")[0].price_eur
+    # Amount of change changes:
+    statechangesbuyback = quartergraphinfo[-1].statechanges
+    # Burn back value (statechanges x 0.07)
+    burnbackvalue = statechangesbuyback * 0.07
+    # GET burned:
+    getburned = burnbackvalue / geteurprice
+    # Open market burned:
+    openmarketgetburned = getburned / 100 * 58
+
+    #Roundup the numbers(afterward, to prevent wrong calculations):
+    burnbackvalue = "{0:.2f}".format(burnbackvalue)
+    getburned = "{0:.2f}".format(getburned)
+    openmarketgetburned = "{0:.2f}".format(openmarketgetburned)
+
 
     return render(request,'statechanges/statechanges.html',{
         'statechanges':statechanges,
@@ -321,5 +384,10 @@ def transaction_list(request):
         'monthgraphinfo':monthgraphinfo,
         'daygraphinfo':daygraphinfo,
         'quartergraphinfo':quartergraphinfo,
-        'wiringgraphinfo':wiringgraphinfo
+        'wiringgraphinfo':wiringgraphinfo,
+        'statechangetypeslast30day':statechangetypeslast30day,
+        'geteurprice':geteurprice,
+        'burnbackvalue': burnbackvalue,
+        'getburned': getburned,
+        'openmarketgetburned':openmarketgetburned
         })

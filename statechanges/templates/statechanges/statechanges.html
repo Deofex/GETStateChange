@@ -60,6 +60,28 @@
             </div>
             <div class="col">
                 <div class="col">
+                    <div class="card prognose">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-sm-4">
+                                <img src="{% static 'images/buyback.png' %}" class="card-img-middle" alt="buyback">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-body">
+                                    <h5>Projection: Based on the last buyback.</h5>
+                                    <p>For each state change being processed the GET token is needed. The amount of GET
+                                        which is needed is partially bought back from the market and partially
+                                        subsidized by the User Growth Fund. In the last buyback a single statechange
+                                        cost €{{geteurprice}}. If this remains the same we can expect
+                                        <b>{{getburned}}</b> GET to be burned this quarter, of which
+                                        <b>{{openmarketgetburned}}</b> will be bought back from the open market for a
+                                        value of <b>€{{burnbackvalue}}</b>. This is based on the current price of GET
+                                        being <b>€{{geteurprice}}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
                     <table border=1 class="table table-condensed table-hover table-bordered table-dark table-sm"
                         style="border-collapse:collapse;">
                         <thead>
@@ -152,8 +174,6 @@
                     </table>
 
 
-
-
                     <ul class="nav nav-fill pagination">
                         <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
                         {% if statechanges.has_previous %}
@@ -181,20 +201,30 @@
                     </ul>
 
                 </div>
-                <div class="col">
-                    <div class="card prognose">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-sm-3">
-                                <img src="{% static 'images/deofex.png' %}" class="card-img-middle" alt="Deofex Avatar">
-                            </div>
-                            <div class="col-sm-9">
-                                <div class="card-body">
-                                    <h5 class="card-title">A word</h5>
-                                    <p>Hi guys, I'm trying to maintain this site when possible. When you have new idea's
-                                        for widgets, or want to see more data, please speak to me on Telegram. All data
-                                        on this site is dynamic and updated 5 minutes after each full hour.</p>
-                                    <p>Cheers, Deofex</p>
-                                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-7">
+                <div class="card graph">
+                    <div class="card-body">
+                        <canvas id="StateChangeTypesLast30Days"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="card prognose">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-sm-4">
+                            <img src="{% static 'images/deofex.png' %}" class="card-img-middle" alt="Deofex Avatar">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-body">
+                                <h5 class="card-title">A word</h5>
+                                <p>Hi guys, I'm trying to maintain this site when possible When you have new idea's
+                                    for widgets, or want to see more data, please speak to me on Telegram.</p>
+                                <p>All data on this site is dynamic and updated 5 minutes after each full hour.</p>
+                                <p>Cheers, Deofex</p>
                             </div>
                         </div>
                     </div>
@@ -279,11 +309,11 @@
                         labelString: 'Month'
                     }
                 }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
             }
         }
         });
@@ -336,11 +366,11 @@
                         labelString: 'Quarter'
                     }
                 }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
             }
         }
     });
@@ -450,6 +480,61 @@
             }
         }
         });
+    </script>
+
+    <script>
+        var ctx = document.getElementById('StateChangeTypesLast30Days').getContext('2d');
+        Chart.defaults.global.defaultFontColor = '#ffffff';
+        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+        Chart.defaults.global.defaultFontSize = 16;
+        var chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    {% for info in statechangetypeslast30day %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+            ],
+        datasets: [{
+            label: 'New petri-nets (new events)',
+            backgroundColor: [
+                '#01c696',
+                '#00ad9b',
+                '#009397',
+                '#00798a',
+                '#206074',
+                '#2f4858',
+                '#48d1cc'
+            ],
+            borderColor: '#01C696',
+            data: [
+                {% for info in statechangetypeslast30day %}
+                    '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+                ],
+        pointBorderColor: '#01C696',
+            pointBackgroundColor: '#ffffff',
+                fontColor: '#ffffff',
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            title: {
+                display: true,
+                    text: 'Amount of ticket statechanges in the last 30 days per statechange type'
+            },
+            responsive: true,
+                tooltips: {
+                mode: 'index',
+                    intersect: false,
+            },
+            animation: {
+                animateScale: true,
+                    animateRotate: true
+            }
+        }
+    });
     </script>
 
 </body>

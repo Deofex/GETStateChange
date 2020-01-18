@@ -145,9 +145,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Security settings
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_REFERRER_POLICY = "no-referrer"
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+#SECURE_REFERRER_POLICY = "no-referrer"
 
 # Etherscanapikey needed to collect block information
 ETHERSCANAPIKEY = get_env_variable('getsite_etherscan_apikey')

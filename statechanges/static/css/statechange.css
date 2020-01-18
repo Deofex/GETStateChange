@@ -30,7 +30,7 @@ p.blocktext {
 }
 
 .nav.pagination{
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 body {
@@ -70,6 +70,7 @@ body {
 
 .card.prognose {
     margin-bottom: 10px;
+    text-align: justify;
 }
 
 img {

@@ -25,3 +25,15 @@ class StateChange(models.Model):
     unknownscount = models.IntegerField()
 
 
+class CryptoPrice(models.Model):
+    '''The price of a cryptotoken in different valuta'''
+    name = models.TextField()
+    price_eur = models.FloatField()
+
+    def updateeurprice(self,price):
+        self.price_eur = price
+        print("Price will be updated.")
+        self.save()
+
+    def __str__(self):
+        return self.name
