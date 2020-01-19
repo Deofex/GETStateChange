@@ -374,8 +374,8 @@ def transaction_list(request):
 
     #Roundup the numbers(afterward, to prevent wrong calculations):
     burnbackvalue = "{0:.2f}".format(burnbackvalue)
-    getburned = "{0:.2f}".format(getburned)
-    openmarketgetburned = "{0:.2f}".format(openmarketgetburned)
+    getburned = "{0:.0f}".format(getburned)
+    openmarketgetburned = "{0:.0f}".format(openmarketgetburned)
 
 
     return render(request,'statechanges/statechanges.html',{
