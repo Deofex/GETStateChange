@@ -24,40 +24,6 @@
             </div>
         </div>
         <div class="row">
-
-            <div class="col">
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body">
-                            <canvas id="ChartStateChangesDay"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body">
-                            <canvas id="ChartStateChangesMonth"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body">
-                            <canvas id="ChartStateChangesQuarter"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body">
-                            <canvas id="ChartWiringsDay"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col">
                 <div class="col">
                     <div class="card prognose">
@@ -74,7 +40,8 @@
                                         cost €0.07 If this remains the same we can expect
                                         <b>{{getburned}}</b> GET to be burned this quarter with a
                                         value of <b>€{{burnbackvalue}}</b>. In total
-                                        <b>{{openmarketgetburned}}</b> GET will be bought back from the open market. This is based on the current price of GET
+                                        <b>{{openmarketgetburned}}</b> GET will be bought back from the open market.
+                                        This is based on the current price of GET
                                         being <b>€{{geteurprice}}</b></p>
                                 </div>
                             </div>
@@ -202,14 +169,47 @@
 
                 </div>
             </div>
+            <div class="col">
+                <div class="col">
+                    <div class="card graph">
+                        <div class="card-body fixmidsize">
+                            <canvas id="ChartStateChangesDay"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card graph">
+                        <div class="card-body fixmidsize">
+                            <canvas id="ChartStateChangesMonth"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card graph">
+                        <div class="card-body fixmidsize">
+                            <canvas id="ChartStateChangesQuarter"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card graph">
+                        <div class="card-body fixmidsize">
+                            <canvas id="ChartWiringsDay"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-7">
-                <div class="card graph">
-                    <div class="card-body">
-                        <canvas id="StateChangeTypesLast30Days"></canvas>
-                    </div>
+                    <div class="card graph">
+                        <div class="card-body fixbigsize">
+                            <canvas id="StateChangeTypesLast30Days"></canvas>
+                        </div>
                 </div>
             </div>
             <div class="col-md-5">
@@ -292,6 +292,7 @@
 
         // Configuration options go here
         options: {
+            maintainAspectRatio: false,
             responsive: true,
                 tooltips: {
                 mode: 'index',
@@ -349,6 +350,7 @@
 
         // Configuration options go here
         options: {
+            maintainAspectRatio: false,
             responsive: true,
                 tooltips: {
                 mode: 'index',
@@ -406,6 +408,7 @@
 
         // Configuration options go here
         options: {
+            maintainAspectRatio: false,
             responsive: true,
                 tooltips: {
                 mode: 'index',
@@ -459,6 +462,7 @@
 
         // Configuration options go here
         options: {
+            maintainAspectRatio: false,
             responsive: true,
                 tooltips: {
                 mode: 'index',
@@ -524,8 +528,9 @@
                 display: true,
                     text: 'Amount of ticket statechanges in the last 30 days per statechange type'
             },
-            responsive: true,
-                tooltips: {
+            maintainAspectRatio: false,
+                responsive: true,
+                    tooltips: {
                 mode: 'index',
                     intersect: false,
             },

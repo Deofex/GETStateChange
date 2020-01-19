@@ -68,6 +68,14 @@ body {
     margin-bottom: 10px;
 }
 
+.card-body.fixbigsize {
+    min-height: 350px
+}
+
+.card-body.fixmidsize {
+    min-height: 300px;
+}
+
 .card.prognose {
     margin-bottom: 10px;
     text-align: justify;
