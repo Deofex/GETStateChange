@@ -19,6 +19,9 @@ def get_json_from_url(url):
     js = json.loads(content)
     return js
 
+# The function below retrieves a JSON file from an URL which includes all price
+# data of GET. It extract the EUR price from the JSON file and return this as
+# value
 def get_getprice():
     getpriceurl = "https://api.coingecko.com/api/v3/coins/ethereum/" + \
     "contract/0x8a854288a5976036A725879164Ca3e91d30c6A1B"
@@ -29,10 +32,13 @@ def get_getprice():
     print("The new price of GET is " + str(getpriceeur))
     return getpriceeur
 
-
+# The class below is  called via manage.py It will update the GET price in the
+# database, so it can be used on the website.
 class Command(BaseCommand):
     '''Import statechanges and import them in the database'''
+    # The handle database is called via manage.py
     def handle(self,*args, **kwargs):
+        # If there's no GET price in the database, add a dummy prive of 0 in it
         if len(CryptoPrice.objects.filter(name="GET")) == 0:
             print("GET price object is not found")
             CryptoPrice.objects.create(
@@ -41,8 +47,11 @@ class Command(BaseCommand):
             )
             print("GET price object is created")
 
+        # Get the current GET price object
         getpriceobject = CryptoPrice.objects.filter(name="GET")[0]
+        # Get the current GET price
         getprice = get_getprice()
+        # Update the GET object with the new GET price
         getpriceobject.updateeurprice(getprice)
 
 
