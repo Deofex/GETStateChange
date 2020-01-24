@@ -210,7 +210,7 @@ Add the following to the crontab, to make it run once a hour (Every 5 minutes)
 */5 * * * * /usr/bin/env bash -c '/etc/getsite/cron_importprice.sh' > /tmp/cron_importprice.log 2>&1
 ```
 
-### Create Cronjob to import the crypto prices
+### Create Cronjob to import the GET burn transaction
 Create /etc/getsite/cron_importburntransactions.sh with the following content
 ```
 source /usr/local/venv/getsite/bin/activate
@@ -244,7 +244,7 @@ More detailed steps will follow, but in short:
 * Add variabels
 ```
 export getsite_secret_key='%DJANGOSECRETKEY%'
-export getsite_debug='Trie'
+export getsite_debug='True'
 export getsite_etherscan_apikey='%ETHERSCANAPIKEY%'
 export getsite_environment='Development'
 ```
