@@ -564,7 +564,7 @@
         {% endfor %}
                 ],
         datasets: [{
-            label: 'GET Supply left',
+            label: 'GET left',
             backgroundColor: '#000000',
             borderColor: '#01C696',
             data: [
@@ -577,7 +577,7 @@
                 fontColor: '#ffffff',
                     yAxisID: 'y-axis-1',
                 }, {
-            label: 'Procent of total supply burned',
+            label: '% of GET burnt',
                 backgroundColor: '#000000',
                     borderColor: '#009397',
                         data: [
@@ -628,17 +628,13 @@
                         id: 'y-axis-1',
                         position: 'left',
                         ticks: {
-                            beginAtZero: true,
-                            autoskip: true,
-                            autoSkipPadding: 60
+                            beginAtZero: true
                         }
                     }, {
                         id: 'y-axis-2',
                         position: 'right',
                         ticks: {
-                            beginAtZero: true,
-                            autoskip: true,
-                            autoSkipPadding: 60
+                            beginAtZero: true
                         }
                     }]
             },
