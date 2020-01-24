@@ -205,10 +205,33 @@ export getsite_dbpassword='%DATABASEPASSWORD%'
 
 Provide 'run' permissions to the file
 
-Add the following to the crontab, to make it run once a hour (5 minutes past the hour)
+Add the following to the crontab, to make it run once a hour (Every 5 minutes)
 ```
 */5 * * * * /usr/bin/env bash -c '/etc/getsite/cron_importprice.sh' > /tmp/cron_importprice.log 2>&1
 ```
+
+### Create Cronjob to import the crypto prices
+Create /etc/getsite/cron_importburntransactions.sh with the following content
+```
+source /usr/local/venv/getsite/bin/activate
+
+export getsite_secret_key='%DJANGOSECRETKEY%'
+export getsite_debug='False'
+export getsite_etherscan_apikey='%ETHERSCANAPIKEY%'
+export getsite_environment='Production'
+export getsite_dbpassword='%DATABASEPASSWORD%'
+
+
+/var/www/getsite/manage.py importburntransactions
+```
+
+Provide 'run' permissions to the file
+
+Add the following to the crontab, to make it run once a hour (10 minutes past the hour)
+```
+10 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_importburntransactions.sh' > /tmp/cron_importburntransactions.log 2>&1
+```
+
 
 ## Development environment
 More detailed steps will follow, but in short:

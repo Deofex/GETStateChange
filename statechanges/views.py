@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import StateChange
 from .models import CryptoPrice
+from .models import BurnTransaction
 from django.core.paginator import Paginator
 from datetime import datetime
 from datetime import timedelta
@@ -11,9 +12,9 @@ class TimeRange():
         self.enddate = enddate
 
 class GraphInfo():
-    def __init__(self,periodname,statechanges):
+    def __init__(self,periodname,value):
         self.periodname = periodname
-        self.statechanges = statechanges
+        self.value = value
 
 def get_paginationnrs(page,paginatormaxnr):
     currentpage = int(page)
@@ -293,21 +294,28 @@ def get_wiringgraphinfo():
     # Return the list with the graph info
     return graphinfo
 
+# Get the state changes from the last 30 days
 def get_statechangetypeslast30days():
+    #Determine the start and
     currentday = datetime.now().day
     currentmonth = datetime.now().month
     currentyear = datetime.now().year
     enddate = datetime(currentyear,currentmonth,currentday)
-    startdate = enddate - timedelta(days=20)
+    startdate = enddate - timedelta(days=30)
+    # Get all statebatches from the last 30 days
     statechangebatches = StateChange.objects.filter(
             date__range=[startdate,enddate])
+    # Create an empty array
     graphinfo = []
+    # Cycle through 0 to 13 (amount of state changes)
     for i in range(0,14):
+        # Count the amount of state changes of the type firings + i
         statechanges = 0
         for statechangebatch in statechangebatches:
             statechanges = statechanges + getattr(
                 statechangebatch, 'firings%dcount' %i)
 
+        # Get the label of the firing
         nameconvert = {
             0: "Tickets created",
             1: "Tickets blocked",
@@ -326,14 +334,34 @@ def get_statechangetypeslast30days():
         }
         label = nameconvert.get(i, "Unknown")
 
+        # If more than 0 statechanges of the specific type occured, add it to
+        # the array
         if statechanges != 0:
             graphinfo.append(GraphInfo(
                 label,
                 statechanges
             ))
-
+    # Return the array
     return graphinfo
 
+
+def get_burngraphinfo():
+    # Total GET supply is 33,368,773
+    supply = 33368773
+    # Create an empty array
+    graphinfo = []
+    #Add each burntransaction to the array
+    for transaction in BurnTransaction.objects.all():
+        # Create the label from the date in the following format day-month-year
+        label = transaction.date.strftime("%d-%m-%Y")
+        # Supply = Supply - the amount of GET burned
+        supply = supply - transaction.getburned
+        #Add the graph information
+        graphinfo.append(GraphInfo(
+                label,
+                "{0:.0f}".format(supply)
+            ))
+    return graphinfo
 
 
 # Create your views here.
@@ -341,7 +369,7 @@ def transaction_list(request):
     # Get a list with all statechanges with the highest blocknumer first
     statechanges_list = StateChange.objects.order_by("blocknumber").reverse()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
-    statechange_paginator = Paginator(statechanges_list,15)
+    statechange_paginator = Paginator(statechanges_list,20)
 
     page = request.GET.get('page')
     if page == None:
@@ -359,12 +387,13 @@ def transaction_list(request):
     quartergraphinfo = get_quartergraphinfo()
     wiringgraphinfo = get_wiringgraphinfo()
     statechangetypeslast30day = get_statechangetypeslast30days()
+    burngraphinfo = get_burngraphinfo()
 
     # Get Burnback info:
     # GET price
     geteurprice = CryptoPrice.objects.filter(name="GET")[0].price_eur
     # Amount of change changes:
-    statechangesbuyback = quartergraphinfo[-1].statechanges
+    statechangesbuyback = quartergraphinfo[-1].value
     # Burn back value (statechanges x 0.07)
     burnbackvalue = statechangesbuyback * 0.07
     # GET burned:
@@ -385,6 +414,7 @@ def transaction_list(request):
         'daygraphinfo':daygraphinfo,
         'quartergraphinfo':quartergraphinfo,
         'wiringgraphinfo':wiringgraphinfo,
+        'burngraphinfo':burngraphinfo,
         'statechangetypeslast30day':statechangetypeslast30day,
         'geteurprice':geteurprice,
         'burnbackvalue': burnbackvalue,

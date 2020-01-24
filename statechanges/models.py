@@ -37,3 +37,12 @@ class CryptoPrice(models.Model):
 
     def __str__(self):
         return self.name
+
+class BurnTransaction(models.Model):
+    '''A transaction send to the burn address'''
+    date = models.DateTimeField()
+    blocknumber = models.IntegerField()
+    getburned = models.FloatField()
+
+    def __str__(self):
+        return str(self.blocknumber)

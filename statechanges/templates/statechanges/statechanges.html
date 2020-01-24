@@ -201,15 +201,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col">
+                    <div class="card graph">
+                        <div class="card-body fixmidsize">
+                            <canvas id="BurnStatistics"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-7">
-                    <div class="card graph">
-                        <div class="card-body fixbigsize">
-                            <canvas id="StateChangeTypesLast30Days"></canvas>
-                        </div>
+                <div class="card graph">
+                    <div class="card-body fixbigsize">
+                        <canvas id="StateChangeTypesLast30Days"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="col-md-5">
@@ -260,7 +268,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
 
     <script>
         var ctx = document.getElementById('ChartStateChangesMonth').getContext('2d');
@@ -281,7 +289,7 @@
             borderColor: '#01C696',
             data: [
                 {% for info in monthgraphinfo %}
-                        '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
+                        '{{info.value}}'{% if not forloop.last %}, {% endif %}
         {% endfor %}
                     ],
         pointBorderColor: '#01C696',
@@ -293,8 +301,8 @@
         // Configuration options go here
         options: {
             maintainAspectRatio: false,
-            responsive: true,
-                tooltips: {
+                responsive: true,
+                    tooltips: {
                 mode: 'index',
                     intersect: false,
                 },
@@ -339,7 +347,7 @@
             borderColor: '#01C696',
             data: [
                 {% for info in quartergraphinfo %}
-                    '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
+                    '{{info.value}}'{% if not forloop.last %}, {% endif %}
         {% endfor %}
                 ],
         pointBorderColor: '#01C696',
@@ -351,8 +359,8 @@
         // Configuration options go here
         options: {
             maintainAspectRatio: false,
-            responsive: true,
-                tooltips: {
+                responsive: true,
+                    tooltips: {
                 mode: 'index',
                     intersect: false,
             },
@@ -397,7 +405,7 @@
             borderColor: '#01C696',
             data: [
                 {% for info in daygraphinfo %}
-                        '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
+                        '{{info.value}}'{% if not forloop.last %}, {% endif %}
         {% endfor %}
                     ],
         pointBorderColor: '#01C696',
@@ -409,8 +417,8 @@
         // Configuration options go here
         options: {
             maintainAspectRatio: false,
-            responsive: true,
-                tooltips: {
+                responsive: true,
+                    tooltips: {
                 mode: 'index',
                     intersect: false,
                 },
@@ -451,7 +459,7 @@
             borderColor: '#01C696',
             data: [
                 {% for info in wiringgraphinfo %}
-                        '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
+                        '{{info.value}}'{% if not forloop.last %}, {% endif %}
         {% endfor %}
                     ],
         pointBorderColor: '#01C696',
@@ -463,8 +471,8 @@
         // Configuration options go here
         options: {
             maintainAspectRatio: false,
-            responsive: true,
-                tooltips: {
+                responsive: true,
+                    tooltips: {
                 mode: 'index',
                     intersect: false,
                 },
@@ -513,7 +521,7 @@
             borderColor: '#01C696',
             data: [
                 {% for info in statechangetypeslast30day %}
-                    '{{info.statechanges}}'{% if not forloop.last %}, {% endif %}
+                    '{{info.value}}'{% if not forloop.last %}, {% endif %}
         {% endfor %}
                 ],
         pointBorderColor: '#01C696',
@@ -541,7 +549,79 @@
         }
     });
     </script>
+    burngraphinfo
+    <script>
+        var ctx = document.getElementById('BurnStatistics').getContext('2d');
+        Chart.defaults.global.defaultFontColor = '#ffffff';
+        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+        Chart.defaults.global.defaultFontSize = 16;
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    {% for info in burngraphinfo %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+                ],
+        datasets: [{
+            label: 'GET Supply left',
+            backgroundColor: '#000000',
+            borderColor: '#01C696',
+            data: [
+                {% for info in burngraphinfo %}
+                    '{{info.value}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+                    ],
+        pointBorderColor: '#01C696',
+            pointBackgroundColor: '#ffffff',
+                fontColor: '#ffffff',
+                }]
+            },
 
+        // Configuration options go here
+        options: {
+            maintainAspectRatio: false,
+                responsive: true,
+                    tooltips: {
+                mode: 'index',
+                    intersect: false,
+                },
+            hover: {
+                mode: 'nearest',
+                    intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        format: 'DD/MM/YYYY',
+                        displayFormats: {
+                            month: 'MMM-YYYY'
+                        }
+                    },
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date',
+                        padding: 1
+                    },
+                    ticks: {
+                        autoskip: true,
+                        autoSkipPadding: 25
+                    }
+                }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+            },
+            ticks: {
+                source: 'data'
+            }
+        }
+        });
+    </script>
 </body>
 
 </html>
