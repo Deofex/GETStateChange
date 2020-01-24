@@ -175,21 +175,14 @@ def get_quartergraphinfo():
         for statechangebatch in statechangebatches:
             sumstatechanges += statechangebatch.sumstatechanges
 
-        # Translate the month number of the timerange to a readable quarter
-        if timerange.startdate.month < 4:
-            periodname = "Q1 " + str(timerange.startdate.year)
-        elif timerange.startdate.month < 7:
-            periodname = "Q2 " + str(timerange.startdate.year)
-        elif timerange.startdate.month < 10:
-            periodname = "Q3 " + str(timerange.startdate.year)
-        else:
-            periodname = "Q4 " + str(timerange.startdate.year)
+        # Create the label from the date in the following format day-month-year
+        label = timerange.startdate.strftime("%d-%m-%Y")
 
         # Add the sum of the state changes and period name in an object and add
         # this to the list
         if sumstatechanges != 0:
             graphinfo.append(GraphInfo(
-                periodname,
+                label,
                 sumstatechanges
             ))
 
@@ -212,9 +205,8 @@ def get_daygraphinfo():
         # Loop through the batches and get the sum of all state changes
         sumstatechanges = 0
 
-        # Period name = a minus character + the number of days in the past being
-        # processed
-        periodname = str(startdate.day) + "-" + str(startdate.month)
+        # Create the label from the date in the following format day-month-year
+        label = startdate.strftime("%d-%m-%Y")
 
         # Loop through each state changes and add the number of state changes to
         # the sumstatechanges variabele
@@ -223,7 +215,7 @@ def get_daygraphinfo():
 
         # Add the period to the graphinfo
         graphinfo.append(GraphInfo(
-            periodname,
+            label,
             sumstatechanges
         ))
         # Go back in time 1 day for the next run
@@ -251,9 +243,8 @@ def get_wiringgraphinfo():
         # Loop through the batches and get the sum of all state changes
         wiringstatechanges = 0
 
-        # Period name = a minus character + the number of days in the past being
-        # processed
-        periodname = str(startdate.day) + "-" + str(startdate.month)
+        # Create the label from the date in the following format day-month-year
+        label = startdate.strftime("%d-%m-%Y")
 
         # Loop through each state changes and add the number of wirings to
         # the wiring statechanges variabele
@@ -262,7 +253,7 @@ def get_wiringgraphinfo():
 
         # Add the period to the graphinfo
         graphinfo.append(GraphInfo(
-            periodname,
+            label,
             wiringstatechanges
         ))
 
