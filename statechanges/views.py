@@ -16,6 +16,11 @@ class GraphInfo():
         self.periodname = periodname
         self.value = value
 
+class DoubleGraphInfo(GraphInfo):
+    def __init__(self, periodname, value, secondvalue):
+        super().__init__(periodname, value)
+        self.secondvalue = secondvalue
+
 def get_paginationnrs(page,paginatormaxnr):
     currentpage = int(page)
     if (currentpage + 7) > paginatormaxnr:
@@ -347,7 +352,8 @@ def get_statechangetypeslast30days():
 
 def get_burngraphinfo():
     # Total GET supply is 33,368,773
-    supply = 33368773
+    totalsupply = 33368773
+    supply = totalsupply
     # Create an empty array
     graphinfo = []
     #Add each burntransaction to the array
@@ -356,10 +362,12 @@ def get_burngraphinfo():
         label = transaction.date.strftime("%d-%m-%Y")
         # Supply = Supply - the amount of GET burned
         supply = supply - transaction.getburned
+        procentburned = (totalsupply - supply) / (supply / 100)
         #Add the graph information
-        graphinfo.append(GraphInfo(
+        graphinfo.append(DoubleGraphInfo(
                 label,
-                "{0:.0f}".format(supply)
+                "{0:.0f}".format(supply),
+                "{0:.2f}".format(procentburned)
             ))
     return graphinfo
 

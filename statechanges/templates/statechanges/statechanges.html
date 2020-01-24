@@ -549,7 +549,7 @@
         }
     });
     </script>
-    burngraphinfo
+
     <script>
         var ctx = document.getElementById('BurnStatistics').getContext('2d');
         Chart.defaults.global.defaultFontColor = '#ffffff';
@@ -575,6 +575,20 @@
         pointBorderColor: '#01C696',
             pointBackgroundColor: '#ffffff',
                 fontColor: '#ffffff',
+                    yAxisID: 'y-axis-1',
+                }, {
+            label: 'Procent of total supply burned',
+                backgroundColor: '#000000',
+                    borderColor: '#009397',
+                        data: [
+                            {% for info in burngraphinfo %}
+        '{{info.secondvalue}}'{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+                    ],
+        pointBorderColor: '#009397',
+            pointBackgroundColor: '#ffffff',
+                fontColor: '#ffffff',
+                    yAxisID: 'y-axis-2',
                 }]
             },
 
@@ -607,14 +621,29 @@
                     },
                     ticks: {
                         autoskip: true,
-                        autoSkipPadding: 25
+                        autoSkipPadding: 60
                     }
                 }],
                     yAxes: [{
+                        id: 'y-axis-1',
+                        position: 'left',
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            autoskip: true,
+                            autoSkipPadding: 60
+                        }
+                    }, {
+                        id: 'y-axis-2',
+                        position: 'right',
+                        ticks: {
+                            beginAtZero: true,
+                            autoskip: true,
+                            autoSkipPadding: 60
                         }
                     }]
+            },
+            legend: {
+                align: "middle"
             },
             ticks: {
                 source: 'data'
