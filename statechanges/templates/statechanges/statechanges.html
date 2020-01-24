@@ -312,6 +312,14 @@
             },
             scales: {
                 xAxes: [{
+                    type: 'time',
+                    time: {
+                        format: 'DD/MM/YYYY',
+                        unit: 'month',
+                        displayFormats: {
+                            month: 'MMM-YYYY',
+                        }
+                    },
                     display: true,
                     scaleLabel: {
                         display: true,

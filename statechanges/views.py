@@ -143,37 +143,14 @@ def get_monthgraphinfo():
         for statechangebatch in statechangebatches:
             sumstatechanges += statechangebatch.sumstatechanges
 
-        # Translate the month number of the timerange to a readable month
-        if timerange.startdate.month == 1:
-            periodname = 'Jan.'
-        elif timerange.startdate.month == 2:
-            periodname = 'Feb.'
-        elif timerange.startdate.month == 3:
-            periodname = 'Mar.'
-        elif timerange.startdate.month == 4:
-            periodname = 'Apr.'
-        elif timerange.startdate.month == 5:
-            periodname = 'May'
-        elif timerange.startdate.month == 6:
-            periodname = 'Jun.'
-        elif timerange.startdate.month == 7:
-            periodname = 'Jul.'
-        elif timerange.startdate.month == 8:
-            periodname = 'Aug.'
-        elif timerange.startdate.month == 9:
-            periodname = 'Sep.'
-        elif timerange.startdate.month == 10:
-            periodname = 'Oct.'
-        elif timerange.startdate.month == 11:
-            periodname = 'Nov.'
-        elif timerange.startdate.month == 12:
-            periodname = 'Dec.'
+        # Create the label from the date in the following format day-month-year
+        label = timerange.startdate.strftime("%d-%m-%Y")
 
         # Add the sum of the state changes and period name in an object and add
         # this to the list
         if sumstatechanges != 0:
             graphinfo.append(GraphInfo(
-                periodname,
+                label,
                 sumstatechanges
             ))
 
