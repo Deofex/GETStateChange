@@ -247,6 +247,8 @@ class Command(BaseCommand):
                 wiringscount = statechange.wiring,
                 unknownscount = statechange.unknown
             )
+            print("Statechanges found in block %s imported" % (
+            statechange.blocknumber))
 
 
 
