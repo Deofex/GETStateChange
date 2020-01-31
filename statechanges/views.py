@@ -343,22 +343,38 @@ def get_statechangestatistics(blocks):
     for block in blocks:
         statechangestatistics.append(statechangebatchinfo(
             block=block,
-            f0 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=0).count(),
-            f1 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=1).count(),
-            f2 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=2).count(),
-            f3 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=3).count(),
-            f4 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=4).count(),
-            f5 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=5).count(),
-            f6 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=6).count(),
-            f7 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=7).count(),
-            f8 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=8).count(),
-            f9 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=9).count(),
-            f10 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=10).count(),
-            f11 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=11).count(),
-            f12 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=12).count(),
-            f13 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=13).count(),
-            wirings = StateChange.objects.filter(block=block,statechangetype="w").count(),
-            sum = StateChange.objects.filter(block=block).count(),
+            f0 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=0).count(),
+            f1 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=1).count(),
+            f2 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=2).count(),
+            f3 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=3).count(),
+            f4 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=4).count(),
+            f5 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=5).count(),
+            f6 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=6).count(),
+            f7 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=7).count(),
+            f8 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=8).count(),
+            f9 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=9).count(),
+            f10 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=10).count(),
+            f11 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=11).count(),
+            f12 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=12).count(),
+            f13 = StateChange.objects.filter(
+                block=block,statechangetype="f",statechangesubtype=13).count(),
+            wirings = StateChange.objects.filter(
+                block=block,statechangetype="w").count(),
+            sum = StateChange.objects.filter(
+                block=block).count(),
         ))
     return statechangestatistics
 
