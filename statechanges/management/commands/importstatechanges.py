@@ -6,11 +6,11 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from statechanges.models import StateChange as DjangoStateChange
 
-# The StateChange class stores each state change registered in the blockchain.
+# The StateChangeBatch class stores each state change registered in the blockchain.
 # The object need the TX information (timestamp, blocknumber and hash) and
 # contains functions to gather additional information like the IPFS token.
-class StateChange():
-    '''Stores information about StateChanges '''
+class StateChangeBatch():
+    '''Stores information about StateChangeBatch '''
     def __init__(self, date, blocknumber, hash):
         self.date = date
         self.blocknumber = blocknumber
@@ -143,7 +143,8 @@ def get_json_from_url(url):
 # changes. The function needs an Etherscan API key to make use of the Etherscan
 # API, the Etheureum Registration address which keep track of the tx'es posted
 # and the blocknumber which from where to start searching.
-def retrieve_statechanges(etherscanapikey, ethregaddress, afterblocknumber):
+def retrieve_statechangebatches(
+    etherscanapikey, ethregaddress, afterblocknumber):
     ethregurl = "http://api.etherscan.io/api" + \
         "?module=account&action=txlist" + \
         "&address=" + ethregaddress + \
@@ -160,41 +161,42 @@ def retrieve_statechanges(etherscanapikey, ethregaddress, afterblocknumber):
     # registered on it via the etherscan API.
     txraws = get_json_from_url(ethregurl)
 
-    statechanges = []
-    # Create a list with StateChange objects
+    statechangebatches = []
+    # Create a list with StateChangeBatches objects
     for txraw in txraws["result"]:
         timestamp = int(txraw["timeStamp"])
         date = datetime.datetime.fromtimestamp(timestamp)
-        statechanges.append(StateChange(
+        statechangebatches.append(StateChangeBatch(
             date,
             txraw["blockNumber"],
             txraw["hash"]
         ))
 
-    # Return the list with theStateChange objects.
-    return statechanges
+    # Return the list with theStateChangeBatches objects.
+    return statechangebatches
 
 
 # This function get and decode the IPFS data via the following steps
 # 2) For each TX the IPFS hash is retrieved via the Etherscan API
 # 3) Via the IPFS gateway the IPFS data is retrieved for the TX
 # 4) The data is decoded (seperated in different firings and wirings)
-def process_ipfsdata(statechange,etherscanapikey):
+def process_ipfsdata(statechangebatch,etherscanapikey):
     print("Retrieving IPFS hash stored in blocknumber: {}".format(
-        statechange.blocknumber))
-    # Get the IPFS hash for all retrieved statechanges
-    statechange.get_ipfshash(
+        statechangebatch.blocknumber))
+    # Get the IPFS hash for the retrieved statechange batch
+    statechangebatch.get_ipfshash(
         etherscanapikey
     )
-    print("The following hash has been found: {}." + \
-        "Retrieving the IPFS data".format(statechange.ipfshash))
+    print("The following hash has been found: {}.".format(
+        statechangebatch.ipfshash))
 
+    print("Retrieving the IPFS data")
     # Get the IPFS data from the IPFS gateway
-    statechange.get_ipfsdata()
+    statechangebatch.get_ipfsdata()
     print("IPFS data found, decoding the data.")
 
     # Decode the IPFS data to get a readable list with firings and wirings
-    statechange.decode_ipfsdata()
+    statechangebatch.decode_ipfsdata()
     print("IPFS data has been decoded. IPFS has been processed")
     return None
 
@@ -208,7 +210,7 @@ def get_afterblocknumber():
         print("except true")
 
     print("Get tx'es containing IPFS data with" +\
-    "statechanges after block {}".format(afterblocknumber))
+    "statechange batches after block {}".format(afterblocknumber))
     return afterblocknumber
 
 # this class is called by the managed.py of Django. The class will be used
@@ -222,45 +224,46 @@ class Command(BaseCommand):
         #Get the blocknumber from where to continue
         afterblocknumber = get_afterblocknumber()
 
-        #Retrieve all statechanges from the Ethereum network (block/date/hash)
-        statechanges = retrieve_statechanges(
+        # Retrieve all statechange batches from the Ethereum network
+        # (block/date/hash)
+        statechangebatches = retrieve_statechangebatches(
             etherscanapikey,
             "0x4cd90231a36ba78a253527067f8a0a87a80d60e4",
             afterblocknumber
         )
 
-        for statechange in statechanges:
-            statechangeinfo = process_ipfsdata(
-                statechange,
+        for statechangebatch in statechangebatches:
+            process_ipfsdata(
+                statechangebatch,
                 etherscanapikey
             )
 
-            print("Store statechangebatch for blocknumber {} in the " + \
-                "database.".format(statechange.blocknumber))
+            print("Store statechange batch for blocknumber {} in the " + \
+                "database.".format(statechangebatch.blocknumber))
 
             DjangoStateChange.objects.create(
-                date = statechange.date, #date = datetime.datetime(2020, 5, 17)
-                blocknumber = statechange.blocknumber,
-                sumstatechanges = statechange.sumstatechanges,
-                firings0count = statechange.firing0,
-                firings1count = statechange.firing1,
-                firings2count = statechange.firing2,
-                firings3count = statechange.firing3,
-                firings4count = statechange.firing4,
-                firings5count = statechange.firing5,
-                firings6count = statechange.firing6,
-                firings7count = statechange.firing7,
-                firings8count = statechange.firing8,
-                firings9count = statechange.firing9,
-                firings10count = statechange.firing10,
-                firings11count = statechange.firing11,
-                firings12count = statechange.firing12,
-                firings13count = statechange.firing13,
-                wiringscount = statechange.wiring,
-                unknownscount = statechange.unknown
+                date = statechangebatch.date, #date = datetime.datetime(2020, 5, 17)
+                blocknumber = statechangebatch.blocknumber,
+                sumstatechanges = statechangebatch.sumstatechanges,
+                firings0count = statechangebatch.firing0,
+                firings1count = statechangebatch.firing1,
+                firings2count = statechangebatch.firing2,
+                firings3count = statechangebatch.firing3,
+                firings4count = statechangebatch.firing4,
+                firings5count = statechangebatch.firing5,
+                firings6count = statechangebatch.firing6,
+                firings7count = statechangebatch.firing7,
+                firings8count = statechangebatch.firing8,
+                firings9count = statechangebatch.firing9,
+                firings10count = statechangebatch.firing10,
+                firings11count = statechangebatch.firing11,
+                firings12count = statechangebatch.firing12,
+                firings13count = statechangebatch.firing13,
+                wiringscount = statechangebatch.wiring,
+                unknownscount = statechangebatch.unknown
             )
-            print("Statechanges found in block {} imported in the " + \
-                "database".format(statechange.blocknumber))
+            print("Statechange batch found in block {} imported in the " + \
+                "database".format(statechangebatch.blocknumber))
 
 
 
