@@ -7,21 +7,25 @@ from django.core.paginator import Paginator
 from datetime import datetime
 from datetime import timedelta
 
+# Create a class which can store 2 timeranges
 class TimeRange():
     def __init__(self,startdate,enddate):
         self.startdate = startdate
         self.enddate = enddate
 
+# create a graph class where to store periods and a single value
 class GraphInfo():
     def __init__(self,periodname,value):
         self.periodname = periodname
         self.value = value
 
+# Create a graph which can store periods and store two values
 class DoubleGraphInfo(GraphInfo):
     def __init__(self, periodname, value, secondvalue):
         super().__init__(periodname, value)
         self.secondvalue = secondvalue
 
+# Create statechange batch info object which can be used in the template
 class statechangebatchinfo():
     def __init__(self,block,
     f0,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,wirings,sum):
@@ -43,6 +47,7 @@ class statechangebatchinfo():
         self.wirings = wirings
         self.sum = sum
 
+# Function to create the amount of buttons shown under the blocks graph
 def get_paginationnrs(page,paginatormaxnr):
     currentpage = int(page)
     if (currentpage + 7) > paginatormaxnr:
@@ -338,6 +343,8 @@ def get_burngraphinfo():
             ))
     return graphinfo
 
+# Function to create block statistics vor the blocks in view. It retreive
+# the amount of statechanges (wirings and firings) and create the sum of it.
 def get_statechangestatistics(blocks):
     statechangestatistics = []
     for block in blocks:
