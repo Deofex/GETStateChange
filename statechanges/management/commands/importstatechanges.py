@@ -15,7 +15,7 @@ class StateChange():
         self.date = date
         self.blocknumber = blocknumber
         self.hash = hash
-        self.ipfstoken = None
+        self.ipfshash = None
         self.ipfsdata = None
         self.firing0=0
         self.firing1=0
@@ -35,10 +35,9 @@ class StateChange():
         self.unknown=0
         self.sumstatechanges=0
 
-    # The function below retrieves the IPFS token from the blockchain via the
+    # The function below retrieves the IPFShash from the blockchain via the
     # Ethernetscan API
-    def get_ipfstoken(self,etherscanapikey):
-        print("Get ipfstoken stored in blocknumber : " + self.blocknumber)
+    def get_ipfshash(self,etherscanapikey):
         # The txurl is the url pointing to the API and can get TX information
         # from the blockchain.
         txurl = "https://api.etherscan.io/api" + \
@@ -52,21 +51,20 @@ class StateChange():
         # Store the input data of the TX. The API data contains the encoded
         # IPFs hash
         inputdata = (txdata["result"]["input"])
-        # The IPFStoken is encoded is in the last 128 bytes. The rows below
+        # The IPFShash is encoded is in the last 128 bytes. The rows below
         # decode the last 128 hex bytes and remove the trailing whitespace.
-        # The IPFS token is stored in the object.
+        # The IPFShash is stored in the object.
         try:
-            ipfstoken = (bytearray.fromhex(inputdata[-128:]).decode())
-            self.ipfstoken = ipfstoken.rstrip('\x00')
+            ipfshash = (bytearray.fromhex(inputdata[-128:]).decode())
+            self.ipfshash = ipfshash.rstrip('\x00')
         except:
             print("Can't get the IPFS token for block " + self.blocknumber)
 
     # This function retrieves the IPFS data via "https://gateway.ipfs.io/ipfs/"
     # IPFS data contains the details of the state changes.
     def get_ipfsdata(self):
-        print("Get IPFS data from the IPFS gateway : " + self.blocknumber)
         url = "https://gateway.ipfs.io/ipfs/"
-        url = url + self.ipfstoken
+        url = url + self.ipfshash
         ipfsdata = get_url(url)
         ipfsdata = ipfsdata.splitlines()
         self.ipfsdata = ipfsdata
@@ -177,34 +175,41 @@ def retrieve_statechanges(etherscanapikey, ethregaddress, afterblocknumber):
     return statechanges
 
 
-# This function gives information about the state changes by executing the
-# following steps
-# 1) Get all TXés state changes after a given block via the Ethereum
-#    registration address. The Etherscan API is used for this.
+# This function get and decode the IPFS data via the following steps
 # 2) For each TX the IPFS hash is retrieved via the Etherscan API
 # 3) Via the IPFS gateway the IPFS data is retrieved for the TX
 # 4) The data is decoded (seperated in different firings and wirings)
-def get_statechangeinfo(etherscanapikey,afterblocknumber):
-    # Get a list with all state changes
-    print("Get all tx'es")
-    statechanges = retrieve_statechanges(
-        etherscanapikey,
-        "0x4cd90231a36ba78a253527067f8a0a87a80d60e4",
-        afterblocknumber
+def process_ipfsdata(statechange,etherscanapikey):
+    print("Retrieving IPFS hash stored in blocknumber: {}".format(
+        statechange.blocknumber))
+    # Get the IPFS hash for all retrieved statechanges
+    statechange.get_ipfshash(
+        etherscanapikey
     )
+    print("The following hash has been found: {}." + \
+        "Retrieving the IPFS data".format(statechange.ipfshash))
 
-    # Process each state change
-    for statechange in statechanges:
-        # Get the IPFS hash for all retrieved statechanges
-        statechange.get_ipfstoken(
-            etherscanapikey
-        )
-        # Get the IPFS data from the IPFS gateway
-        statechange.get_ipfsdata()
-        # Decode the IPFS data to get a readable list with firings and wirings
-        statechange.decode_ipfsdata()
+    # Get the IPFS data from the IPFS gateway
+    statechange.get_ipfsdata()
+    print("IPFS data found, decoding the data.")
 
-    return statechanges
+    # Decode the IPFS data to get a readable list with firings and wirings
+    statechange.decode_ipfsdata()
+    print("IPFS data has been decoded. IPFS has been processed")
+    return None
+
+def get_afterblocknumber():
+    # Store the blocknumber from where to search for changes
+    try:
+        afterblocknumber = (DjangoStateChange.objects.all().order_by(
+            '-blocknumber')[:1].get()).blocknumber
+    except:
+        afterblocknumber = 8915534
+        print("except true")
+
+    print("Get tx'es containing IPFS data with" +\
+    "statechanges after block {}".format(afterblocknumber))
+    return afterblocknumber
 
 # this class is called by the managed.py of Django. The class will be used
 # to schedule the import of state changes in the Django database.
@@ -213,19 +218,26 @@ class Command(BaseCommand):
     def handle(self,*args, **kwargs):
         # Store the Etherscan API key
         etherscanapikey = settings.ETHERSCANAPIKEY
-        # Store the blocknumber from where to search for changes
-        try:
-            afterblocknumber = (DjangoStateChange.objects.all().order_by('-blocknumber')[:1].get()).blocknumber
-        except:
-            afterblocknumber = 8915534
-            print("except true")
 
-        statechangeinfo = get_statechangeinfo(
+        #Get the blocknumber from where to continue
+        afterblocknumber = get_afterblocknumber()
+
+        #Retrieve all statechanges from the Ethereum network (block/date/hash)
+        statechanges = retrieve_statechanges(
             etherscanapikey,
+            "0x4cd90231a36ba78a253527067f8a0a87a80d60e4",
             afterblocknumber
         )
 
-        for statechange in statechangeinfo:
+        for statechange in statechanges:
+            statechangeinfo = process_ipfsdata(
+                statechange,
+                etherscanapikey
+            )
+
+            print("Store statechangebatch for blocknumber {} in the " + \
+                "database.".format(statechange.blocknumber))
+
             DjangoStateChange.objects.create(
                 date = statechange.date, #date = datetime.datetime(2020, 5, 17)
                 blocknumber = statechange.blocknumber,
@@ -247,8 +259,8 @@ class Command(BaseCommand):
                 wiringscount = statechange.wiring,
                 unknownscount = statechange.unknown
             )
-            print("Statechanges found in block %s imported" % (
-            statechange.blocknumber))
+            print("Statechanges found in block {} imported in the " + \
+                "database".format(statechange.blocknumber))
 
 
 
