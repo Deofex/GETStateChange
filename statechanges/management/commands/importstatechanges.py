@@ -232,13 +232,12 @@ class Command(BaseCommand):
                 #Check or the statechange already exist
                 statechangeexist = StateChange.objects.filter(
                     hash=ipfsstatechange.hash).exists()
-                # Adding state change
+                # Adding state change if doesn't exist
                 if statechangeexist == False:
                     print("Adding state change {} to the database, found in "
                     "blog".format(
                         ipfsstatechange.hash,
                         statechangebatch.blocknumber))
-
 
                     StateChange.objects.create(
                         hash = ipfsstatechange.hash,
@@ -248,8 +247,5 @@ class Command(BaseCommand):
                         block = block,
                     )
 
-            print("Store statechange batch for blocknumber {} in the " +
-                  "database.".format(statechangebatch.blocknumber))
-
-            print("Statechange batch found in block {} imported in the " +
-                  "database".format(statechangebatch.blocknumber))
+            print("Statechange batch found in block " + \
+            "{} imported in the database".format(statechangebatch.blocknumber))

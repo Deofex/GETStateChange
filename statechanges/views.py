@@ -134,14 +134,9 @@ def get_monthgraphinfo():
     # Foreach timerange retrieve the amount of statechanges and translate the
     # month number and save both in the created list and return this object.
     for timerange in timeranges:
-        # Get all statechanges batches in the timerange
-        statechangebatches = StateChange.objects.filter(
-            date__range=[timerange.startdate,timerange.enddate])
-
-        # Loop through the batches and get the sum of all state changes
-        sumstatechanges = 0
-        for statechangebatch in statechangebatches:
-            sumstatechanges += statechangebatch.sumstatechanges
+        # Get all statechanges in the timerange
+        sumstatechanges = StateChange.objects.filter(
+            block__date__range=[timerange.startdate,timerange.enddate]).count()
 
         # Create the label from the date in the following format day-month-year
         label = timerange.startdate.strftime("%d-%m-%Y")
@@ -166,14 +161,9 @@ def get_quartergraphinfo():
     # Foreach timerange retrieve the amount of statechanges and translate the
     # month number and save both in the created list and return this object.
     for timerange in timeranges:
-        # Get all statechanges batches in the timerange
-        statechangebatches = StateChange.objects.filter(
-            date__range=[timerange.startdate,timerange.enddate])
-
-        # Loop through the batches and get the sum of all state changes
-        sumstatechanges = 0
-        for statechangebatch in statechangebatches:
-            sumstatechanges += statechangebatch.sumstatechanges
+        # Get all statechanges in the timerange
+        sumstatechanges = StateChange.objects.filter(
+            block__date__range=[timerange.startdate,timerange.enddate]).count()
 
         # Create the label from the date in the following format day-month-year
         label = timerange.startdate.strftime("%d-%m-%Y")
@@ -200,24 +190,18 @@ def get_daygraphinfo():
     graphinfo = []
     for i in range(1,31):
         # Get all statechanges batches in the timerange
-        statechangebatches = StateChange.objects.filter(
-            date__range=[startdate,enddate])
-        # Loop through the batches and get the sum of all state changes
-        sumstatechanges = 0
+        sumstatechanges = StateChange.objects.filter(
+            block__date__range=[startdate,enddate]).count()
 
         # Create the label from the date in the following format day-month-year
         label = startdate.strftime("%d-%m-%Y")
-
-        # Loop through each state changes and add the number of state changes to
-        # the sumstatechanges variabele
-        for statechangebatch in statechangebatches:
-            sumstatechanges += statechangebatch.sumstatechanges
 
         # Add the period to the graphinfo
         graphinfo.append(GraphInfo(
             label,
             sumstatechanges
         ))
+
         # Go back in time 1 day for the next run
         startdate = startdate - timedelta(days=1)
         enddate = enddate - timedelta(days=1)
@@ -238,23 +222,16 @@ def get_wiringgraphinfo():
     graphinfo = []
     for i in range(1,31):
         # Get all statechanges batches in the timerange
-        statechangebatches = StateChange.objects.filter(
-            date__range=[startdate,enddate])
-        # Loop through the batches and get the sum of all state changes
-        wiringstatechanges = 0
+        sumstatechanges = StateChange.objects.filter(
+            block__date__range=[startdate,enddate]).count()
 
         # Create the label from the date in the following format day-month-year
         label = startdate.strftime("%d-%m-%Y")
 
-        # Loop through each state changes and add the number of wirings to
-        # the wiring statechanges variabele
-        for statechangebatch in statechangebatches:
-            wiringstatechanges += statechangebatch.wiringscount
-
         # Add the period to the graphinfo
         graphinfo.append(GraphInfo(
             label,
-            wiringstatechanges
+            sumstatechanges
         ))
 
         # Go back in time 1 day for the next run
@@ -276,17 +253,17 @@ def get_statechangetypeslast30days():
     enddate = datetime(currentyear,currentmonth,currentday)
     startdate = enddate - timedelta(days=30)
     # Get all statebatches from the last 30 days
-    statechangebatches = StateChange.objects.filter(
-            date__range=[startdate,enddate])
+    statechangefirings = StateChange.objects.filter(
+        block__date__range=[startdate,enddate],statechangetype='f')
     # Create an empty array
     graphinfo = []
     # Cycle through 0 to 13 (amount of state changes)
     for i in range(0,14):
-        # Count the amount of state changes of the type firings + i
-        statechanges = 0
-        for statechangebatch in statechangebatches:
-            statechanges = statechanges + getattr(
-                statechangebatch, 'firings%dcount' %i)
+        # Get the amount of state changes of the type firings + i
+        statechangefirings = StateChange.objects.filter(
+            block__date__range=[startdate,enddate],
+            statechangetype='f',
+            statechangesubtype=i).count()
 
         # Get the label of the firing
         nameconvert = {
@@ -309,10 +286,10 @@ def get_statechangetypeslast30days():
 
         # If more than 0 statechanges of the specific type occured, add it to
         # the array
-        if statechanges != 0:
+        if statechangefirings != 0:
             graphinfo.append(GraphInfo(
                 label,
-                statechanges
+                statechangefirings
             ))
     # Return the array
     return graphinfo
@@ -343,7 +320,8 @@ def get_burngraphinfo():
 # Create your views here.
 def transaction_list(request):
     # Get a list with all statechanges with the highest blocknumer first
-    statechanges_list = StateChange.objects.order_by("blocknumber").reverse()
+    statechanges_list = StateChange.objects.order_by(
+        "block__blocknumber").reverse()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
     statechange_paginator = Paginator(statechanges_list,20)
 
