@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Block
 from .models import StateChange
 from .models import CryptoPrice
 from .models import BurnTransaction
@@ -20,6 +21,27 @@ class DoubleGraphInfo(GraphInfo):
     def __init__(self, periodname, value, secondvalue):
         super().__init__(periodname, value)
         self.secondvalue = secondvalue
+
+class statechangebatchinfo():
+    def __init__(self,block,
+    f0,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,wirings,sum):
+        self.block = block
+        self.f0 = f0
+        self.f1 = f1
+        self.f2 = f2
+        self.f3 = f3
+        self.f4 = f4
+        self.f5 = f5
+        self.f6 = f6
+        self.f7 = f7
+        self.f8 = f8
+        self.f9 = f9
+        self.f10 = f10
+        self.f11 = f11
+        self.f12 = f12
+        self.f13 = f13
+        self.wirings = wirings
+        self.sum = sum
 
 def get_paginationnrs(page,paginatormaxnr):
     currentpage = int(page)
@@ -316,19 +338,44 @@ def get_burngraphinfo():
             ))
     return graphinfo
 
+def get_statechangestatistics(blocks):
+    statechangestatistics = []
+    for block in blocks:
+        statechangestatistics.append(statechangebatchinfo(
+            block=block,
+            f0 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=0).count(),
+            f1 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=1).count(),
+            f2 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=2).count(),
+            f3 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=3).count(),
+            f4 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=4).count(),
+            f5 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=5).count(),
+            f6 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=6).count(),
+            f7 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=7).count(),
+            f8 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=8).count(),
+            f9 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=9).count(),
+            f10 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=10).count(),
+            f11 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=11).count(),
+            f12 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=12).count(),
+            f13 = StateChange.objects.filter(block=block,statechangetype="f",statechangesubtype=13).count(),
+            wirings = StateChange.objects.filter(block=block,statechangetype="w").count(),
+            sum = StateChange.objects.filter(block=block).count(),
+        ))
+    return statechangestatistics
+
 
 # Create your views here.
 def transaction_list(request):
     # Get a list with all statechanges with the highest blocknumer first
-    statechanges_list = StateChange.objects.order_by(
-        "block__blocknumber").reverse()
+    statechangesbatches_list = Block.objects.order_by(
+        "blocknumber").reverse()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
-    statechange_paginator = Paginator(statechanges_list,20)
+    statechange_paginator = Paginator(statechangesbatches_list,20)
 
     page = request.GET.get('page')
     if page == None:
         page = 1
-    statechanges = statechange_paginator.get_page(page)
+    blocks = statechange_paginator.get_page(page)
+    statechangestatistics = get_statechangestatistics(blocks)
 
     pagenrs = get_paginationnrs(
         page,
@@ -362,7 +409,8 @@ def transaction_list(request):
 
 
     return render(request,'statechanges/statechanges.html',{
-        'statechanges':statechanges,
+        'statechangestatistics':statechangestatistics,
+        'blocks':blocks,
         'pagenrs':pagenrs,
         'monthgraphinfo':monthgraphinfo,
         'daygraphinfo':daygraphinfo,

@@ -65,70 +65,66 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for statechange in statechanges %}
-                            <tr data-toggle="collapse" data-target="#statechange{{ statechange.blocknumber }}"
+                            {% for statechangestatistic in statechangestatistics %}
+                            <tr data-toggle="collapse" data-target="#batch{{ statechangestatistic.block.blocknumber }}"
                                 class="accordion-toggle">
                                 <td>
-                                    <p>{{ statechange.date |date:"d-m-Y H:i" }}</p>
+                                    <p>{{ statechangestatistic.block.date |date:"d-m-Y H:i" }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ statechange.blocknumber }}</p>
+                                    <p>{{ statechangestatistic.block.blocknumber }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ statechange.sumstatechanges }}</p>
+                                    <p>{{ statechangestatistic.sum }}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="hiddenRow">
                                     <div style="text-align: center;" class="accordian-body collapse"
-                                        id="statechange{{ statechange.blocknumber }}">
+                                        id="batch{{ statechangestatistic.block.blocknumber }}">
                                         <p>The following state changes have been found in this block:</p>
                                         <div style="display: inline-block; text-align: left;">
                                             <p>
                                                 <table border=2 class="table table-bordered table-dark">
                                                     <tr>
                                                         <td><i>Tickets created</i></td>
-                                                        <td>{{ statechange.firings0count }}</td>
+                                                        <td>{{ statechangestatistic.f0 }}</td>
                                                         <td><i>Tickets blocked</i></td>
-                                                        <td>{{ statechange.firings1count }}</td>
+                                                        <td>{{ statechangestatistic.f1 }}</td>
                                                         <td><i>Tickets sold in the primary market</i></td>
-                                                        <td>{{ statechange.firings2count }}</td>
+                                                        <td>{{ statechangestatistic.f2 }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><i>Tickets sold in secondary market</i></td>
-                                                        <td>{{ statechange.firings3count }}</td>
+                                                        <td>{{ statechangestatistic.f3 }}</td>
                                                         <td><i>Tickets bought back</i></td>
-                                                        <td>{{ statechange.firings4count }}</td>
+                                                        <td>{{ statechangestatistic.f4 }}</td>
                                                         <td><i>Tickets cancelled</i></td>
-                                                        <td>{{ statechange.firings5count }}</td>
+                                                        <td>{{ statechangestatistic.f5 }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><i>Ticket put for sale</i></td>
-                                                        <td>{{ statechange.firings6count }}</td>
+                                                        <td>{{ statechangestatistic.f6 }}</td>
                                                         <td><i>No Show</i></td>
-                                                        <td>{{ statechange.firings7count }}</td>
+                                                        <td>{{ statechangestatistic.f7 }}</td>
                                                         <td><i>Not resold</i></td>
-                                                        <td>{{ statechange.firings8count }}</td>
+                                                        <td>{{ statechangestatistic.f8 }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><i>Not sold in primary market</i></td>
-                                                        <td>{{ statechange.firings9count }}</td>
+                                                        <td>{{ statechangestatistic.f9 }}</td>
                                                         <td><i>Not sold in secondary market</i></td>
-                                                        <td>{{ statechange.firings10count }}</td>
+                                                        <td>{{ statechangestatistic.f10 }}</td>
                                                         <td><i>Tickets scanned</i></td>
-                                                        <td>{{ statechange.firings11count }}</td>
+                                                        <td>{{ statechangestatistic.f11 }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><i>Show over</i></td>
-                                                        <td>{{ statechange.firings12count }}</td>
+                                                        <td>{{ statechangestatistic.f12 }}</td>
                                                         <td><i>Tickets unblocked</i></td>
-                                                        <td>{{ statechange.firings13count }}</td>
+                                                        <td>{{ statechangestatistic.f13 }}</td>
                                                         <td><i>Wirings</i></td>
-                                                        <td>{{ statechange.wiringscount }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i>Unknown</i></td>
-                                                        <td>{{ statechange.unknownscount }}</td>
+                                                        <td>{{ statechangestatistic.wirings }}</td>
                                                     </tr>
                                                 </table>
                                             </p>
@@ -143,26 +139,26 @@
 
                     <ul class="nav nav-fill pagination">
                         <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
-                        {% if statechanges.has_previous %}
+                        {% if blocks.has_previous %}
                         <li class="nav-item"><a class="page-link"
-                                href="?page={{ statechanges.previous_page_number }}">Previous</a>
+                                href="?page={{ blocks.previous_page_number }}">Previous</a>
                         </li>
                         {% endif %}
                         {% for pagenr in pagenrs %}
-                        {% if pagenr == statechanges.number %}
+                        {% if pagenr == blocks.number %}
                         <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
                         </li>
                         {% endif %}
-                        {% if pagenr != statechanges.number %}
+                        {% if pagenr != blocks.number %}
                         <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
                         {% endif %}
                         {% endfor %}
-                        {% if statechanges.has_next %}
+                        {% if blocks.has_next %}
                         <li class="nav-item"><a class="page-link"
-                                href="?page={{ statechanges.next_page_number }}">Next</a>
+                                href="?page={{ blocks.next_page_number }}">Next</a>
                         </li>
                         <li class="nav-item"><a class="page-link"
-                                href="?page={{ statechanges.paginator.num_pages }}">Last</a>
+                                href="?page={{ blocks.paginator.num_pages }}">Last</a>
                         </li>
                         {% endif %}
                     </ul>
