@@ -21,23 +21,6 @@ class StateChangeBatch():
         self.hash = hash
         self.ipfshash = None
         self.ipfsdata = None
-        self.firing0 = 0
-        self.firing1 = 0
-        self.firing2 = 0
-        self.firing3 = 0
-        self.firing4 = 0
-        self.firing5 = 0
-        self.firing6 = 0
-        self.firing7 = 0
-        self.firing8 = 0
-        self.firing9 = 0
-        self.firing10 = 0
-        self.firing11 = 0
-        self.firing12 = 0
-        self.firing13 = 0
-        self.wiring = 0
-        self.unknown = 0
-        self.sumstatechanges = 0
 
     # The function below retrieves the IPFShash from the blockchain via the
     # Ethernetscan API
@@ -236,44 +219,36 @@ class Command(BaseCommand):
 
         # Retrieve all statechange batches from the Ethereum network
         # (block/date/hash)
-        print("Get tx'es containing IPFS data with" +
+        print("Get tx'es containing IPFS data with " +
               "statechange batches after block {}".format(afterblocknumber))
         statechangebatches = retrieve_statechangebatches(
             etherscanapikey,
             "0x4cd90231a36ba78a253527067f8a0a87a80d60e4",
             afterblocknumber
         )
+        print("{} new statechange batches found.".format(
+            len(statechangebatches)))
 
         for statechangebatch in statechangebatches:
-            process_ipfsdata(
-                statechangebatch,
-                etherscanapikey
-            )
+            #Check or block exists
+            BlockExists = Block.objects.filter(
+                pk=statechangebatch.blocknumber).exists()
+            if BlockExists == False:
+                print("Add block {} to database".format(
+                    statechangebatch.blocknumber))
+                Block.objects.create(
+                    blocknumber = statechangebatch.blocknumber,
+                    date = statechangebatch.date,
+                )
 
-            print("Store statechange batch for blocknumber {} in the " +
-                  "database.".format(statechangebatch.blocknumber))
 
-            DjangoStateChange.objects.create(
-                # date = datetime.datetime(2020, 5, 17)
-                date=statechangebatch.date,
-                blocknumber=statechangebatch.blocknumber,
-                sumstatechanges=statechangebatch.sumstatechanges,
-                firings0count=statechangebatch.firing0,
-                firings1count=statechangebatch.firing1,
-                firings2count=statechangebatch.firing2,
-                firings3count=statechangebatch.firing3,
-                firings4count=statechangebatch.firing4,
-                firings5count=statechangebatch.firing5,
-                firings6count=statechangebatch.firing6,
-                firings7count=statechangebatch.firing7,
-                firings8count=statechangebatch.firing8,
-                firings9count=statechangebatch.firing9,
-                firings10count=statechangebatch.firing10,
-                firings11count=statechangebatch.firing11,
-                firings12count=statechangebatch.firing12,
-                firings13count=statechangebatch.firing13,
-                wiringscount=statechangebatch.wiring,
-                unknownscount=statechangebatch.unknown
-            )
-            print("Statechange batch found in block {} imported in the " +
-                  "database".format(statechangebatch.blocknumber))
+            #process_ipfsdata(
+            #    statechangebatch,
+            #    etherscanapikey
+            #)
+
+            #print("Store statechange batch for blocknumber {} in the " +
+            #      "database.".format(statechangebatch.blocknumber))
+
+            #print("Statechange batch found in block {} imported in the " +
+            #      "database".format(statechangebatch.blocknumber))
