@@ -230,9 +230,10 @@ class Command(BaseCommand):
             len(statechangebatches)))
 
         for statechangebatch in statechangebatches:
-            #Check or block exists
+            # Check or block exists
             BlockExists = Block.objects.filter(
                 pk=statechangebatch.blocknumber).exists()
+            # If the block doesn't exist yet import in into the database
             if BlockExists == False:
                 print("Add block {} to database".format(
                     statechangebatch.blocknumber))
@@ -241,14 +242,13 @@ class Command(BaseCommand):
                     date = statechangebatch.date,
                 )
 
+            process_ipfsdata(
+                statechangebatch,
+                etherscanapikey
+            )
 
-            #process_ipfsdata(
-            #    statechangebatch,
-            #    etherscanapikey
-            #)
+            print("Store statechange batch for blocknumber {} in the " +
+                  "database.".format(statechangebatch.blocknumber))
 
-            #print("Store statechange batch for blocknumber {} in the " +
-            #      "database.".format(statechangebatch.blocknumber))
-
-            #print("Statechange batch found in block {} imported in the " +
-            #      "database".format(statechangebatch.blocknumber))
+            print("Statechange batch found in block {} imported in the " +
+                  "database".format(statechangebatch.blocknumber))
