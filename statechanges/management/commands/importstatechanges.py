@@ -7,10 +7,20 @@ from django.core.management.base import BaseCommand
 from statechanges.models import Block
 from statechanges.models import StateChange
 
-# The StateChangeBatch class stores each state change registered in the blockchain.
-# The object need the TX information (timestamp, blocknumber and hash) and
-# contains functions to gather additional information like the IPFS token.
+# The IPFSstatechange class stores a single IPFS statechange which is not yet in
+# the database, but will be processed later.
+class IPFSstatechange():
+    def __init__(self,hash,previoushash,statechangetype,statechangesubtype):
+        '''Stores information about IPFS state changes'''
+        self.hash = hash
+        self.previoushash = previoushash
+        self.statechangetype = statechangetype
+        self.statechangesubtype = statechangesubtype
 
+# The StateChangeBatch class stores each state change registered in the
+# blockchain. The object need the TX information (timestamp, blocknumber and
+# hash) and contains functions to gather additional information like the IPFS
+# token.
 
 class StateChangeBatch():
     '''Stores information about StateChangeBatch '''
@@ -21,6 +31,7 @@ class StateChangeBatch():
         self.hash = hash
         self.ipfshash = None
         self.ipfsdata = None
+        self.ipfsstatechanges = []
 
     # The function below retrieves the IPFShash from the blockchain via the
     # Ethernetscan API
@@ -66,49 +77,12 @@ class StateChangeBatch():
             # The IPFS data contains multiple segments, seperated bij the comma
             # Split the segements
             dataparts = data.split(",")
-            # If the second last data segment is an "f", the state change is
-            # a firing. If it's an "W" it's a wiring.
-            if dataparts[-2] == "f":
-                # There are different firings. The last data segement tells us
-                # which firing is processed. Increase the firing which has been
-                # processed.
-                if dataparts[-1] == "0":
-                    self.firing0 += 1
-                elif dataparts[-1] == "1":
-                    self.firing1 += 1
-                elif dataparts[-1] == "2":
-                    self.firing2 += 1
-                elif dataparts[-1] == "3":
-                    self.firing3 += 1
-                elif dataparts[-1] == "4":
-                    self.firing4 += 1
-                elif dataparts[-1] == "5":
-                    self.firing5 += 1
-                elif dataparts[-1] == "6":
-                    self.firing6 += 1
-                elif dataparts[-1] == "7":
-                    self.firing7 += 1
-                elif dataparts[-1] == "8":
-                    self.firing8 += 1
-                elif dataparts[-1] == "9":
-                    self.firing9 += 1
-                elif dataparts[-1] == "10":
-                    self.firing10 += 1
-                elif dataparts[-1] == "11":
-                    self.firing11 += 1
-                elif dataparts[-1] == "12":
-                    self.firing12 += 1
-                elif dataparts[-1] == "13":
-                    self.firing13 += 1
-                else:  # An unknown firing. (At this moment there are only 14)
-                    self.unknown += 1
-            if dataparts[-2] == "w":
-                # Increase the wiring state change
-                self.wiring += 1
-
-            # Increase the sum of state changes
-            self.sumstatechanges += 1
-
+            self.ipfsstatechanges.append(IPFSstatechange(
+                dataparts[0],
+                dataparts[1],
+                dataparts[2],
+                dataparts[3]
+            ))
 
 # The function below retrieves the content from an URL which should be specified
 # as parameter. The outpuut is the raw data extracted from the URL.
@@ -170,30 +144,31 @@ def retrieve_statechangebatches(
 # 3) Via the IPFS gateway the IPFS data is retrieved for the TX
 # 4) The data is decoded (seperated in different firings and wirings)
 def process_ipfsdata(statechangebatch, etherscanapikey):
+    # Get the IPFS hash for the retrieved statechange batch
     print("Retrieving IPFS hash stored in blocknumber: {}".format(
         statechangebatch.blocknumber))
-    # Get the IPFS hash for the retrieved statechange batch
     statechangebatch.get_ipfshash(
         etherscanapikey
     )
     print("The following hash has been found: {}.".format(
         statechangebatch.ipfshash))
 
-    print("Retrieving the IPFS data")
     # Get the IPFS data from the IPFS gateway
+    print("Retrieving the IPFS data")
     statechangebatch.get_ipfsdata()
     print("IPFS data found, decoding the data.")
 
     # Decode the IPFS data to get a readable list with firings and wirings
     statechangebatch.decode_ipfsdata()
-    print("IPFS data has been decoded. IPFS has been processed")
+    print("IPFS data for block {} has been decoded and stored in the batch "
+    "object".format(statechangebatch.blocknumber))
     return None
 
 
 def get_afterblocknumber():
     # Store the blocknumber from where to search for changes
     try:
-        afterblocknumber = (Block.objects.all().order_by(
+        afterblocknumber = (Block.objects.filter(Fullyprocessed=True).order_by(
             '-blocknumber')[:1].get()).blocknumber
     except:
         print("No blocks been found in the db." +
@@ -242,10 +217,36 @@ class Command(BaseCommand):
                     date = statechangebatch.date,
                 )
 
+            # Store block object in variabel
+            block=Block.objects.get(pk=statechangebatch.blocknumber)
+
+            # Process the IPFS data (get data, split it in transactions and
+            # store it in the statechangebatchobject)
             process_ipfsdata(
                 statechangebatch,
                 etherscanapikey
             )
+
+            # Process each state change which has been found in the batch
+            for ipfsstatechange in statechangebatch.ipfsstatechanges:
+                #Check or the statechange already exist
+                statechangeexist = StateChange.objects.filter(
+                    hash=ipfsstatechange.hash).exists()
+                # Adding state change
+                if statechangeexist == False:
+                    print("Adding state change {} to the database, found in "
+                    "blog".format(
+                        ipfsstatechange.hash,
+                        statechangebatch.blocknumber))
+
+
+                    StateChange.objects.create(
+                        hash = ipfsstatechange.hash,
+                        previoushash = ipfsstatechange.previoushash,
+                        statechangetype = ipfsstatechange.statechangetype,
+                        statechangesubtype = ipfsstatechange.statechangesubtype,
+                        block = block,
+                    )
 
             print("Store statechange batch for blocknumber {} in the " +
                   "database.".format(statechangebatch.blocknumber))
