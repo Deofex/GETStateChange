@@ -4,6 +4,7 @@ from .models import StateChange
 from .models import CryptoPrice
 from .models import BurnTransaction
 from django.core.paginator import Paginator
+from django.db.models import Sum
 from datetime import datetime
 from datetime import timedelta
 
@@ -162,8 +163,9 @@ def get_monthgraphinfo():
     # month number and save both in the created list and return this object.
     for timerange in timeranges:
         # Get all statechanges in the timerange
-        sumstatechanges = StateChange.objects.filter(
-            block__date__range=[timerange.startdate,timerange.enddate]).count()
+        sumstatechanges = Block.objects.filter(
+            date__range=[timerange.startdate,timerange.enddate]).values(
+                'statechange').count()
 
         # Create the label from the date in the following format day-month-year
         label = timerange.startdate.strftime("%d-%m-%Y")
@@ -189,8 +191,9 @@ def get_quartergraphinfo():
     # month number and save both in the created list and return this object.
     for timerange in timeranges:
         # Get all statechanges in the timerange
-        sumstatechanges = StateChange.objects.filter(
-            block__date__range=[timerange.startdate,timerange.enddate]).count()
+        sumstatechanges = Block.objects.filter(
+            date__range=[timerange.startdate,timerange.enddate]).values(
+                'statechange').count()
 
         # Create the label from the date in the following format day-month-year
         label = timerange.startdate.strftime("%d-%m-%Y")
@@ -217,8 +220,8 @@ def get_daygraphinfo():
     graphinfo = []
     for i in range(1,31):
         # Get all statechanges batches in the timerange
-        sumstatechanges = StateChange.objects.filter(
-            block__date__range=[startdate,enddate]).count()
+        sumstatechanges = Block.objects.filter(
+            date__range=[startdate,enddate]).values('statechange').count()
 
         # Create the label from the date in the following format day-month-year
         label = startdate.strftime("%d-%m-%Y")
@@ -249,8 +252,8 @@ def get_wiringgraphinfo():
     graphinfo = []
     for i in range(1,31):
         # Get all statechanges batches in the timerange
-        sumstatechanges = StateChange.objects.filter(
-            block__date__range=[startdate,enddate]).count()
+        sumstatechanges = Block.objects.filter(
+            date__range=[startdate,enddate]).values('statechange').count()
 
         # Create the label from the date in the following format day-month-year
         label = startdate.strftime("%d-%m-%Y")
@@ -280,17 +283,16 @@ def get_statechangetypeslast30days():
     enddate = datetime(currentyear,currentmonth,currentday)
     startdate = enddate - timedelta(days=30)
     # Get all statebatches from the last 30 days
-    statechangefirings = StateChange.objects.filter(
-        block__date__range=[startdate,enddate],statechangetype='f')
+    statechangesbatchesinrange = Block.objects.filter(
+        date__range=[startdate,enddate])
     # Create an empty array
     graphinfo = []
     # Cycle through 0 to 13 (amount of state changes)
     for i in range(0,14):
         # Get the amount of state changes of the type firings + i
-        statechangefirings = StateChange.objects.filter(
-            block__date__range=[startdate,enddate],
-            statechangetype='f',
-            statechangesubtype=i).count()
+        sum = 'f' + str(i) + 'sum'
+        statechangefirings = (statechangesbatchesinrange.values(sum).aggregate(
+            Sum(sum))).popitem()[1]
 
         # Get the label of the firing
         nameconvert = {
@@ -343,49 +345,6 @@ def get_burngraphinfo():
             ))
     return graphinfo
 
-# Function to create block statistics vor the blocks in view. It retreive
-# the amount of statechanges (wirings and firings) and create the sum of it.
-def get_statechangestatistics(blocks):
-    statechangestatistics = []
-    for block in blocks:
-        statechangestatistics.append(statechangebatchinfo(
-            block=block,
-            f0 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=0).count(),
-            f1 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=1).count(),
-            f2 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=2).count(),
-            f3 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=3).count(),
-            f4 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=4).count(),
-            f5 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=5).count(),
-            f6 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=6).count(),
-            f7 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=7).count(),
-            f8 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=8).count(),
-            f9 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=9).count(),
-            f10 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=10).count(),
-            f11 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=11).count(),
-            f12 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=12).count(),
-            f13 = StateChange.objects.filter(
-                block=block,statechangetype="f",statechangesubtype=13).count(),
-            wirings = StateChange.objects.filter(
-                block=block,statechangetype="w").count(),
-            sum = StateChange.objects.filter(
-                block=block).count(),
-        ))
-    return statechangestatistics
-
-
 # Create your views here.
 def transaction_list(request):
     # Get a list with all statechanges with the highest blocknumer first
@@ -397,8 +356,7 @@ def transaction_list(request):
     page = request.GET.get('page')
     if page == None:
         page = 1
-    blocks = statechange_paginator.get_page(page)
-    statechangestatistics = get_statechangestatistics(blocks)
+    pageblocks = statechange_paginator.get_page(page)
 
     pagenrs = get_paginationnrs(
         page,
@@ -432,8 +390,7 @@ def transaction_list(request):
 
 
     return render(request,'statechanges/statechanges.html',{
-        'statechangestatistics':statechangestatistics,
-        'blocks':blocks,
+        'pageblocks':pageblocks,
         'pagenrs':pagenrs,
         'monthgraphinfo':monthgraphinfo,
         'daygraphinfo':daygraphinfo,

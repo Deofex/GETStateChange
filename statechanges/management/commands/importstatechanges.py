@@ -180,8 +180,6 @@ def get_afterblocknumber():
 
 # this class is called by the managed.py of Django. The class will be used
 # to schedule the import of state changes in the Django database.
-
-
 class Command(BaseCommand):
     '''Import statechanges and import them in the database'''
 
@@ -234,11 +232,12 @@ class Command(BaseCommand):
                     hash=ipfsstatechange.hash).exists()
                 # Adding state change if doesn't exist
                 if statechangeexist == False:
-                    print("Adding state change {} to the database, found in "
-                    "blog".format(
-                        ipfsstatechange.hash,
+                    print("Adding state change {}".format(
+                        ipfsstatechange.hash) +\
+                    "to the database, found in block {}".format(
                         statechangebatch.blocknumber))
 
+                    # Create statechange object
                     StateChange.objects.create(
                         hash = ipfsstatechange.hash,
                         previoushash = ipfsstatechange.previoushash,
@@ -246,6 +245,60 @@ class Command(BaseCommand):
                         statechangesubtype = ipfsstatechange.statechangesubtype,
                         block = block,
                     )
+
+                    # Update the sum in the blocks (Wouldn't be neccesary
+                    # because you can get them from the database), but
+                    # the sum amounts are used in different views and therefor
+                    # saved in the blocks properties.
+                    block.add_totalsum()
+                    if (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "0"):
+                        print(block)
+                        block.add_f0()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "1"):
+                        block.add_f1()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "2"):
+                        block.add_f2()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "3"):
+                        block.add_f3()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "4"):
+                        block.add_f4()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "5"):
+                        block.add_f5()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "6"):
+                        block.add_f6()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "7"):
+                        block.add_f7()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "8"):
+                        block.add_f8()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "9"):
+                        block.add_f9()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "10"):
+                        block.add_f10()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "11"):
+                        block.add_f11()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "12"):
+                        block.add_f12()
+                    elif (ipfsstatechange.statechangetype == "f"
+                    and ipfsstatechange.statechangesubtype == "13"):
+                        block.add_f13()
+                    elif ipfsstatechange.statechangetype == "w":
+                        block.add_w()
+
+            # Set block on fully processed
+            block.fullyprocessed = True
 
             print("Statechange batch found in block " + \
             "{} imported in the database".format(statechangebatch.blocknumber))

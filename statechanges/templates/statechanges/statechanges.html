@@ -65,66 +65,66 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for statechangestatistic in statechangestatistics %}
-                            <tr data-toggle="collapse" data-target="#batch{{ statechangestatistic.block.blocknumber }}"
+                            {% for pageblock in pageblocks %}
+                            <tr data-toggle="collapse" data-target="#batch{{ pageblock.blocknumber }}"
                                 class="accordion-toggle">
                                 <td>
-                                    <p>{{ statechangestatistic.block.date |date:"d-m-Y H:i" }}</p>
+                                    <p>{{ pageblock.date |date:"d-m-Y H:i" }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ statechangestatistic.block.blocknumber }}</p>
+                                    <p>{{ pageblock.blocknumber }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ statechangestatistic.sum }}</p>
+                                    <p>{{ pageblock.totalsum }}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="hiddenRow">
                                     <div style="text-align: center;" class="accordian-body collapse"
-                                        id="batch{{ statechangestatistic.block.blocknumber }}">
+                                        id="batch{{ pageblock.blocknumber }}">
                                         <p>The following state changes have been found in this block:</p>
                                         <div style="display: inline-block; text-align: left;">
                                             <p>
                                                 <table border=2 class="table table-bordered table-dark">
                                                     <tr>
                                                         <td><i>Tickets created</i></td>
-                                                        <td>{{ statechangestatistic.f0 }}</td>
+                                                        <td>{{ pageblock.f0sum }}</td>
                                                         <td><i>Tickets blocked</i></td>
-                                                        <td>{{ statechangestatistic.f1 }}</td>
+                                                        <td>{{ pageblock.f1sum }}</td>
                                                         <td><i>Tickets sold in the primary market</i></td>
-                                                        <td>{{ statechangestatistic.f2 }}</td>
+                                                        <td>{{ pageblock.f2sum }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><i>Tickets sold in secondary market</i></td>
-                                                        <td>{{ statechangestatistic.f3 }}</td>
+                                                        <td>{{ pageblock.f3sum }}</td>
                                                         <td><i>Tickets bought back</i></td>
-                                                        <td>{{ statechangestatistic.f4 }}</td>
+                                                        <td>{{ pageblock.f4sum }}</td>
                                                         <td><i>Tickets cancelled</i></td>
-                                                        <td>{{ statechangestatistic.f5 }}</td>
+                                                        <td>{{ pageblock.f5sum }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><i>Ticket put for sale</i></td>
-                                                        <td>{{ statechangestatistic.f6 }}</td>
+                                                        <td>{{ pageblock.f6sum }}</td>
                                                         <td><i>No Show</i></td>
-                                                        <td>{{ statechangestatistic.f7 }}</td>
+                                                        <td>{{ pageblock.f7sum }}</td>
                                                         <td><i>Not resold</i></td>
-                                                        <td>{{ statechangestatistic.f8 }}</td>
+                                                        <td>{{ pageblock.f8sum }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><i>Not sold in primary market</i></td>
-                                                        <td>{{ statechangestatistic.f9 }}</td>
+                                                        <td>{{ pageblock.f9sum }}</td>
                                                         <td><i>Not sold in secondary market</i></td>
-                                                        <td>{{ statechangestatistic.f10 }}</td>
+                                                        <td>{{ pageblock.f10sum }}</td>
                                                         <td><i>Tickets scanned</i></td>
-                                                        <td>{{ statechangestatistic.f11 }}</td>
+                                                        <td>{{ pageblock.f11sum }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td><i>Show over</i></td>
-                                                        <td>{{ statechangestatistic.f12 }}</td>
+                                                        <td>{{ pageblock.f12sum }}</td>
                                                         <td><i>Tickets unblocked</i></td>
-                                                        <td>{{ statechangestatistic.f13 }}</td>
+                                                        <td>{{ pageblock.f13sum }}</td>
                                                         <td><i>Wirings</i></td>
-                                                        <td>{{ statechangestatistic.wirings }}</td>
+                                                        <td>{{ pageblock.wsum }}</td>
                                                     </tr>
                                                 </table>
                                             </p>
@@ -139,26 +139,26 @@
 
                     <ul class="nav nav-fill pagination">
                         <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
-                        {% if blocks.has_previous %}
+                        {% if pageblocks.has_previous %}
                         <li class="nav-item"><a class="page-link"
-                                href="?page={{ blocks.previous_page_number }}">Previous</a>
+                                href="?page={{ pageblocks.previous_page_number }}">Previous</a>
                         </li>
                         {% endif %}
                         {% for pagenr in pagenrs %}
-                        {% if pagenr == blocks.number %}
+                        {% if pagenr == pageblocks.number %}
                         <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
                         </li>
                         {% endif %}
-                        {% if pagenr != blocks.number %}
+                        {% if pagenr != pageblocks.number %}
                         <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
                         {% endif %}
                         {% endfor %}
-                        {% if blocks.has_next %}
+                        {% if pageblocks.has_next %}
                         <li class="nav-item"><a class="page-link"
-                                href="?page={{ blocks.next_page_number }}">Next</a>
+                                href="?page={{ pageblocks.next_page_number }}">Next</a>
                         </li>
                         <li class="nav-item"><a class="page-link"
-                                href="?page={{ blocks.paginator.num_pages }}">Last</a>
+                                href="?page={{ pageblocks.paginator.num_pages }}">Last</a>
                         </li>
                         {% endif %}
                     </ul>
