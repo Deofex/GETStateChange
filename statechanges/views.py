@@ -346,7 +346,7 @@ def get_burngraphinfo():
     return graphinfo
 
 # Create your views here.
-def transaction_list(request):
+def page_statechanges(request):
     # Get a list with all statechanges with the highest blocknumer first
     statechangesbatches_list = Block.objects.order_by(
         "blocknumber").reverse()
@@ -403,3 +403,12 @@ def transaction_list(request):
         'getburned': getburned,
         'openmarketgetburned':openmarketgetburned
         })
+
+
+
+# Create your views here.
+def page_home(request):
+    return render(request,'statechanges/home.html',{})
+
+def page_eventstatistics(request):
+    return render(request,'statechanges/eventstatistics.html',{})
