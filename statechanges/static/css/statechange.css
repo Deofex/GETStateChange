@@ -56,7 +56,8 @@ body {
 }
 
 body {
-    color: #ffffff
+    color: #ffffff;
+    padding-top: 80px;
 }
 
 .btn-primary {
@@ -83,4 +84,24 @@ body {
 
 img {
     max-width: 100%;
+}
+
+.navbar {
+    color: #FFFFFF;
+    background-color: #01C696;
+}
+.navbar-nav {
+    float:none;
+    margin:0 auto;
+    display: block;
+    text-align: center;
+}
+
+.navbar-nav > li {
+    display: inline-block;
+    float:none;
+}
+
+.nav-link {
+    font-size: large;
 }

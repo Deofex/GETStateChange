@@ -13,16 +13,29 @@
 
 
 <body>
+
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/navimage.png' %}" height="30" class="d-inline-block align-top" alt="">
+            GET Protocol Statistics and Statechanges
+          </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Statechanges</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Event statistics</a>
+              </li>
+            </ul>
+          </div>
+    </nav>
+
+
     <div class="container">
-        <div class="row">
-            <div class="col-8">
-                <div class="page-header">
-                    <h1><img src="{% static 'images/headerimage.png' %}" class="img-rounded" alt="GET header image"><a
-                            href="/">GET
-                            State Changes</a></h1>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col">
                 <div class="col">
