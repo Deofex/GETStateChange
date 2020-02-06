@@ -4,24 +4,7 @@ from datetime import timedelta
 from .models import Block
 from .models import StateChange
 from .models import BurnTransaction
-
-# Create a class which can store 2 timeranges
-class TimeRange():
-    def __init__(self,startdate,enddate):
-        self.startdate = startdate
-        self.enddate = enddate
-
-# create a graph class where to store periods and a single value
-class GraphInfo():
-    def __init__(self,periodname,value):
-        self.periodname = periodname
-        self.value = value
-
-# Create a graph which can store periods and store two values
-class DoubleGraphInfo(GraphInfo):
-    def __init__(self, periodname, value, secondvalue):
-        super().__init__(periodname, value)
-        self.secondvalue = secondvalue
+from .graphinfo_shared import GraphInfo, DoubleGraphInfo, TimeRange
 
 # Create statechange batch info object which can be used in the template
 class statechangebatchinfo():

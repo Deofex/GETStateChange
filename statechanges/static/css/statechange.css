@@ -86,10 +86,15 @@ img {
     max-width: 100%;
 }
 
+img.cardmid {
+    max-height: 15vh;
+}
+
 .navbar {
     color: #FFFFFF;
     background-color: #01C696;
 }
+
 .navbar-nav {
     float:none;
     margin:0 auto;
@@ -104,4 +109,16 @@ img {
 
 .nav-link {
     font-size: large;
+}
+
+.jumbotron {
+    background-color: #343a40;
+}
+
+.card-body.center {
+    text-align: center;
+}
+
+.getcolor {
+    color: #01C696
 }

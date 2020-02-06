@@ -2,9 +2,10 @@ from django.shortcuts import render
 from .models import Block
 from .models import CryptoPrice
 from django.core.paginator import Paginator
-from .graphinfo import get_monthgraphinfo,get_daygraphinfo,\
+from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
     get_quartergraphinfo,get_wiringgraphinfo,get_statechangetypeslast30days,\
         get_burngraphinfo,get_paginationnrs
+from .graphinfo_home import get_buybackgraphinfo
 
 # Create your views here.
 def page_statechanges(request):
@@ -70,7 +71,33 @@ def page_statechanges(request):
 
 # Create your views here.
 def page_home(request):
+    # Get buyback graph info
+    buybackinfo = get_buybackgraphinfo()
+
+    # Get Burnback info:
+    # GET price
+    geteurprice = CryptoPrice.objects.filter(name="GET")[0].price_eur
+    # Amount of change changes:
+    statechangesbuyback = (float(buybackinfo[-1].value) / 0.07)
+    # Burn back value (statechanges x 0.07)
+    burnbackvalue = statechangesbuyback * 0.07
+    # GET burned:
+    getburned = burnbackvalue / geteurprice
+    # Open market burned:
+    openmarketgetburned = getburned / 100 * 58
+
+    #Roundup the numbers(afterward, to prevent wrong calculations):
+    burnbackvalue = "{0:.0f}".format(burnbackvalue)
+    getburned = "{0:.0f}".format(getburned)
+    openmarketgetburned = "{0:.0f}".format(openmarketgetburned)
+
+
     return render(request,'statechanges/home.html',{
+        'buybackinfo':buybackinfo,
+        'geteurprice':geteurprice,
+        'burnbackvalue': burnbackvalue,
+        'getburned': getburned,
+        'openmarketgetburned':openmarketgetburned,
         'navbar':'page_home'
     })
 
