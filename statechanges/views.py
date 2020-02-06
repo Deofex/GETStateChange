@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
     get_quartergraphinfo,get_wiringgraphinfo,get_statechangetypeslast30days,\
         get_burngraphinfo,get_paginationnrs
-from .graphinfo_home import get_buybackgraphinfo
+from .graphinfo_home import get_buybackgraphinfo, get_statechangesfiringlast24h
 
 # Create your views here.
 def page_statechanges(request):
@@ -74,6 +74,14 @@ def page_home(request):
     # Get buyback graph info
     buybackinfo = get_buybackgraphinfo()
 
+    # Get the amount of tickets sold last 24 hours on the primaire and
+    # secondairy markets
+    ticketssoldlast24h = get_statechangesfiringlast24h(2) + \
+        get_statechangesfiringlast24h(3)
+
+    #Get the amount of tickets scanned in the last 24 hours
+    ticketsscannedlast24h = get_statechangesfiringlast24h(11)
+
     # Get Burnback info:
     # GET price
     geteurprice = CryptoPrice.objects.filter(name="GET")[0].price_eur
@@ -94,6 +102,8 @@ def page_home(request):
 
     return render(request,'statechanges/home.html',{
         'buybackinfo':buybackinfo,
+        'ticketssoldlast24h':ticketssoldlast24h,
+        'ticketsscannedlast24h':ticketsscannedlast24h,
         'geteurprice':geteurprice,
         'burnbackvalue': burnbackvalue,
         'getburned': getburned,

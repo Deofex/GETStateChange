@@ -27,8 +27,7 @@
           <div class="col-md-8">
             <div class="card-body center">
               <h5 class="card-title">Tickets sold in the last 24h</h5>
-              <h1>400</h1>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <h1 class=getcolor>{{ticketssoldlast24h}}</h1>
             </div>
           </div>
         </div>
@@ -46,8 +45,7 @@
           <div class="col-md-8 ">
             <div class="card-body center">
               <h5 class="card-title">Tickets scanned in the last 24h</h5>
-              <h1>590</h1>
-              <p class="card-text"><small class="text-muted">Last updated 13 minutes ago</small></p>
+              <h1 class=getcolor>{{ticketsscannedlast24h}}</h1>
             </div>
           </div>
         </div>
@@ -66,8 +64,7 @@
           <div class="col-md-8">
             <div class="card-body center">
               <h5 class="card-title">The current average GET price</h5>
-              <h1>€0,34</h1>
-              <p class="card-text"><small class="text-muted">Last updated 2 minutes ago</small></p>
+              <h1 class=getcolor>€{{geteurprice}}</h1>
             </div>
           </div>
         </div>
@@ -84,8 +81,7 @@
           <div class="col-md-8">
             <div class="card-body center">
               <h5 class="card-title">Amount of events which used GET last 24h</h5>
-              <h1>24</h1>
-              <p class="card-text"><small class="text-muted">Last updated 13 minutes ago</small></p>
+              <h1 class=getcolor>24</h1>
             </div>
           </div>
         </div>
@@ -99,7 +95,8 @@
       <h1 class="display-7">Buyback!</h1>
       <p class="lead">GET tokens are bough back from the open market</p>
       <p>For each state change being processed the GET token is needed. This means GET is necessary when a ticket is
-        created, sold, resold, being scanned etc. The amount of GET
+        created, sold, resold, being scanned etc.
+        The amount of GET
         which is needed is partially bought back from the market and partially
         subsidized by the User Growth Fund. In the last buyback a single statechange
         cost €0.07 If this remains the same we can expect
