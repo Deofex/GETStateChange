@@ -4,8 +4,7 @@ import json
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from statechanges.models import Block
-from statechanges.models import StateChange
+from statechanges.models import Block, StateChange, Event
 
 # The IPFSstatechange class stores a single IPFS statechange which is not yet in
 # the database, but will be processed later.
@@ -168,7 +167,7 @@ def process_ipfsdata(statechangebatch, etherscanapikey):
 def get_afterblocknumber():
     # Store the blocknumber from where to search for changes
     try:
-        afterblocknumber = (Block.objects.filter(Fullyprocessed=True).order_by(
+        afterblocknumber = (Block.objects.filter(fullyprocessed=True).order_by(
             '-blocknumber')[:1].get()).blocknumber
     except:
         print("No blocks been found in the db." +
@@ -177,6 +176,77 @@ def get_afterblocknumber():
         print("except true")
 
     return afterblocknumber
+
+
+def new_statechange(hash,previoushash,firing,block):
+    '''Function to register a new statechange (firing)'''
+    #Check or the statechange already exist
+    statechangeexist = StateChange.objects.filter(
+        hash=hash).exists()
+
+    # Adding state change if doesn't exist
+    if statechangeexist == False:
+        print("Adding state change {} to the database.".format(hash) +\
+        " State change found in block {}".format(block.blocknumber))
+
+        # Create the state change object
+        StateChange.objects.create(
+            hash = hash,
+            previoushash = previoushash,
+            firing = firing,
+            block = block,
+        )
+
+        # Update the sum in the blocks (Wouldn't be neccesary
+        # because you can get them from the database), but
+        # the sum amounts are used in different views and therefor
+        # saved in the blocks properties.
+        if firing == "0":
+            block.add_f0()
+        elif firing == "1":
+            block.add_f1()
+        elif firing == "2":
+            block.add_f2()
+        elif firing == "3":
+            block.add_f3()
+        elif firing == "4":
+            block.add_f4()
+        elif firing == "5":
+            block.add_f5()
+        elif firing == "6":
+            block.add_f6()
+        elif firing == "7":
+            block.add_f7()
+        elif firing == "8":
+            block.add_f8()
+        elif firing == "9":
+            block.add_f9()
+        elif firing == "10":
+            block.add_f10()
+        elif firing == "11":
+            block.add_f11()
+        elif firing == "12":
+            block.add_f12()
+        elif firing == "13":
+            block.add_f13()
+
+def new_event(hash,block):
+    '''Function to register a new statechange (firing)'''
+    #Check or the statechange already exist
+    eventexist = Event.objects.filter(
+        hash=hash).exists()
+
+    # Adding state change if doesn't exist
+    if eventexist == False:
+        print("Adding event {} to the database.".format(hash) +\
+        " Event found in block {}".format(block.blocknumber))
+
+        # Create the state change object
+        Event.objects.create(
+            hash = hash,
+            block = block,
+        )
+
 
 # this class is called by the managed.py of Django. The class will be used
 # to schedule the import of state changes in the Django database.
@@ -227,78 +297,25 @@ class Command(BaseCommand):
 
             # Process each state change which has been found in the batch
             for ipfsstatechange in statechangebatch.ipfsstatechanges:
-                #Check or the statechange already exist
-                statechangeexist = StateChange.objects.filter(
-                    hash=ipfsstatechange.hash).exists()
-                # Adding state change if doesn't exist
-                if statechangeexist == False:
-                    print("Adding state change {}".format(
-                        ipfsstatechange.hash) +\
-                    "to the database, found in block {}".format(
-                        statechangebatch.blocknumber))
-
-                    # Create statechange object
-                    StateChange.objects.create(
+                # Create statechange object
+                if (ipfsstatechange.statechangetype == "f"):
+                    # Create the state change object
+                    new_statechange (
                         hash = ipfsstatechange.hash,
                         previoushash = ipfsstatechange.previoushash,
-                        statechangetype = ipfsstatechange.statechangetype,
-                        statechangesubtype = ipfsstatechange.statechangesubtype,
+                        firing = ipfsstatechange.statechangesubtype,
                         block = block,
                     )
 
-                    # Update the sum in the blocks (Wouldn't be neccesary
-                    # because you can get them from the database), but
-                    # the sum amounts are used in different views and therefor
-                    # saved in the blocks properties.
-                    block.add_totalsum()
-                    if (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "0"):
-                        print(block)
-                        block.add_f0()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "1"):
-                        block.add_f1()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "2"):
-                        block.add_f2()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "3"):
-                        block.add_f3()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "4"):
-                        block.add_f4()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "5"):
-                        block.add_f5()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "6"):
-                        block.add_f6()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "7"):
-                        block.add_f7()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "8"):
-                        block.add_f8()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "9"):
-                        block.add_f9()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "10"):
-                        block.add_f10()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "11"):
-                        block.add_f11()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "12"):
-                        block.add_f12()
-                    elif (ipfsstatechange.statechangetype == "f"
-                    and ipfsstatechange.statechangesubtype == "13"):
-                        block.add_f13()
-                    elif ipfsstatechange.statechangetype == "w":
-                        block.add_w()
+                if (ipfsstatechange.statechangetype == "w"):
+                    # Create the state change object
+                    new_event (
+                        hash = ipfsstatechange.hash,
+                        block = block,
+                    )
 
             # Set block on fully processed
-            block.fullyprocessed = True
+            block.processed()
 
             print("Statechange batch found in block " + \
             "{} imported in the database".format(statechangebatch.blocknumber))
