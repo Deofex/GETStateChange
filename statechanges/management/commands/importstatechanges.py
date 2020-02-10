@@ -4,7 +4,7 @@ import json
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from statechanges.models import Block, StateChange, Event
+from statechanges.models import Block, Ticket, StateChange, Event
 
 # The IPFSstatechange class stores a single IPFS statechange which is not yet in
 # the database, but will be processed later.
@@ -61,8 +61,11 @@ class StateChangeBatch():
     # IPFS data contains the details of the state changes.
     def get_ipfsdata(self):
         url = "https://gateway.ipfs.io/ipfs/"
+        #url = "https://temporal.cloud/ipfs/"
         url = url + self.ipfshash
+        print("IPFS URL: {}".format(url))
         ipfsdata = get_url(url)
+        print("Succesfully retrieved, split the data")
         ipfsdata = ipfsdata.splitlines()
         self.ipfsdata = ipfsdata
 
@@ -178,6 +181,24 @@ def get_afterblocknumber():
     return afterblocknumber
 
 
+def get_ticket(hash,previoushash):
+    '''Function which lookup an event'''
+    if Event.objects.filter(hash=previoushash).exists():
+        print("Ticket not found, create a new one")
+        event = Event.objects.get(hash=previoushash)
+        Ticket.objects.create(
+            hash = hash,
+            event = Event.objects.get(hash=previoushash)
+        )
+        ticket = Ticket.objects.get(hash=hash)
+    else:
+        previousstate = StateChange.objects.get(hash=previoushash)
+        ticket = previousstate.ticket
+        print("Existing ticket, statechange will be added: {}".format(ticket))
+
+    return ticket
+
+
 def new_statechange(hash,previoushash,firing,block):
     '''Function to register a new statechange (firing)'''
     #Check or the statechange already exist
@@ -189,13 +210,24 @@ def new_statechange(hash,previoushash,firing,block):
         print("Adding state change {} to the database.".format(hash) +\
         " State change found in block {}".format(block.blocknumber))
 
+        # Lookup the corresponding event
+        try:
+            ticket = get_ticket(hash,previoushash)
+        except StateChange.DoesNotExist as e:
+            print("Failed to get the ticket corresponding to the hash.")
+            raise(e)
+
         # Create the state change object
-        StateChange.objects.create(
+        statechangeobject = StateChange.objects.create(
             hash = hash,
             previoushash = previoushash,
             firing = firing,
             block = block,
+            ticket = ticket,
         )
+
+        # Get Event
+        event = statechangeobject.ticket.event
 
         # Update the sum in the blocks (Wouldn't be neccesary
         # because you can get them from the database), but
@@ -203,32 +235,46 @@ def new_statechange(hash,previoushash,firing,block):
         # saved in the blocks properties.
         if firing == "0":
             block.add_f0()
+            statechangeobject.ticket.event.add_f0()
         elif firing == "1":
             block.add_f1()
+            statechangeobject.ticket.event.add_f1()
         elif firing == "2":
             block.add_f2()
+            statechangeobject.ticket.event.add_f2()
         elif firing == "3":
             block.add_f3()
+            statechangeobject.ticket.event.add_f3()
         elif firing == "4":
             block.add_f4()
+            statechangeobject.ticket.event.add_f4()
         elif firing == "5":
             block.add_f5()
+            statechangeobject.ticket.event.add_f5()
         elif firing == "6":
             block.add_f6()
+            statechangeobject.ticket.event.add_f6()
         elif firing == "7":
             block.add_f7()
+            statechangeobject.ticket.event.add_f7()
         elif firing == "8":
             block.add_f8()
+            statechangeobject.ticket.event.add_f8()
         elif firing == "9":
             block.add_f9()
+            statechangeobject.ticket.event.add_f9()
         elif firing == "10":
             block.add_f10()
+            statechangeobject.ticket.event.add_f10()
         elif firing == "11":
             block.add_f11()
+            statechangeobject.ticket.event.add_f11()
         elif firing == "12":
             block.add_f12()
+            statechangeobject.ticket.event.add_f12()
         elif firing == "13":
             block.add_f13()
+            statechangeobject.ticket.event.add_f13()
 
 def new_event(hash,block):
     '''Function to register a new statechange (firing)'''
@@ -272,6 +318,8 @@ class Command(BaseCommand):
         print("{} new statechange batches found.".format(
             len(statechangebatches)))
 
+        majorfailedipfsimports = []
+
         for statechangebatch in statechangebatches:
             # Check or block exists
             BlockExists = Block.objects.filter(
@@ -295,17 +343,31 @@ class Command(BaseCommand):
                 etherscanapikey
             )
 
+            failedipfsimports = []
             # Process each state change which has been found in the batch
             for ipfsstatechange in statechangebatch.ipfsstatechanges:
                 # Create statechange object
                 if (ipfsstatechange.statechangetype == "f"):
                     # Create the state change object
-                    new_statechange (
-                        hash = ipfsstatechange.hash,
-                        previoushash = ipfsstatechange.previoushash,
-                        firing = ipfsstatechange.statechangesubtype,
-                        block = block,
-                    )
+                    try:
+                        new_statechange (
+                            hash = ipfsstatechange.hash,
+                            previoushash = ipfsstatechange.previoushash,
+                            firing = ipfsstatechange.statechangesubtype,
+                            block = block,
+                            )
+                    except StateChange.DoesNotExist:
+                        # When a hash can't be imported this can be caused
+                        # because the previous hash is later in the batch
+                        # Add it to a failed list, which will be retried later.
+                        print("Failed to add hash {}, ".format(
+                            ipfsstatechange.hash) + \
+                            "trying again at the end of the block."
+                            )
+                        failedipfsimports.append(
+                            ipfsstatechange
+                        )
+
 
                 if (ipfsstatechange.statechangetype == "w"):
                     # Create the state change object
@@ -314,8 +376,32 @@ class Command(BaseCommand):
                         block = block,
                     )
 
+
+            for ipfsstatechange in failedipfsimports:
+                print("Retrying to add {}".format(ipfsstatechange.hash))
+                try:
+                    new_statechange (
+                        hash = ipfsstatechange.hash,
+                        previoushash = ipfsstatechange.previoushash,
+                        firing = ipfsstatechange.statechangesubtype,
+                        block = block,
+                    )
+                except StateChange.DoesNotExist:
+                    majorfailedipfsimports.append({
+                        "hash": ipfsstatechange.hash,
+                        "previoushash": ipfsstatechange.previoushash,
+                        "block": block
+                    })
+
             # Set block on fully processed
             block.processed()
 
             print("Statechange batch found in block " + \
             "{} imported in the database".format(statechangebatch.blocknumber))
+
+        for failedipfs in majorfailedipfsimports:
+            block = failedipfs["block"]
+            print("Niet kunnen importeren:")
+            print("Hash:{}".format(failedipfs["hash"]))
+            print("PreviousHash:{}".format(failedipfs["hash"]))
+            print("Block:{}".format(block.blocknumber))

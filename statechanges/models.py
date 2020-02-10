@@ -107,43 +107,6 @@ class Block(models.Model):
         return str(self.blocknumber)
 
 
-class StateChange(models.Model):
-    '''Summery of GET state changes which are posted hourly on the blockchain'''
-    firingtypes = (
-        (0, 'Ticket or Wiring created'),
-        (1, 'Ticket blocked'),
-        (2, 'Ticket sold on primary market'),
-        (3, 'Ticket sold on secondary market'),
-        (4, 'Ticket bought back by organizer'),
-        (5, 'Ticket cancelled'),
-        (6, 'Ticket put for sale'),
-        (7, 'Show cancelled'),
-        (8, 'Ticket not resold'),
-        (9, 'Ticket not sold on primary market'),
-        (10, 'Ticket sold on the secondary market'),
-        (11, 'Ticket scanned'),
-        (12, 'Show over'),
-        (13, 'Ticket unblocked'),
-    )
-    hash = models.CharField(
-        max_length=100,
-        primary_key=True,
-    )
-    previoushash = models.CharField(
-        max_length=100,
-    )
-    firing = models.IntegerField(
-        choices=firingtypes,
-    )
-    block = models.ForeignKey(
-        Block,
-        on_delete=models.CASCADE,
-    )
-
-    def __str__(self):
-        return str(self.hash)
-
-
 class Event(models.Model):
     '''A model which describes an Event'''
     # The hash is the primary key
@@ -252,7 +215,59 @@ class Event(models.Model):
         self.totalsum = self.totalsum + 1
         self.save()
 
+    def __str__(self):
+        return str(self.hash)
 
+class Ticket(models.Model):
+    '''A single ticket contain multiple statechanges'''
+    hash = models.CharField(
+        max_length=100,
+        primary_key=True,
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return str(self.hash)
+
+class StateChange(models.Model):
+    '''Summery of GET state changes which are posted hourly on the blockchain'''
+    firingtypes = (
+        (0, 'Ticket or Wiring created'),
+        (1, 'Ticket blocked'),
+        (2, 'Ticket sold on primary market'),
+        (3, 'Ticket sold on secondary market'),
+        (4, 'Ticket bought back by organizer'),
+        (5, 'Ticket cancelled'),
+        (6, 'Ticket put for sale'),
+        (7, 'Show cancelled'),
+        (8, 'Ticket not resold'),
+        (9, 'Ticket not sold on primary market'),
+        (10, 'Ticket sold on the secondary market'),
+        (11, 'Ticket scanned'),
+        (12, 'Show over'),
+        (13, 'Ticket unblocked'),
+    )
+    hash = models.CharField(
+        max_length=100,
+        primary_key=True,
+    )
+    previoushash = models.CharField(
+        max_length=100,
+    )
+    firing = models.IntegerField(
+        choices=firingtypes,
+    )
+    block = models.ForeignKey(
+        Block,
+        on_delete=models.CASCADE,
+    )
+    ticket = models.ForeignKey(
+        Ticket,
+        on_delete=models.CASCADE,
+    )
     def __str__(self):
         return str(self.hash)
 
