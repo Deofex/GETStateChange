@@ -29,7 +29,7 @@ p.blocktext {
     background-color: #000000;
 }
 
-.nav.pagination{
+.nav.pagination {
     margin-bottom: 15px;
 }
 
@@ -96,15 +96,15 @@ img.cardmid {
 }
 
 .navbar-nav {
-    float:none;
-    margin:0 auto;
+    float: none;
+    margin: 0 auto;
     display: block;
     text-align: center;
 }
 
-.navbar-nav > li {
+.navbar-nav>li {
     display: inline-block;
-    float:none;
+    float: none;
 }
 
 .nav-link {
@@ -121,4 +121,18 @@ img.cardmid {
 
 .getcolor {
     color: #01C696
+}
+
+p {
+    color: white;
+}
+
+.d-sm-none {
+    color: white;
+}
+
+@media (max-device-width: 576px) {
+    .card {
+        margin-bottom: 4px;
+    }
 }

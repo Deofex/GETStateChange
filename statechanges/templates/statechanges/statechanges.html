@@ -4,117 +4,105 @@
 
 <div class="row">
     <div class="col">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartStateChangesDay"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <div class="col">
-            <div class="card prognose">
-                <div class="row no-gutters align-items-center">
-                    <div class="col-sm-4">
-                        <img src="{% static 'images/buyback.png' %}" class="card-img-middle" alt="buyback">
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="d-none d-sm-block">
+                    <div class="card">
+                        <h6 class="card-header" role="tab" id="headingOne">
+                            <a data-parent="#accordion" class="d-block">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-5">
+                                        <p><b>Date</b></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p><b>Blocknumber</b></p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p><b>Total Statechanges</b></p>
+                                    </div>
+                                </div>
+
+                            </a>
+                        </h6>
                     </div>
-                    <div class="col-sm-8">
-                        <div class="card-body">
-                            <h5>Projection: Based on the last buyback.</h5>
-                            <p>For each state change being processed the GET token is needed. The amount of GET
-                                which is needed is partially bought back from the market and partially
-                                subsidized by the User Growth Fund. In the last buyback a single statechange
-                                cost €0.07 If this remains the same we can expect
-                                <b>{{getburned}}</b> GET to be burned this quarter with a
-                                value of <b>€{{burnbackvalue}}</b>. In total
-                                <b>{{openmarketgetburned}}</b> GET will be bought back from the open market.
-                                This is based on the current price of GET
-                                being <b>€{{geteurprice}}</b></p>
+                </div>
+                {% for pageblock in pageblocks %}
+                <div class="card">
+                    <h8 class="card-header" role="tab" id="headingOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#batch{{ pageblock.blocknumber }}"
+                            aria-expanded="true" aria-controls="batch{{ pageblock.blocknumber }}" class="d-block">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-md-5">
+                                    <div class="d-sm-none">
+                                        <p><b>Date:</b> {{ pageblock.date |date:"d-m-Y H:i" }}</p>
+                                    </div>
+                                    <div class="d-none d-sm-block">
+                                        <p>{{ pageblock.date |date:"d-m-Y H:i" }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-sm-none">
+                                        <p><b>Blocknumber:</b> {{ pageblock.blocknumber }}</p>
+                                    </div>
+                                    <div class="d-none d-sm-block">
+                                        <p>{{ pageblock.blocknumber }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-sm-none">
+                                        <p><b>Total statechanges:</b> {{ pageblock.totalsum }}</p>
+                                    </div>
+                                    <div class="d-none d-sm-block">
+                                        <p>{{ pageblock.blocknumber }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </h8>
+                </div>
+                <div id="batch{{ pageblock.blocknumber }}" class="collapse" role="tabpanel"
+                    aria-labelledby="headingOne">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p>Tickets created: <span class="getcolor">{{ pageblock.f0sum }}</span></p>
+                                <p>Tickets blocked: <span class="getcolor">{{ pageblock.f1sum }}</span></p>
+                                <p>Tickets sold in the primary market: <span
+                                        class="getcolor">{{ pageblock.f2sum }}</span></p>
+                                <p>Tickets sold in secondary market: <span class="getcolor">{{ pageblock.f3sum }}</span>
+                                </p>
+                                <p>Tickets bought back: <span class="getcolor">{{ pageblock.f4sum }}</span></p>
+                                <p>Tickets cancelled: <span class="getcolor">{{ pageblock.f5sum }}</span></p>
+                                <p>Ticket put for sale:<span class="getcolor">{{ pageblock.f6sum }}</span></p>
+                                <p>No Show: <span class="getcolor">{{ pageblock.f7sum }}</span></p>
+
+                            </div>
+                            <div class="col">
+                                <p>Not resold: <span class="getcolor">{{ pageblock.f8sum }}</span></p>
+                                <p>Not sold in primary market: <span class="getcolor">{{ pageblock.f9sum }}</span></p>
+                                <p>Not sold in secondary market: <span class="getcolor">{{ pageblock.f10sum }}</span>
+                                </p>
+                                <p>Tickets scanned: <span class="getcolor">{{ pageblock.f11sum }}</span></p>
+                                <p>Show over: <span class="getcolor">{{ pageblock.f12sum }}</span></p>
+                                <p>Tickets unblocked: <span class="getcolor">{{ pageblock.f13sum }}</span></p>
+                                <p>Wirings: <span class="getcolor">{{ pageblock.wsum }}</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+
             </div>
-        </div>
-        <div class="col">
-            <table border=1 class="table table-condensed table-hover table-bordered table-dark table-sm"
-                style="border-collapse:collapse;">
-                <thead>
-                    <tr>
-                        <th>
-                            <p>Date</p>
-                        </th>
-                        <th>
-                            <p>Blocknumber</p>
-                        </th>
-                        <th>
-                            <p>Total state changes</p>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for pageblock in pageblocks %}
-                    <tr data-toggle="collapse" data-target="#batch{{ pageblock.blocknumber }}" class="accordion-toggle">
-                        <td>
-                            <p>{{ pageblock.date |date:"d-m-Y H:i" }}</p>
-                        </td>
-                        <td>
-                            <p>{{ pageblock.blocknumber }}</p>
-                        </td>
-                        <td>
-                            <p>{{ pageblock.totalsum }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" class="hiddenRow">
-                            <div style="text-align: center;" class="accordian-body collapse"
-                                id="batch{{ pageblock.blocknumber }}">
-                                <p>The following state changes have been found in this block:</p>
-                                <div style="display: inline-block; text-align: left;">
-                                    <p>
-                                        <table border=2 class="table table-bordered table-dark">
-                                            <tr>
-                                                <td><i>Tickets created</i></td>
-                                                <td>{{ pageblock.f0sum }}</td>
-                                                <td><i>Tickets blocked</i></td>
-                                                <td>{{ pageblock.f1sum }}</td>
-                                                <td><i>Tickets sold in the primary market</i></td>
-                                                <td>{{ pageblock.f2sum }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><i>Tickets sold in secondary market</i></td>
-                                                <td>{{ pageblock.f3sum }}</td>
-                                                <td><i>Tickets bought back</i></td>
-                                                <td>{{ pageblock.f4sum }}</td>
-                                                <td><i>Tickets cancelled</i></td>
-                                                <td>{{ pageblock.f5sum }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><i>Ticket put for sale</i></td>
-                                                <td>{{ pageblock.f6sum }}</td>
-                                                <td><i>No Show</i></td>
-                                                <td>{{ pageblock.f7sum }}</td>
-                                                <td><i>Not resold</i></td>
-                                                <td>{{ pageblock.f8sum }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><i>Not sold in primary market</i></td>
-                                                <td>{{ pageblock.f9sum }}</td>
-                                                <td><i>Not sold in secondary market</i></td>
-                                                <td>{{ pageblock.f10sum }}</td>
-                                                <td><i>Tickets scanned</i></td>
-                                                <td>{{ pageblock.f11sum }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><i>Show over</i></td>
-                                                <td>{{ pageblock.f12sum }}</td>
-                                                <td><i>Tickets unblocked</i></td>
-                                                <td>{{ pageblock.f13sum }}</td>
-                                                <td><i>Wirings</i></td>
-                                                <td>{{ pageblock.wsum }}</td>
-                                            </tr>
-                                        </table>
-                                    </p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-
             <ul class="nav nav-fill pagination">
                 <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
                 {% if pageblocks.has_previous %}
@@ -138,51 +126,44 @@
                 </li>
                 {% endif %}
             </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
 
+
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartStateChangesMonth"></canvas>
+            </div>
         </div>
     </div>
 
-    <div class="col">
-        <div class="col">
-            <div class="card graph">
-                <div class="card-body fixmidsize">
-                    <canvas id="ChartStateChangesDay"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card graph">
-                <div class="card-body fixmidsize">
-                    <canvas id="ChartStateChangesMonth"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card graph">
-                <div class="card-body fixmidsize">
-                    <canvas id="ChartStateChangesQuarter"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card graph">
-                <div class="card-body fixmidsize">
-                    <canvas id="ChartWiringsDay"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card graph">
-                <div class="card-body fixmidsize">
-                    <canvas id="BurnStatistics"></canvas>
-                </div>
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartStateChangesQuarter"></canvas>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartWiringsDay"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="BurnStatistics"></canvas>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="row">

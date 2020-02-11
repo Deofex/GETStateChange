@@ -13,7 +13,7 @@ def page_statechanges(request):
     statechangesbatches_list = Block.objects.order_by(
         "blocknumber").reverse()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
-    statechange_paginator = Paginator(statechangesbatches_list,20)
+    statechange_paginator = Paginator(statechangesbatches_list,10)
 
     page = request.GET.get('page')
     if page == None:
