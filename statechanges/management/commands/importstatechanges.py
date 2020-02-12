@@ -232,49 +232,49 @@ def new_statechange(hash,previoushash,firing,block):
         # Update the sum in the blocks (Wouldn't be neccesary
         # because you can get them from the database), but
         # the sum amounts are used in different views and therefor
-        # saved in the blocks properties.
+        # saved in the blocks properties for performance reasons.
         if firing == "0":
             block.add_f0()
-            statechangeobject.ticket.event.add_f0()
+            statechangeobject.ticket.event.add_f0(block.date)
         elif firing == "1":
             block.add_f1()
-            statechangeobject.ticket.event.add_f1()
+            statechangeobject.ticket.event.add_f1(block.date)
         elif firing == "2":
             block.add_f2()
-            statechangeobject.ticket.event.add_f2()
+            statechangeobject.ticket.event.add_f2(block.date)
         elif firing == "3":
             block.add_f3()
-            statechangeobject.ticket.event.add_f3()
+            statechangeobject.ticket.event.add_f3(block.date)
         elif firing == "4":
             block.add_f4()
-            statechangeobject.ticket.event.add_f4()
+            statechangeobject.ticket.event.add_f4(block.date)
         elif firing == "5":
             block.add_f5()
-            statechangeobject.ticket.event.add_f5()
+            statechangeobject.ticket.event.add_f5(block.date)
         elif firing == "6":
             block.add_f6()
-            statechangeobject.ticket.event.add_f6()
+            statechangeobject.ticket.event.add_f6(block.date)
         elif firing == "7":
             block.add_f7()
-            statechangeobject.ticket.event.add_f7()
+            statechangeobject.ticket.event.add_f7(block.date)
         elif firing == "8":
             block.add_f8()
-            statechangeobject.ticket.event.add_f8()
+            statechangeobject.ticket.event.add_f8(block.date)
         elif firing == "9":
             block.add_f9()
-            statechangeobject.ticket.event.add_f9()
+            statechangeobject.ticket.event.add_f9(block.date)
         elif firing == "10":
             block.add_f10()
-            statechangeobject.ticket.event.add_f10()
+            statechangeobject.ticket.event.add_f10(block.date)
         elif firing == "11":
             block.add_f11()
-            statechangeobject.ticket.event.add_f11()
+            statechangeobject.ticket.event.add_f11(block.date)
         elif firing == "12":
             block.add_f12()
-            statechangeobject.ticket.event.add_f12()
+            statechangeobject.ticket.event.add_f12(block.date)
         elif firing == "13":
             block.add_f13()
-            statechangeobject.ticket.event.add_f13()
+            statechangeobject.ticket.event.add_f13(block.date)
 
 def new_event(hash,block):
     '''Function to register a new statechange (firing)'''

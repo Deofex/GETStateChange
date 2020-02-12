@@ -125,6 +125,10 @@ class Event(models.Model):
         on_delete=models.CASCADE,
     )
 
+    lastupdate = models.DateTimeField(
+        default=timezone.now
+    )
+
     # The sums of the firings in the event. (Those can be retrieved from the)
     # underlying statechanges, but this cost to much performance when
     # dynamically requested.
@@ -145,74 +149,102 @@ class Event(models.Model):
     totalsum = models.IntegerField(default=0)
 
     # Multiple function to increase the firings and total sum
-    def add_f0(self):
+    def add_f0(self,updatedate):
         self.f0sum = self.f0sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f1(self):
+    def add_f1(self,updatedate):
         self.f1sum = self.f1sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f2(self):
+    def add_f2(self,updatedate):
         self.f2sum = self.f2sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f3(self):
+    def add_f3(self,updatedate):
         self.f3sum = self.f3sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f4(self):
+    def add_f4(self,updatedate):
         self.f4sum = self.f4sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f5(self):
+    def add_f5(self,updatedate):
         self.f5sum = self.f5sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f6(self):
+    def add_f6(self,updatedate):
         self.f6sum = self.f6sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f7(self):
+    def add_f7(self,updatedate):
         self.f7sum = self.f7sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f8(self):
+    def add_f8(self,updatedate):
         self.f8sum = self.f8sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f9(self):
+    def add_f9(self,updatedate):
         self.f9sum = self.f9sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f10(self):
+    def add_f10(self,updatedate):
         self.f10sum = self.f10sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f11(self):
+    def add_f11(self,updatedate):
         self.f11sum = self.f11sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f12(self):
+    def add_f12(self,updatedate):
         self.f12sum = self.f12sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
-    def add_f13(self):
+    def add_f13(self,updatedate):
         self.f13sum = self.f13sum + 1
         self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
         self.save()
 
     def __str__(self):
