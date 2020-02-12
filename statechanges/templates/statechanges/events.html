@@ -1,4 +1,123 @@
 {% extends 'statechanges/base.html' %}
 {% block content %}
-eventstatistics
+<div class="row">
+    <div class="col">
+        <div class="jumbotron">
+            <h1 class="display-7">Events</h1>
+            <p class="lead">The places where GET flows</p>
+            <p>Tickets are used at different events. A plane flight, a cabaret show, a festival. This page is displaying
+                the different events for which GET is used and their statistics. However, it doesn’t show the name of the
+                events. This is caused by the circumstance that the GET foundation isn’t publishing event names publicly
+                (yet). Publishing event names on the blockchain, would spoil the
+                announcements which is done by event organizer. With some dedication, you will be able to link an
+                event name to the appropriate event.
+                <div class="card-body fixmidsize">
+                    <canvas id="ChartWiringsDay"></canvas>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="d-none d-sm-block">
+                <div class="card">
+                    <h6 class="card-header" role="tab" id="headingOne">
+                        <a data-parent="#accordion" class="d-block">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-8">
+                                    <p><b>Event Details</b></p>
+                                </div>
+                                <div class="col-4">
+                                    <p><b>Total Statechanges</b></p>
+                                </div>
+                            </div>
+
+                        </a>
+                    </h6>
+                </div>
+            </div>
+            {% for pageevent in pageevents%}
+            <div class="card">
+                <h8 class="card-header" role="tab" id="headingOne">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#batch{{ pageevent.hash }}"
+                        aria-expanded="true" aria-controls="batch{{ pageevent.hash }}" class="d-block">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-8">
+
+                                <p><b>Creation date:</b> {{ pageevent.block.date |date:"d-m-Y"}}</p>
+                                <p><b>Hash:</b> {{ pageevent.hash }}</p>
+
+                            </div>
+                            <div class="col-4">
+                                <div class="d-sm-none">
+                                    <p><b>State Changes:</b> {{ pageevent.totalsum }}</p>
+                                </div>
+                                <div class="d-none d-sm-block">
+                                    <p>{{ pageevent.totalsum }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </a>
+                </h8>
+            </div>
+            <div id="batch{{ pageevent.hash }}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <p>Tickets created: <span class="getcolor">{{ pageevent.f0sum }}</span></p>
+                            <p>Tickets blocked: <span class="getcolor">{{ pageevent.f1sum }}</span></p>
+                            <p>Tickets sold in the primary market: <span class="getcolor">{{ pageevent.f2sum }}</span>
+                            </p>
+                            <p>Tickets sold in secondary market: <span class="getcolor">{{ pageevent.f3sum }}</span>
+                            </p>
+                            <p>Tickets bought back: <span class="getcolor">{{ pageevent.f4sum }}</span></p>
+                            <p>Tickets cancelled: <span class="getcolor">{{ pageevent.f5sum }}</span></p>
+                            <p>Ticket put for sale:<span class="getcolor">{{ pageevent.f6sum }}</span></p>
+                        </div>
+                        <div class="col">
+                            <p>No Show: <span class="getcolor">{{ pageevent.f7sum }}</span></p>
+                            <p>Not resold: <span class="getcolor">{{ pageevent.f8sum }}</span></p>
+                            <p>Not sold in primary market: <span class="getcolor">{{ pageevent.f9sum }}</span></p>
+                            <p>Not sold in secondary market: <span class="getcolor">{{ pageevent.f10sum }}</span>
+                            </p>
+                            <p>Tickets scanned: <span class="getcolor">{{ pageevent.f11sum }}</span></p>
+                            <p>Show over: <span class="getcolor">{{ pageevent.f12sum }}</span></p>
+                            <p>Tickets unblocked: <span class="getcolor">{{ pageevent.f13sum }}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <ul class="nav nav-fill pagination">
+            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
+            {% if pageevents.has_previous %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            {% for pagenr in pagenrs %}
+            {% if pagenr == pageevents.number %}
+            <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
+            </li>
+            {% endif %}
+            {% if pagenr != pageevents.number %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if pageevents.has_next %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.next_page_number }}">Next</a>
+            </li>
+            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.paginator.num_pages }}">Last</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
+{% block additionalscripts %}
+{% include 'statechanges/eventgraph.html' %}
 {% endblock %}

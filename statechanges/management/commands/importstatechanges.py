@@ -293,6 +293,8 @@ def new_event(hash,block):
             block = block,
         )
 
+        block.add_w()
+
 
 # this class is called by the managed.py of Django. The class will be used
 # to schedule the import of state changes in the Django database.

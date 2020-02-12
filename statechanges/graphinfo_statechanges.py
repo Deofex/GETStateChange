@@ -222,38 +222,6 @@ def get_daygraphinfo():
     # Return the list with the graph info
     return graphinfo
 
-# This function creates the info for the daily wiring graph
-def get_wiringgraphinfo():
-    currentday = datetime.now().day
-    currentmonth = datetime.now().month
-    currentyear = datetime.now().year
-    startdate = datetime(currentyear,currentmonth,currentday)
-    enddate = startdate + timedelta(days=1)
-    graphinfo = []
-    for i in range(1,31):
-        # Get all statechanges batches in the timerange
-        sumstatechanges = Block.objects.filter(
-            date__range=[startdate,enddate]).values('statechange').count()
-
-        # Create the label from the date in the following format day-month-year
-        label = startdate.strftime("%d-%m-%Y")
-
-        # Add the period to the graphinfo
-        graphinfo.append(GraphInfo(
-            label,
-            sumstatechanges
-        ))
-
-        # Go back in time 1 day for the next run
-        startdate = startdate - timedelta(days=1)
-        enddate = enddate - timedelta(days=1)
-
-    # Reverse the list created to get the oldest date on top
-    graphinfo.reverse()
-
-    # Return the list with the graph info
-    return graphinfo
-
 # Get the state changes from the last 30 days
 def get_statechangetypeslast30days():
     #Determine the start and

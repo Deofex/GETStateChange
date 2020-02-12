@@ -21,7 +21,6 @@
 </div>
 <div class="row">
     <div class="col">
-        <div class="col">
             <div id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="d-none d-sm-block">
                     <div class="card">
@@ -70,7 +69,7 @@
                                         <p><b>Total statechanges:</b> {{ pageblock.totalsum }}</p>
                                     </div>
                                     <div class="d-none d-sm-block">
-                                        <p>{{ pageblock.blocknumber }}</p>
+                                        <p>{{ pageblock.totalsum }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +133,6 @@
                 </li>
                 {% endif %}
             </ul>
-        </div>
     </div>
 </div>
 <div class="row">
@@ -152,14 +150,6 @@
         <div class="card graph">
             <div class="card-body fixmidsize">
                 <canvas id="ChartStateChangesQuarter"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-6">
-        <div class="card graph">
-            <div class="card-body fixmidsize">
-                <canvas id="ChartWiringsDay"></canvas>
             </div>
         </div>
     </div>

@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from .models import Block
+from .models import Block, Event
 from .models import CryptoPrice
 from django.core.paginator import Paginator
 from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
-    get_quartergraphinfo,get_wiringgraphinfo,get_statechangetypeslast30days,\
+    get_quartergraphinfo,get_statechangetypeslast30days,\
         get_burngraphinfo,get_paginationnrs
 from .graphinfo_home import get_buybackgraphinfo,\
     get_statechangesfiringlast24h,get_eventsactivelast24h
+from .graphinfo_events import get_wiringgraphinfo
 
 # Create your views here.
 def page_statechanges(request):
@@ -30,7 +31,6 @@ def page_statechanges(request):
     monthgraphinfo = get_monthgraphinfo()
     daygraphinfo = get_daygraphinfo()
     quartergraphinfo = get_quartergraphinfo()
-    wiringgraphinfo = get_wiringgraphinfo()
     statechangetypeslast30day = get_statechangetypeslast30days()
     burngraphinfo = get_burngraphinfo()
 
@@ -58,7 +58,6 @@ def page_statechanges(request):
         'monthgraphinfo':monthgraphinfo,
         'daygraphinfo':daygraphinfo,
         'quartergraphinfo':quartergraphinfo,
-        'wiringgraphinfo':wiringgraphinfo,
         'burngraphinfo':burngraphinfo,
         'statechangetypeslast30day':statechangetypeslast30day,
         'geteurprice':geteurprice,
@@ -116,6 +115,26 @@ def page_home(request):
     })
 
 def page_events(request):
+    # Get a list with all Events with the latest updates
+    event_list = Event.objects.exclude(totalsum = 0).order_by(
+        "totalsum").reverse()
+    # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
+    event_paginator = Paginator(event_list,10)
+
+    page = request.GET.get('page')
+    if page == None:
+        page = 1
+    pageevents = event_paginator.get_page(page)
+
+    pagenrs = get_paginationnrs(
+        page,
+        event_paginator.num_pages
+    )
+
+    wiringgraphinfo = get_wiringgraphinfo()
     return render(request,'statechanges/events.html',{
+        'pageevents':pageevents,
+        'pagenrs':pagenrs,
+        'wiringgraphinfo':wiringgraphinfo,
         'navbar':'page_events'
     })

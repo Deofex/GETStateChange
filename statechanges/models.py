@@ -99,6 +99,11 @@ class Block(models.Model):
         self.totalsum = self.totalsum + 1
         self.save()
 
+    def add_w(self):
+        self.wsum = self.wsum + 1
+        self.totalsum = self.totalsum + 1
+        self.save()
+
     def processed(self):
         self.fullyprocessed = True
         self.save()
