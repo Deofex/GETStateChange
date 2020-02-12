@@ -379,21 +379,52 @@ class Command(BaseCommand):
                     )
 
 
-            for ipfsstatechange in failedipfsimports:
-                print("Retrying to add {}".format(ipfsstatechange.hash))
-                try:
-                    new_statechange (
-                        hash = ipfsstatechange.hash,
-                        previoushash = ipfsstatechange.previoushash,
-                        firing = ipfsstatechange.statechangesubtype,
-                        block = block,
-                    )
-                except StateChange.DoesNotExist:
-                    majorfailedipfsimports.append({
-                        "hash": ipfsstatechange.hash,
-                        "previoushash": ipfsstatechange.previoushash,
-                        "block": block
-                    })
+            # Retry failed ipfs state changes (keep doing this until no )
+            # state changes can be imported anymore. IPFS data doesn't seemd to
+            # be always in the correct order.
+            stateimported = True
+            while stateimported == True:
+                addtomajorfailedipfsimports = []
+                # Set the stateimproted value on false, will be set true again
+                # after a succesfull update (after a failure)
+                stateimported = False
+                # Stateimport failure is a variable which will check or there
+                # is a wrong import. If there's 1 failure the state imported
+                # might be set to true, to prevent a loop.
+                stateimportfailure = False
+                # Try to re-import each statechange
+                for ipfsstatechange in failedipfsimports:
+                    print("Retrying to add {}".format(ipfsstatechange.hash))
+                    try:
+                        new_statechange (
+                            hash = ipfsstatechange.hash,
+                            previoushash = ipfsstatechange.previoushash,
+                            firing = ipfsstatechange.statechangesubtype,
+                            block = block,
+                        )
+                        # If a statechange has failed to import before, set the
+                        # stateimported variabele on true
+                        if stateimportfailure == True:
+                            stateimported = true
+
+                    except StateChange.DoesNotExist:
+                        addtomajorfailedipfsimports.append({
+                            "hash": ipfsstatechange.hash,
+                            "previoushash": ipfsstatechange.previoushash,
+                            "block": block
+                        })
+                        # Set the stateimport failure on true, so the import
+                        # will be retried when there's a succesfull add
+                        stateimportfailure = True
+
+            # Import the statechanges to the majorfailedipfsimports which went
+            # wrong
+            for failure in addtomajorfailedipfsimports:
+                majorfailedipfsimports.append({
+                    "hash": failure["hash"],
+                    "previoushash": failure["previoushash"],
+                    "block": failure["block"]
+                })
 
             # Set block on fully processed
             block.processed()
