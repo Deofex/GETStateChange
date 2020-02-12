@@ -17,5 +17,9 @@ urlpatterns = [
     path('events/<str:eventhash>',
         views.page_singleevent,
         name='page_singleevent'
+    ),
+    path('statechanges/<int:blocknumber>',
+        views.page_singleblock,
+        name='page_singleblock'
     )
 ]

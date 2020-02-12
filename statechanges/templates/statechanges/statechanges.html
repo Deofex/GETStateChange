@@ -105,14 +105,19 @@
                                 <p>Wirings: <span class="getcolor">{{ pageblock.wsum }}</span></p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn btn-primary btn-lg" href="{% url 'page_singleblock' blocknumber=pageblock.blocknumber%}" role="button">Get detailed block information</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
 
             </div>
             <ul class="nav nav-fill pagination">
-                <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
                 {% if pageblocks.has_previous %}
+                <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
                 <li class="nav-item"><a class="page-link"
                         href="?page={{ pageblocks.previous_page_number }}">Previous</a>
                 </li>

@@ -109,8 +109,8 @@
             {% endfor %}
         </div>
         <ul class="nav nav-fill pagination">
-            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
             {% if pageevents.has_previous %}
+            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
             <li class="nav-item"><a class="page-link" href="?page={{ pageevents.previous_page_number }}">Previous</a>
             </li>
             {% endif %}

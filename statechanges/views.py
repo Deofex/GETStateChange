@@ -157,10 +157,32 @@ def page_singleevent(request,eventhash):
         ticket_paginator.num_pages
     )
 
-
     return render(request,'statechanges/singleevent.html',{
         'event':event,
         'ticketcount':ticketcount,
         'pagetickets':pagetickets,
+        'pagenrs':pagenrs,
+    })
+
+def page_singleblock(request,blocknumber):
+    singleblock = Block.objects.get(blocknumber=blocknumber)
+    # Get a list with all Events with the latest updates
+    statechange_list = singleblock.statechange_set.all()
+    # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
+    statechange_paginator = Paginator(statechange_list,10)
+
+    page = request.GET.get('page')
+    if page == None:
+        page = 1
+    pagestatechanges = statechange_paginator.get_page(page)
+
+    pagenrs = get_paginationnrs(
+        page,
+        statechange_paginator.num_pages
+    )
+
+    return render(request,'statechanges/singleblock.html',{
+        'singleblock':singleblock,
+        'pagestatechanges':pagestatechanges,
         'pagenrs':pagenrs,
     })
