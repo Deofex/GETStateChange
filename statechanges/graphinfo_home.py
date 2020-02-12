@@ -1,6 +1,6 @@
 from django.db.models import Sum
 from .graphinfo_shared import GraphInfo, TimeRange
-from .models import Block
+from .models import Block,Event
 from datetime import datetime
 from datetime import timedelta
 
@@ -53,7 +53,7 @@ def get_buybackgraphinfo():
 # Get the number of statechanges of a specific firing processed in the last
 # 24 hours
 def get_statechangesfiringlast24h(firingtype):
-    # Enddate is now, start date i 1 day ago
+    # Enddate is now, start date is 1 day ago
     enddate = datetime.now()
     startdate = enddate - timedelta(days=1)
 
@@ -69,3 +69,16 @@ def get_statechangesfiringlast24h(firingtype):
 
     # Return the amount of statechanges
     return sumstatechanges
+
+# Function to get the number of events which were active in the last 24 hours
+def get_eventsactivelast24h():
+    # Enddate is now, start date is 1 day ago
+    enddate = datetime.now()
+    startdate = enddate - timedelta(days=1)
+
+    # Query the amount of events active in the last 24 hours
+    activeevents = Event.objects.filter(
+        lastupdate__range=[startdate,enddate]).count()
+
+    # Return the amount of events which were active alst 24 hours
+    return activeevents

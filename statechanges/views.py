@@ -5,7 +5,8 @@ from django.core.paginator import Paginator
 from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
     get_quartergraphinfo,get_wiringgraphinfo,get_statechangetypeslast30days,\
         get_burngraphinfo,get_paginationnrs
-from .graphinfo_home import get_buybackgraphinfo, get_statechangesfiringlast24h
+from .graphinfo_home import get_buybackgraphinfo,\
+    get_statechangesfiringlast24h,get_eventsactivelast24h
 
 # Create your views here.
 def page_statechanges(request):
@@ -79,9 +80,11 @@ def page_home(request):
     ticketssoldlast24h = get_statechangesfiringlast24h(2) + \
         get_statechangesfiringlast24h(3)
 
-    #Get the amount of tickets scanned in the last 24 hours
+    # Get the amount of tickets scanned in the last 24 hours
     ticketsscannedlast24h = get_statechangesfiringlast24h(11)
 
+    # Events active last 24 hours
+    eventsactivelast24h = get_eventsactivelast24h()
     # Get Burnback info:
     # GET price
     geteurprice = CryptoPrice.objects.filter(name="GET")[0].price_eur
@@ -104,6 +107,7 @@ def page_home(request):
         'buybackinfo':buybackinfo,
         'ticketssoldlast24h':ticketssoldlast24h,
         'ticketsscannedlast24h':ticketsscannedlast24h,
+        'eventsactivelast24h':eventsactivelast24h,
         'geteurprice':geteurprice,
         'burnbackvalue': burnbackvalue,
         'getburned': getburned,
@@ -111,7 +115,7 @@ def page_home(request):
         'navbar':'page_home'
     })
 
-def page_eventstatistics(request):
-    return render(request,'statechanges/eventstatistics.html',{
-        'navbar':'page_eventstatistics'
+def page_events(request):
+    return render(request,'statechanges/events.html',{
+        'navbar':'page_events'
     })
