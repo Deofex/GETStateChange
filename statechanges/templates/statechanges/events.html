@@ -6,7 +6,8 @@
             <h1 class="display-7">Events</h1>
             <p class="lead">The places where GET flows</p>
             <p>Tickets are used at different events. A plane flight, a cabaret show, a festival. This page is displaying
-                the different events for which GET is used and their statistics. However, it doesn’t show the name of the
+                the different events for which GET is used and their statistics. However, it doesn’t show the name of
+                the
                 events. This is caused by the circumstance that the GET foundation isn’t publishing event names publicly
                 (yet). Publishing event names on the blockchain, would spoil the
                 announcements which is done by event organizer. With some dedication, you will be able to link an
@@ -20,16 +21,26 @@
 
 <div class="row">
     <div class="col">
+        <div class="jumbotron">
+            <h1 class="display-7">Eventlist</h1>
+            <p class="lead">A list with all the events </p>
+            <p>Below you can find a list with all events using GET. The ones which have statechanges recently are on top.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
         <div id="accordion" role="tablist" aria-multiselectable="true">
             <div class="d-none d-sm-block">
                 <div class="card">
                     <h6 class="card-header" role="tab" id="headingOne">
                         <a data-parent="#accordion" class="d-block">
                             <div class="row no-gutters align-items-center">
-                                <div class="col-8">
+                                <div class="col-9">
                                     <p><b>Event Details</b></p>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3">
                                     <p><b>Total Statechanges</b></p>
                                 </div>
                             </div>
@@ -44,13 +55,13 @@
                     <a data-toggle="collapse" data-parent="#accordion" href="#batch{{ pageevent.hash }}"
                         aria-expanded="true" aria-controls="batch{{ pageevent.hash }}" class="d-block">
                         <div class="row no-gutters align-items-center">
-                            <div class="col-8">
+                            <div class="col-9">
 
                                 <p><b>Creation date:</b> {{ pageevent.block.date |date:"d-m-Y"}}</p>
                                 <p><b>Hash:</b> {{ pageevent.hash }}</p>
 
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="d-sm-none">
                                     <p><b>State Changes:</b> {{ pageevent.totalsum }}</p>
                                 </div>
@@ -86,6 +97,11 @@
                             <p>Tickets scanned: <span class="getcolor">{{ pageevent.f11sum }}</span></p>
                             <p>Show over: <span class="getcolor">{{ pageevent.f12sum }}</span></p>
                             <p>Tickets unblocked: <span class="getcolor">{{ pageevent.f13sum }}</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary btn-lg" href="{% url 'page_singleevent' eventhash=pageevent.hash %}" role="button">Show tickets of the event.</a>
                         </div>
                     </div>
                 </div>

@@ -117,7 +117,7 @@ def page_home(request):
 def page_events(request):
     # Get a list with all Events with the latest updates
     event_list = Event.objects.exclude(totalsum = 0).order_by(
-        "totalsum").reverse()
+        "lastupdate").reverse()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
     event_paginator = Paginator(event_list,10)
 
@@ -137,4 +137,30 @@ def page_events(request):
         'pagenrs':pagenrs,
         'wiringgraphinfo':wiringgraphinfo,
         'navbar':'page_events'
+    })
+
+def page_singleevent(request,eventhash):
+    event = Event.objects.get(hash=eventhash)
+    ticketcount = event.ticket_set.all().count()
+    # Get a list with all Events with the latest updates
+    ticket_list = event.ticket_set.all()
+    # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
+    ticket_paginator = Paginator(ticket_list,10)
+
+    page = request.GET.get('page')
+    if page == None:
+        page = 1
+    pagetickets = ticket_paginator.get_page(page)
+
+    pagenrs = get_paginationnrs(
+        page,
+        ticket_paginator.num_pages
+    )
+
+
+    return render(request,'statechanges/singleevent.html',{
+        'event':event,
+        'ticketcount':ticketcount,
+        'pagetickets':pagetickets,
+        'pagenrs':pagenrs,
     })

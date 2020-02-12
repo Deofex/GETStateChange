@@ -1,0 +1,116 @@
+{% extends 'statechanges/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="jumbotron">
+            <h1 class="display-7">Event: {{event.hash}}</h1>
+            <p class="lead">An event which was published on the blockchain on: {{event.block.date |date:"d-m-Y H:i"}}
+            </p>
+            <p>
+                This event contains <b class=getcolor>{{ticketcount}}</b> tickets and those tickets were responsible for
+                <b class=getcolor>{{event.totalsum}}</b> statechanges.
+                The table below shows the tickets sold for this event.
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="d-none d-sm-block">
+                <div class="card">
+                    <h6 class="card-header" role="tab" id="headingOne">
+                        <a data-parent="#accordion" class="d-block">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col">
+                                    <p><b>Ticket details</b></p>
+                                </div>
+                            </div>
+                        </a>
+                    </h6>
+                </div>
+            </div>
+            {% for pageticket in pagetickets%}
+            <div class="card">
+                <h8 class="card-header" role="tab" id="headingOne">
+                    <a data-parent="#accordion">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col">
+                                <p><b>Ticket Hash:</b> {{ pageticket.hash }}</p>
+                                {% for statechange in pageticket.statechange_set.all %}
+                                    {% if statechange.firing == 0 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket Created</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 1 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket Blocked></b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 2 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket Sold in the Primary market</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 3 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket sold in the secondary market</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 4 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket bought back</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 5 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket cancelled</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 6 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket put for sale</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 7 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>No Show</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 8 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket not resold</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 9 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>>Ticket not sold in the primary market</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 10 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket not sold in the secondary market</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 11 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket scanned</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 12 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>>Show over</b></p>
+                                    {% endif %}
+                                    {% if statechange.firing == 13 %}
+                                    <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>Ticket unblocked</b></p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </a>
+                </h8>
+            </div>
+            {% endfor %}
+        </div>
+        <ul class="nav nav-fill pagination">
+            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
+            {% if pagetickets.has_previous %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pagetickets.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            {% for pagenr in pagenrs %}
+            {% if pagenr == pagetickets.number %}
+            <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
+            </li>
+            {% endif %}
+            {% if pagenr != pagetickets.number %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if pagetickets.has_next %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pagetickets.next_page_number }}">Next</a>
+            </li>
+            <li class="nav-item"><a class="page-link" href="?page={{ pagetickets.paginator.num_pages }}">Last</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
