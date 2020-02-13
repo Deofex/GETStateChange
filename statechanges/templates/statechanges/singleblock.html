@@ -1,0 +1,120 @@
+{% extends 'statechanges/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="jumbotron">
+            <h1 class="display-7">Block: {{singleblock.blocknumber}}</h1>
+            <p class="lead">This block was published on the blockchain on: {{block.date |date:"d-m-Y H:i"}}
+            </p>
+            <p>
+                This block contains <b class=getcolor>{{singleblock.totalsum}}</b> statechanges. The table below shows
+                the statechanges published in this block.
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="d-none d-sm-block">
+                <div class="card">
+                    <h6 class="card-header" role="tab" id="headingOne">
+                        <a data-parent="#accordion" class="d-block">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col">
+                                    <p><b>Block details</b></p>
+                                </div>
+                            </div>
+                        </a>
+                    </h6>
+                </div>
+            </div>
+            {% for pagestatechange in pagestatechanges%}
+            <div class="card">
+                <h8 class="card-header" role="tab" id="headingOne">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-1">
+                                <p><i class="fa fa-link"></i></p>
+                            </div>
+                            <div class="col-9">
+                                {% if pagestatechange.firing == 0 %}
+                                <p><b class="getcolor">Ticket Created</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 1 %}
+                                <p><b class="getcolor">Ticket Blocked></b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 2 %}
+                                <p><b class="getcolor">Ticket Sold in the Primary market</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 3 %}
+                                <p><b class="getcolor">Ticket sold in the secondary market</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 4 %}
+                                <p><b class="getcolor">Ticket bought back</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 5 %}
+                                <p><b class="getcolor">Ticket cancelled</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 6 %}
+                                <p><b class="getcolor">Ticket put for sale</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 7 %}
+                                <p><b class="getcolor">No Show</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 8 %}
+                                <p><b class="getcolor">Ticket not resold</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 9 %}
+                                <p><b class="getcolor">>Ticket not sold in the primary market</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 10 %}
+                                <p><b class="getcolor">Ticket not sold in the secondary market</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 11 %}
+                                <p><b class="getcolor">Ticket scanned</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 12 %}
+                                <p><b class="getcolor">>Show over</b></p>
+                                {% endif %}
+                                {% if pagestatechange.firing == 13 %}
+                                <p><b class="getcolor">Ticket unblocked</b></p>
+                                {% endif %}
+                                <p><b>Statechange hash:</b> {{ pagestatechange.hash }}</p>
+                                <p><b>Statechange corresponding event:</b> {{pagestatechange.ticket.event.hash}}</p>
+                            </div>
+                            <div class="col-2">
+                                <a class="btn btn-primary btn-lg"
+                                    href="{% url 'page_singleevent' eventhash=pagestatechange.ticket.event.hash%}"
+                                    role="button">Go to Event</a>
+                            </div>
+                        </div>
+                </h8>
+            </div>
+            {% endfor %}
+        </div>
+        <ul class="nav nav-fill pagination">
+            {% if pagestatechanges.has_previous %}
+            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
+            <li class="nav-item"><a class="page-link"
+                    href="?page={{ pagestatechanges.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            {% for pagenr in pagenrs %}
+            {% if pagenr == pagestatechanges.number %}
+            <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
+            </li>
+            {% endif %}
+            {% if pagenr != pagestatechanges.number %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if pagestatechanges.has_next %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pagestatechanges.next_page_number }}">Next</a>
+            </li>
+            <li class="nav-item"><a class="page-link" href="?page={{ pagestatechanges.paginator.num_pages }}">Last</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

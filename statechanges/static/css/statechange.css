@@ -29,8 +29,9 @@ p.blocktext {
     background-color: #000000;
 }
 
-.nav.pagination{
+.nav.pagination {
     margin-bottom: 15px;
+    margin-top: 10px;
 }
 
 body {
@@ -56,7 +57,8 @@ body {
 }
 
 body {
-    color: #ffffff
+    color: #ffffff;
+    padding-top: 80px;
 }
 
 .btn-primary {
@@ -83,4 +85,64 @@ body {
 
 img {
     max-width: 100%;
+}
+
+img.cardmid {
+    max-height: 15vh;
+}
+
+.navbar {
+    color: #FFFFFF;
+    background-color: #01C696;
+}
+
+.navbar-nav {
+    float: none;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+}
+
+.navbar-nav>li {
+    display: inline-block;
+    float: none;
+}
+
+.nav-link {
+    font-size: large;
+}
+
+.jumbotron {
+    background-color: #343a40;
+}
+
+.card-body.center {
+    text-align: center;
+}
+
+.getcolor {
+    color: #01C696
+}
+
+p {
+    color: white;
+}
+
+.d-sm-none {
+    color: white;
+}
+
+.dropdown-menu {
+
+    background: #343a40;
+}
+.dropdown-item {
+    color: white;
+}
+
+
+@media (max-device-width: 576px) {
+    .card {
+        margin-bottom: 4px;
+    }
 }

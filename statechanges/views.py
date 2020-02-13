@@ -1,356 +1,25 @@
 from django.shortcuts import render
-from .models import StateChange
+from .models import Block, Event
 from .models import CryptoPrice
-from .models import BurnTransaction
 from django.core.paginator import Paginator
-from datetime import datetime
-from datetime import timedelta
-
-class TimeRange():
-    def __init__(self,startdate,enddate):
-        self.startdate = startdate
-        self.enddate = enddate
-
-class GraphInfo():
-    def __init__(self,periodname,value):
-        self.periodname = periodname
-        self.value = value
-
-class DoubleGraphInfo(GraphInfo):
-    def __init__(self, periodname, value, secondvalue):
-        super().__init__(periodname, value)
-        self.secondvalue = secondvalue
-
-def get_paginationnrs(page,paginatormaxnr):
-    currentpage = int(page)
-    if (currentpage + 7) > paginatormaxnr:
-        maxpage = paginatormaxnr + 1
-    else:
-        maxpage = currentpage + 7
-
-    # Set the temporary range to the current page, to the max page
-    pagenrs = range(currentpage,maxpage)
-
-    if (len(pagenrs) < 4):
-        if (currentpage - (8 - len(pagenrs))) < 1:
-            minpage = 1
-        else:
-            minpage = currentpage - (8 - len(pagenrs))
-    elif (currentpage - 3) < 1:
-        minpage = 1
-    else:
-        minpage = currentpage - 3
-
-    pagenrs = range(minpage,maxpage)
-
-    if len(pagenrs) > 7:
-        pagenrs = pagenrs[:7]
-
-    return pagenrs
-
-
-# This function provide 12 timeranges (one range is one month)
-# One timerange is a month from the beginning until the end of a calendar month
-def get_monthtimerange():
-    # Get the current year and month
-    currentmonth = datetime.now().month
-    currentyear = datetime.now().year
-    # Create a list where to store the date ranges (this will be returned)
-    timeranges = []
-    # The Startdate of the first timerange is the first day of the current month
-    startdate = datetime(currentyear,currentmonth,1)
-    # Determine the first day of the next month and save this
-    if currentmonth == 12:
-        enddate = datetime((currentyear + 1), 1, 1)
-    else:
-        enddate = datetime(currentyear,(currentmonth + 1),1)
-    # Combine the start and end date and add this in the timeranges list
-    timeranges.append(TimeRange(
-        startdate,
-        enddate - timedelta(seconds=1)
-    ))
-    # Determine the other 11 timezones bij doing the same as the first month
-    # but go back in time one month each time.
-    for i in range(1,12):
-        enddate = datetime(currentyear, currentmonth, 1)
-        if currentmonth == 1:
-            currentmonth = 12
-            currentyear = currentyear - 1
-        else:
-            currentmonth = currentmonth - 1
-        startdate = datetime(currentyear,(currentmonth ),1)
-        timeranges.append(TimeRange(
-            startdate,
-            enddate - timedelta(seconds=1)
-        ))
-    # Reverse the list
-    timeranges.reverse()
-    # Return the timeranges
-    return timeranges
-
-def get_quartertimerange():
-    # Get the current year and month
-    date = datetime.now()
-    currentmonth = datetime.now().month
-    currentyear = datetime.now().year
-    # Create a list where to store the date ranges (this will be returned)
-    timeranges = []
-
-    # Get the last 12 quarters
-    for x in range(12):
-        if date.month < 4:
-            startdate = datetime(date.year, 1, 1)
-            enddate = datetime(date.year, 3, 31, 23, 59, 59)
-        elif date.month < 7:
-            startdate = datetime(date.year, 4, 1)
-            enddate = datetime(date.year, 6, 30, 23, 59, 59)
-        elif date.month < 10:
-            startdate = datetime(date.year, 7, 1)
-            enddate = datetime(date.year, 9, 30, 23, 59, 59)
-        else:
-            startdate = datetime(date.year, 10, 1)
-            enddate = datetime(date.year, 12, 31, 23, 59, 59)
-
-        # Add the quarter to the timerange
-        timeranges.append(TimeRange(
-            startdate,
-            enddate - timedelta(seconds=1)
-        ))
-        # Set the date to a previous quarter (1 seconds before the start time)
-        # to let the next run get the previous quarter dates.
-        date = startdate - timedelta(seconds=1)
-
-    # Reverse the list
-    timeranges.reverse()
-    # Return the timeranges
-    return timeranges
-
-# This function creates the info for the monthly statechanges graph
-def get_monthgraphinfo():
-    # Get the last 12 time ranges
-    timeranges = get_monthtimerange()
-    # Create an empty list to store the graph info in
-    graphinfo = []
-    # Foreach timerange retrieve the amount of statechanges and translate the
-    # month number and save both in the created list and return this object.
-    for timerange in timeranges:
-        # Get all statechanges batches in the timerange
-        statechangebatches = StateChange.objects.filter(
-            date__range=[timerange.startdate,timerange.enddate])
-
-        # Loop through the batches and get the sum of all state changes
-        sumstatechanges = 0
-        for statechangebatch in statechangebatches:
-            sumstatechanges += statechangebatch.sumstatechanges
-
-        # Create the label from the date in the following format day-month-year
-        label = timerange.startdate.strftime("%d-%m-%Y")
-
-        # Add the sum of the state changes and period name in an object and add
-        # this to the list
-        if sumstatechanges != 0:
-            graphinfo.append(GraphInfo(
-                label,
-                sumstatechanges
-            ))
-
-    # Return the list with the graph info
-    return graphinfo
-
-# This function creates the info for the quarter statechanges graph
-def get_quartergraphinfo():
-    # Get the last 12 time ranges
-    timeranges = get_quartertimerange()
-    # Create an empty list to store the graph info in
-    graphinfo = []
-    # Foreach timerange retrieve the amount of statechanges and translate the
-    # month number and save both in the created list and return this object.
-    for timerange in timeranges:
-        # Get all statechanges batches in the timerange
-        statechangebatches = StateChange.objects.filter(
-            date__range=[timerange.startdate,timerange.enddate])
-
-        # Loop through the batches and get the sum of all state changes
-        sumstatechanges = 0
-        for statechangebatch in statechangebatches:
-            sumstatechanges += statechangebatch.sumstatechanges
-
-        # Create the label from the date in the following format day-month-year
-        label = timerange.startdate.strftime("%d-%m-%Y")
-
-        # Add the sum of the state changes and period name in an object and add
-        # this to the list
-        if sumstatechanges != 0:
-            graphinfo.append(GraphInfo(
-                label,
-                sumstatechanges
-            ))
-
-    # Return the list with the graph info
-    return graphinfo
-
-
-# This function creates the info for the daily statechanges graph
-def get_daygraphinfo():
-    currentday = datetime.now().day
-    currentmonth = datetime.now().month
-    currentyear = datetime.now().year
-    startdate = datetime(currentyear,currentmonth,currentday)
-    enddate = startdate + timedelta(days=1)
-    graphinfo = []
-    for i in range(1,31):
-        # Get all statechanges batches in the timerange
-        statechangebatches = StateChange.objects.filter(
-            date__range=[startdate,enddate])
-        # Loop through the batches and get the sum of all state changes
-        sumstatechanges = 0
-
-        # Create the label from the date in the following format day-month-year
-        label = startdate.strftime("%d-%m-%Y")
-
-        # Loop through each state changes and add the number of state changes to
-        # the sumstatechanges variabele
-        for statechangebatch in statechangebatches:
-            sumstatechanges += statechangebatch.sumstatechanges
-
-        # Add the period to the graphinfo
-        graphinfo.append(GraphInfo(
-            label,
-            sumstatechanges
-        ))
-        # Go back in time 1 day for the next run
-        startdate = startdate - timedelta(days=1)
-        enddate = enddate - timedelta(days=1)
-
-    # Reverse the list created to get the oldest date on top
-    graphinfo.reverse()
-
-    # Return the list with the graph info
-    return graphinfo
-
-# This function creates the info for the daily wiring graph
-def get_wiringgraphinfo():
-    currentday = datetime.now().day
-    currentmonth = datetime.now().month
-    currentyear = datetime.now().year
-    startdate = datetime(currentyear,currentmonth,currentday)
-    enddate = startdate + timedelta(days=1)
-    graphinfo = []
-    for i in range(1,31):
-        # Get all statechanges batches in the timerange
-        statechangebatches = StateChange.objects.filter(
-            date__range=[startdate,enddate])
-        # Loop through the batches and get the sum of all state changes
-        wiringstatechanges = 0
-
-        # Create the label from the date in the following format day-month-year
-        label = startdate.strftime("%d-%m-%Y")
-
-        # Loop through each state changes and add the number of wirings to
-        # the wiring statechanges variabele
-        for statechangebatch in statechangebatches:
-            wiringstatechanges += statechangebatch.wiringscount
-
-        # Add the period to the graphinfo
-        graphinfo.append(GraphInfo(
-            label,
-            wiringstatechanges
-        ))
-
-        # Go back in time 1 day for the next run
-        startdate = startdate - timedelta(days=1)
-        enddate = enddate - timedelta(days=1)
-
-    # Reverse the list created to get the oldest date on top
-    graphinfo.reverse()
-
-    # Return the list with the graph info
-    return graphinfo
-
-# Get the state changes from the last 30 days
-def get_statechangetypeslast30days():
-    #Determine the start and
-    currentday = datetime.now().day
-    currentmonth = datetime.now().month
-    currentyear = datetime.now().year
-    enddate = datetime(currentyear,currentmonth,currentday)
-    startdate = enddate - timedelta(days=30)
-    # Get all statebatches from the last 30 days
-    statechangebatches = StateChange.objects.filter(
-            date__range=[startdate,enddate])
-    # Create an empty array
-    graphinfo = []
-    # Cycle through 0 to 13 (amount of state changes)
-    for i in range(0,14):
-        # Count the amount of state changes of the type firings + i
-        statechanges = 0
-        for statechangebatch in statechangebatches:
-            statechanges = statechanges + getattr(
-                statechangebatch, 'firings%dcount' %i)
-
-        # Get the label of the firing
-        nameconvert = {
-            0: "Tickets created",
-            1: "Tickets blocked",
-            2: "Tickets sold in the primary market",
-            3: "Tickets sold in secondary market",
-            4: "Tickets bought back",
-            5: "Tickets cancelled",
-            6: "Ticket put for sale",
-            7: "No Show",
-            8: "Not resold",
-            9: "Not sold in primary market",
-            10: "Not sold in secondary market",
-            11: "Tickets scanned",
-            12: "Show over",
-            13: "Tickets unblocked"
-        }
-        label = nameconvert.get(i, "Unknown")
-
-        # If more than 0 statechanges of the specific type occured, add it to
-        # the array
-        if statechanges != 0:
-            graphinfo.append(GraphInfo(
-                label,
-                statechanges
-            ))
-    # Return the array
-    return graphinfo
-
-
-def get_burngraphinfo():
-    # Total GET supply is 33,368,773
-    totalsupply = 33368773
-    supply = totalsupply
-    # Create an empty array
-    graphinfo = []
-    #Add each burntransaction to the array
-    for transaction in BurnTransaction.objects.all():
-        # Create the label from the date in the following format day-month-year
-        label = transaction.date.strftime("%d-%m-%Y")
-        # Supply = Supply - the amount of GET burned
-        supply = supply - transaction.getburned
-        procentburned = (totalsupply - supply) / (supply / 100)
-        #Add the graph information
-        graphinfo.append(DoubleGraphInfo(
-                label,
-                "{0:.0f}".format(supply),
-                "{0:.2f}".format(procentburned)
-            ))
-    return graphinfo
-
+from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
+    get_quartergraphinfo,get_statechangetypeslast30days,get_paginationnrs
+from .graphinfo_home import get_buybackgraphinfo,\
+    get_statechangesfiringlast24h,get_eventsactivelast24h,get_burngraphinfo
+from .graphinfo_events import get_wiringgraphinfo
 
 # Create your views here.
-def transaction_list(request):
+def page_statechanges(request):
     # Get a list with all statechanges with the highest blocknumer first
-    statechanges_list = StateChange.objects.order_by("blocknumber").reverse()
+    statechangesbatches_list = Block.objects.order_by(
+        "blocknumber").reverse()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
-    statechange_paginator = Paginator(statechanges_list,20)
+    statechange_paginator = Paginator(statechangesbatches_list,10)
 
     page = request.GET.get('page')
     if page == None:
         page = 1
-    statechanges = statechange_paginator.get_page(page)
+    pageblocks = statechange_paginator.get_page(page)
 
     pagenrs = get_paginationnrs(
         page,
@@ -361,9 +30,7 @@ def transaction_list(request):
     monthgraphinfo = get_monthgraphinfo()
     daygraphinfo = get_daygraphinfo()
     quartergraphinfo = get_quartergraphinfo()
-    wiringgraphinfo = get_wiringgraphinfo()
     statechangetypeslast30day = get_statechangetypeslast30days()
-    burngraphinfo = get_burngraphinfo()
 
     # Get Burnback info:
     # GET price
@@ -384,16 +51,143 @@ def transaction_list(request):
 
 
     return render(request,'statechanges/statechanges.html',{
-        'statechanges':statechanges,
+        'pageblocks':pageblocks,
         'pagenrs':pagenrs,
         'monthgraphinfo':monthgraphinfo,
         'daygraphinfo':daygraphinfo,
         'quartergraphinfo':quartergraphinfo,
-        'wiringgraphinfo':wiringgraphinfo,
-        'burngraphinfo':burngraphinfo,
         'statechangetypeslast30day':statechangetypeslast30day,
+        'burnbackvalue': burnbackvalue,
+        'navbar':'page_statechanges'
+        })
+
+
+
+# Create your views here.
+def page_home(request):
+    # Get buyback graph info
+    buybackinfo = get_buybackgraphinfo()
+
+    # Get the amount of tickets sold last 24 hours on the primaire and
+    # secondairy markets
+    ticketssoldlast24h = get_statechangesfiringlast24h(2) + \
+        get_statechangesfiringlast24h(3)
+
+    # Get the amount of tickets scanned in the last 24 hours
+    ticketsscannedlast24h = get_statechangesfiringlast24h(11)
+
+    # Events active last 24 hours
+    eventsactivelast24h = get_eventsactivelast24h()
+    # Get Burnback info:
+    # GET price
+    geteurprice = CryptoPrice.objects.filter(name="GET")[0].price_eur
+    # Amount of change changes:
+    statechangesbuyback = (float(buybackinfo[-1].value) / 0.07)
+    # Burn back value (statechanges x 0.07)
+    burnbackvalue = statechangesbuyback * 0.07
+    # GET burned:
+    getburned = burnbackvalue / geteurprice
+    # Open market burned:
+    openmarketgetburned = getburned / 100 * 58
+
+    # Get burn info
+    burngraphinfo = get_burngraphinfo()
+    #Roundup the numbers(afterward, to prevent wrong calculations):
+    burnbackvalue = "{0:.0f}".format(burnbackvalue)
+    getburned = "{0:.0f}".format(getburned)
+    openmarketgetburned = "{0:.0f}".format(openmarketgetburned)
+
+
+    return render(request,'statechanges/home.html',{
+        'buybackinfo':buybackinfo,
+        'ticketssoldlast24h':ticketssoldlast24h,
+        'ticketsscannedlast24h':ticketsscannedlast24h,
+        'eventsactivelast24h':eventsactivelast24h,
         'geteurprice':geteurprice,
         'burnbackvalue': burnbackvalue,
         'getburned': getburned,
-        'openmarketgetburned':openmarketgetburned
-        })
+        'openmarketgetburned':openmarketgetburned,
+        'burngraphinfo':burngraphinfo,
+        'navbar':'page_home'
+    })
+
+# Page view for a single event
+def page_events(request):
+    # Get a list with all Events sorted on the latest updates
+    event_list = Event.objects.exclude(totalsum = 0).order_by(
+        "lastupdate").reverse()
+    # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
+    event_paginator = Paginator(event_list,10)
+
+    # Get page numbers
+    page = request.GET.get('page')
+    if page == None:
+        page = 1
+    pageevents = event_paginator.get_page(page)
+
+    pagenrs = get_paginationnrs(
+        page,
+        event_paginator.num_pages
+    )
+
+    # Get information for the new event chart
+    wiringgraphinfo = get_wiringgraphinfo()
+    return render(request,'statechanges/events.html',{
+        'pageevents':pageevents,
+        'pagenrs':pagenrs,
+        'wiringgraphinfo':wiringgraphinfo,
+        'navbar':'page_events'
+    })
+
+# Page for a single event
+def page_singleevent(request,eventhash):
+    # Get all events
+    event = Event.objects.get(hash=eventhash)
+    # Count the amount of tickets corresponding to the event
+    ticketcount = event.ticket_set.all().count()
+    # Get a list with all tickets
+    ticket_list = event.ticket_set.all()
+    # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
+    ticket_paginator = Paginator(ticket_list,10)
+
+    page = request.GET.get('page')
+    if page == None:
+        page = 1
+    pagetickets = ticket_paginator.get_page(page)
+
+    pagenrs = get_paginationnrs(
+        page,
+        ticket_paginator.num_pages
+    )
+
+    return render(request,'statechanges/singleevent.html',{
+        'event':event,
+        'ticketcount':ticketcount,
+        'pagetickets':pagetickets,
+        'pagenrs':pagenrs,
+    })
+
+# Page for a single block
+def page_singleblock(request,blocknumber):
+    # Get the information from the block
+    singleblock = Block.objects.get(blocknumber=blocknumber)
+    # Get a list with all statechanges in the block
+    statechange_list = singleblock.statechange_set.all()
+    # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
+    statechange_paginator = Paginator(statechange_list,10)
+
+    page = request.GET.get('page')
+    if page == None:
+        page = 1
+    pagestatechanges = statechange_paginator.get_page(page)
+
+    pagenrs = get_paginationnrs(
+        page,
+        statechange_paginator.num_pages
+    )
+
+    return render(request,'statechanges/singleblock.html',{
+        'singleblock':singleblock,
+        'pagestatechanges':pagestatechanges,
+        'pagenrs':pagenrs,
+    })

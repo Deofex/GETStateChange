@@ -1,0 +1,158 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
+<script>
+    var ctx = document.getElementById('ChartBuyback').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for info in buybackinfo %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    datasets: [{
+        label: 'Buyback in €',
+        backgroundColor: '#000000',
+        borderColor: '#01C696',
+        data: [
+            {% for info in buybackinfo %}
+                    '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+                ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+            }]
+        },
+
+    // Configuration options go here
+    options: {
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+            },
+        hover: {
+            mode: 'nearest',
+                intersect: true
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    format: 'DD/MM/YYYY',
+                    unit: 'day'
+                },
+                display: true,
+                scaleLabel: {
+                    display: false,
+                    labelString: 'The current quarter',
+                    padding: 1
+                }
+            }]
+        }
+    }
+    });
+</script>
+
+<script>
+    var ctx = document.getElementById('BurnStatistics').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for info in burngraphinfo %}
+            '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    datasets: [{
+        label: 'GET left',
+        backgroundColor: '#000000',
+        borderColor: '#01C696',
+        data: [
+            {% for info in burngraphinfo %}
+                '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+                ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+                yAxisID: 'y-axis-1',
+            }, {
+        label: '% of GET burnt',
+            backgroundColor: '#000000',
+                borderColor: '#009397',
+                    data: [
+                        {% for info in burngraphinfo %}
+    '{{info.secondvalue}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+                ],
+    pointBorderColor: '#009397',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+                yAxisID: 'y-axis-2',
+            }]
+        },
+
+    // Configuration options go here
+    options: {
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+            },
+        hover: {
+            mode: 'nearest',
+                intersect: true
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    format: 'DD/MM/YYYY',
+                    displayFormats: {
+                        month: 'MMM-YYYY'
+                    }
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date',
+                    padding: 1
+                },
+                ticks: {
+                    autoskip: true,
+                    autoSkipPadding: 60
+                }
+            }],
+                yAxes: [{
+                    id: 'y-axis-1',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }, {
+                    id: 'y-axis-2',
+                    position: 'right',
+                    ticks: {
+                        beginAtZero: true,
+                        suggestedMax: 2
+                    }
+                }]
+        },
+        legend: {
+            align: "middle"
+        },
+        ticks: {
+            source: 'data'
+        }
+    }
+    });
+</script>

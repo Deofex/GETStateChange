@@ -1,0 +1,94 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GET State Changes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/statechange.css' %}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg">
+        <a class="navbar-brand">
+            <img src="{% static 'images/navimage.png' %}" height="30" class="d-inline-block align-top" alt="">
+            GET Protocol Fansite
+        </a>
+        <div class="d-none d-lg-block">
+            <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item {% if navbar == 'page_home' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'page_home' %}">Home</a>
+                    </li>
+                    <li class="nav-item {% if navbar == 'page_statechanges' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'page_statechanges' %}">Statechanges</a>
+                    </li>
+                    <li class="nav-item {% if navbar == 'page_events' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'page_events' %}">Events</a>
+                    </li>
+            </ul>
+        </div>
+        <div class="d-lg-none">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Menu
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'page_home' %}">Home</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'page_statechanges' %}">Statechanges</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'page_events' %}">Events</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+
+        {% block content %}
+        {% endblock %}
+
+        <div class="row">
+            <div class="col">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">This site is created by and for the GET community.</h5>
+                        <p class="card-text">Join the GET community on Telegram, we will welcome you, like you, love
+                            you
+                            and tell you everything you want to know about the GET Protocol project.</p>
+                        <a href="https://t.me/getprotocol" class="btn btn-primary">Join GET Telegram</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        This website is not affiliated with the GET Protocol Foundation. All the
+                        information on this website is published in good faith and for general information purpose
+                        only. If you notice bugs or have suggestions please contact Deofex via the GET Protocol
+                        Telegram channel (see button above). If you are a website designer/developer and want to
+                        improve
+                        this site, speak to him or check the source on the GitHub.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    {% block additionalscripts %}
+    {% endblock %}
+</body>
+
+</html>

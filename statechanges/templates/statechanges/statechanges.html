@@ -1,676 +1,183 @@
+{% extends 'statechanges/base.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
+{% block content %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>GET State Changes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/statechange.css' %}">
-</head>
-
-
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-8">
-                <div class="page-header">
-                    <h1><img src="{% static 'images/headerimage.png' %}" class="img-rounded" alt="GET header image"><a
-                            href="/">GET
-                            State Changes</a></h1>
+<div class="row">
+    <div class="col">
+        <div class="jumbotron">
+            <h1 class="display-7">StateChanges</h1>
+            <p class="lead">The proof that GET is alive and kicking</p>
+            <p>
+                A ticket is going through different states. It’s created, unblocked, sold to an end user, maybe it’s
+                resold to someone else, it’s scanned at the event etc. Each of those actions, called statechanges, are
+                registered and is made public. This page is displaying the amount of statechanges which are registered.
+                It shows the usage of GET and can help you to determine how much <b class=getcolor>GET</b> will be bough
+                back from the market.
+                <div class="card-body fixmidsize">
+                    <canvas id="ChartStateChangesDay"></canvas>
                 </div>
-            </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="col">
-                    <div class="card prognose">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-sm-4">
-                                <img src="{% static 'images/buyback.png' %}" class="card-img-middle" alt="buyback">
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="card-body">
-                                    <h5>Projection: Based on the last buyback.</h5>
-                                    <p>For each state change being processed the GET token is needed. The amount of GET
-                                        which is needed is partially bought back from the market and partially
-                                        subsidized by the User Growth Fund. In the last buyback a single statechange
-                                        cost €0.07 If this remains the same we can expect
-                                        <b>{{getburned}}</b> GET to be burned this quarter with a
-                                        value of <b>€{{burnbackvalue}}</b>. In total
-                                        <b>{{openmarketgetburned}}</b> GET will be bought back from the open market.
-                                        This is based on the current price of GET
-                                        being <b>€{{geteurprice}}</b></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="d-none d-sm-block">
+                    <div class="card">
+                        <h6 class="card-header" role="tab" id="headingOne">
+                            <a data-parent="#accordion" class="d-block">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4">
+                                        <p><b>Date</b></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p><b>Blocknumber</b></p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p><b>Total Statechanges</b></p>
+                                    </div>
+                                </div>
+
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                {% for pageblock in pageblocks %}
+                <div class="card">
+                    <h8 class="card-header" role="tab" id="headingOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#batch{{ pageblock.blocknumber }}"
+                            aria-expanded="true" aria-controls="batch{{ pageblock.blocknumber }}" class="d-block">
+                            <div class="row no-gutters align-items-center">
+                                <div class=col-md-1>
+                                    <p><i class="fa fa-exchange"></i></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-sm-none">
+                                        <p><b>Date:</b> {{ pageblock.date |date:"d-m-Y H:i" }}</p>
+                                    </div>
+                                    <div class="d-none d-sm-block">
+                                        <p>{{ pageblock.date |date:"d-m-Y H:i" }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-sm-none">
+                                        <p><b>Blocknumber:</b> {{ pageblock.blocknumber }}</p>
+                                    </div>
+                                    <div class="d-none d-sm-block">
+                                        <p>{{ pageblock.blocknumber }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-sm-none">
+                                        <p><b>Total statechanges:</b> {{ pageblock.totalsum }}</p>
+                                    </div>
+                                    <div class="d-none d-sm-block">
+                                        <p>{{ pageblock.totalsum }}</p>
+                                    </div>
                                 </div>
                             </div>
+
+                        </a>
+                    </h8>
+                </div>
+                <div id="batch{{ pageblock.blocknumber }}" class="collapse" role="tabpanel"
+                    aria-labelledby="headingOne">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p>Tickets created: <span class="getcolor">{{ pageblock.f0sum }}</span></p>
+                                <p>Tickets blocked: <span class="getcolor">{{ pageblock.f1sum }}</span></p>
+                                <p>Tickets sold in the primary market: <span
+                                        class="getcolor">{{ pageblock.f2sum }}</span></p>
+                                <p>Tickets sold in secondary market: <span class="getcolor">{{ pageblock.f3sum }}</span>
+                                </p>
+                                <p>Tickets bought back: <span class="getcolor">{{ pageblock.f4sum }}</span></p>
+                                <p>Tickets cancelled: <span class="getcolor">{{ pageblock.f5sum }}</span></p>
+                                <p>Ticket put for sale:<span class="getcolor">{{ pageblock.f6sum }}</span></p>
+                                <p>No Show: <span class="getcolor">{{ pageblock.f7sum }}</span></p>
+
+                            </div>
+                            <div class="col">
+                                <p>Not resold: <span class="getcolor">{{ pageblock.f8sum }}</span></p>
+                                <p>Not sold in primary market: <span class="getcolor">{{ pageblock.f9sum }}</span></p>
+                                <p>Not sold in secondary market: <span class="getcolor">{{ pageblock.f10sum }}</span>
+                                </p>
+                                <p>Tickets scanned: <span class="getcolor">{{ pageblock.f11sum }}</span></p>
+                                <p>Show over: <span class="getcolor">{{ pageblock.f12sum }}</span></p>
+                                <p>Tickets unblocked: <span class="getcolor">{{ pageblock.f13sum }}</span></p>
+                                <p>Wirings: <span class="getcolor">{{ pageblock.wsum }}</span></p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <table border=1 class="table table-condensed table-hover table-bordered table-dark table-sm"
-                        style="border-collapse:collapse;">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <p>Date</p>
-                                </th>
-                                <th>
-                                    <p>Blocknumber</p>
-                                </th>
-                                <th>
-                                    <p>Total state changes</p>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for statechange in statechanges %}
-                            <tr data-toggle="collapse" data-target="#statechange{{ statechange.blocknumber }}"
-                                class="accordion-toggle">
-                                <td>
-                                    <p>{{ statechange.date |date:"d-m-Y H:i" }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ statechange.blocknumber }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ statechange.sumstatechanges }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="hiddenRow">
-                                    <div style="text-align: center;" class="accordian-body collapse"
-                                        id="statechange{{ statechange.blocknumber }}">
-                                        <p>The following state changes have been found in this block:</p>
-                                        <div style="display: inline-block; text-align: left;">
-                                            <p>
-                                                <table border=2 class="table table-bordered table-dark">
-                                                    <tr>
-                                                        <td><i>Tickets created</i></td>
-                                                        <td>{{ statechange.firings0count }}</td>
-                                                        <td><i>Tickets blocked</i></td>
-                                                        <td>{{ statechange.firings1count }}</td>
-                                                        <td><i>Tickets sold in the primary market</i></td>
-                                                        <td>{{ statechange.firings2count }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i>Tickets sold in secondary market</i></td>
-                                                        <td>{{ statechange.firings3count }}</td>
-                                                        <td><i>Tickets bought back</i></td>
-                                                        <td>{{ statechange.firings4count }}</td>
-                                                        <td><i>Tickets cancelled</i></td>
-                                                        <td>{{ statechange.firings5count }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i>Ticket put for sale</i></td>
-                                                        <td>{{ statechange.firings6count }}</td>
-                                                        <td><i>No Show</i></td>
-                                                        <td>{{ statechange.firings7count }}</td>
-                                                        <td><i>Not resold</i></td>
-                                                        <td>{{ statechange.firings8count }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i>Not sold in primary market</i></td>
-                                                        <td>{{ statechange.firings9count }}</td>
-                                                        <td><i>Not sold in secondary market</i></td>
-                                                        <td>{{ statechange.firings10count }}</td>
-                                                        <td><i>Tickets scanned</i></td>
-                                                        <td>{{ statechange.firings11count }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i>Show over</i></td>
-                                                        <td>{{ statechange.firings12count }}</td>
-                                                        <td><i>Tickets unblocked</i></td>
-                                                        <td>{{ statechange.firings13count }}</td>
-                                                        <td><i>Wirings</i></td>
-                                                        <td>{{ statechange.wiringscount }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i>Unknown</i></td>
-                                                        <td>{{ statechange.unknownscount }}</td>
-                                                    </tr>
-                                                </table>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-
-
-                    <ul class="nav nav-fill pagination">
-                        <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
-                        {% if statechanges.has_previous %}
-                        <li class="nav-item"><a class="page-link"
-                                href="?page={{ statechanges.previous_page_number }}">Previous</a>
-                        </li>
-                        {% endif %}
-                        {% for pagenr in pagenrs %}
-                        {% if pagenr == statechanges.number %}
-                        <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
-                        </li>
-                        {% endif %}
-                        {% if pagenr != statechanges.number %}
-                        <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
-                        {% endif %}
-                        {% endfor %}
-                        {% if statechanges.has_next %}
-                        <li class="nav-item"><a class="page-link"
-                                href="?page={{ statechanges.next_page_number }}">Next</a>
-                        </li>
-                        <li class="nav-item"><a class="page-link"
-                                href="?page={{ statechanges.paginator.num_pages }}">Last</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-
-                </div>
-            </div>
-            <div class="col">
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body fixmidsize">
-                            <canvas id="ChartStateChangesDay"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body fixmidsize">
-                            <canvas id="ChartStateChangesMonth"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body fixmidsize">
-                            <canvas id="ChartStateChangesQuarter"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body fixmidsize">
-                            <canvas id="ChartWiringsDay"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card graph">
-                        <div class="card-body fixmidsize">
-                            <canvas id="BurnStatistics"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-7">
-                <div class="card graph">
-                    <div class="card-body fixbigsize">
-                        <canvas id="StateChangeTypesLast30Days"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="card prognose">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-sm-4">
-                            <img src="{% static 'images/deofex.png' %}" class="card-img-middle" alt="Deofex Avatar">
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="card-body">
-                                <h5 class="card-title">A word</h5>
-                                <p>Hi guys, I'm trying to maintain this site when possible When you have new idea's
-                                    for widgets, or want to see more data, please speak to me on Telegram.</p>
-                                <p>All data on this site is dynamic and updated 5 minutes after each full hour.</p>
-                                <p>Cheers, Deofex</p>
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn btn-primary btn-lg" href="{% url 'page_singleblock' blocknumber=pageblock.blocknumber%}" role="button">Get detailed block information</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">This site is created by and for the GET community.</h5>
-                        <p class="card-text">Join the GET community on Telegram, we will welcome you, like you, love you
-                            and tell you everything you want to know about the GET Protocol project.</p>
-                        <a href="https://t.me/getprotocol" class="btn btn-primary">Join GET Telegram</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        This website is not affiliated with the GET Protocol Foundation. All the
-                        information on this website is published in good faith and for general information purpose
-                        only. If you notice bugs or have suggestions please contact Deofex via the GET Protocol
-                        Telegram channel (see button above). If you are a website designer/developer and want to improve
-                        this site, speak to him or check the source on the GitHub.
-                    </div>
-                </div>
+            <ul class="nav nav-fill pagination">
+                {% if pageblocks.has_previous %}
+                <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
+                <li class="nav-item"><a class="page-link"
+                        href="?page={{ pageblocks.previous_page_number }}">Previous</a>
+                </li>
+                {% endif %}
+                {% for pagenr in pagenrs %}
+                {% if pagenr == pageblocks.number %}
+                <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
+                </li>
+                {% endif %}
+                {% if pagenr != pageblocks.number %}
+                <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if pageblocks.has_next %}
+                <li class="nav-item"><a class="page-link" href="?page={{ pageblocks.next_page_number }}">Next</a>
+                </li>
+                <li class="nav-item"><a class="page-link" href="?page={{ pageblocks.paginator.num_pages }}">Last</a>
+                </li>
+                {% endif %}
+            </ul>
+    </div>
+</div>
+<div class="row">
+
+
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartStateChangesMonth"></canvas>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
 
-    <script>
-        var ctx = document.getElementById('ChartStateChangesMonth').getContext('2d');
-        Chart.defaults.global.defaultFontColor = '#ffffff';
-        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
-        Chart.defaults.global.defaultFontSize = 16;
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [
-                    {% for info in monthgraphinfo %}
-                    '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                ],
-        datasets: [{
-            label: 'State Changes per Month',
-            backgroundColor: '#000000',
-            borderColor: '#01C696',
-            data: [
-                {% for info in monthgraphinfo %}
-                        '{{info.value}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                    ],
-        pointBorderColor: '#01C696',
-            pointBackgroundColor: '#ffffff',
-                fontColor: '#ffffff',
-                }]
-            },
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartStateChangesQuarter"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 
-        // Configuration options go here
-        options: {
-            maintainAspectRatio: false,
-                responsive: true,
-                    tooltips: {
-                mode: 'index',
-                    intersect: false,
-                },
-            hover: {
-                mode: 'nearest',
-                    intersect: true
-            },
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        format: 'DD/MM/YYYY',
-                        unit: 'month',
-                        displayFormats: {
-                            month: 'MMM-YYYY',
-                        }
-                    },
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Month'
-                    }
-                }],
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-            }
-        }
-        });
-    </script>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card graph">
+            <div class="card-body fixbigsize">
+                <canvas id="StateChangeTypesLast30Days"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        var ctx = document.getElementById('ChartStateChangesQuarter').getContext('2d');
-        Chart.defaults.global.defaultFontColor = '#ffffff';
-        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
-        Chart.defaults.global.defaultFontSize = 16;
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [
-                    {% for info in quartergraphinfo %}
-                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-            ],
-        datasets: [{
-            label: 'State Changes per Quarter',
-            backgroundColor: '#000000',
-            borderColor: '#01C696',
-            data: [
-                {% for info in quartergraphinfo %}
-                    '{{info.value}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                ],
-        pointBorderColor: '#01C696',
-            pointBackgroundColor: '#ffffff',
-                fontColor: '#ffffff',
-            }]
-        },
 
-        // Configuration options go here
-        options: {
-            maintainAspectRatio: false,
-                responsive: true,
-                    tooltips: {
-                mode: 'index',
-                    intersect: false,
-            },
-            hover: {
-                mode: 'nearest',
-                    intersect: true
-            },
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        format: 'DD/MM/YYYY',
-                        unit: 'quarter'
-                    },
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Quarter'
-                    }
-                }],
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-            }
-        }
-    });
-    </script>
-
-    <script>
-        var ctx = document.getElementById('ChartStateChangesDay').getContext('2d');
-        Chart.defaults.global.defaultFontColor = '#ffffff';
-        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
-        Chart.defaults.global.defaultFontSize = 16;
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [
-                    {% for info in daygraphinfo %}
-                    '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                ],
-        datasets: [{
-            label: 'State Changes per day',
-            backgroundColor: '#000000',
-            borderColor: '#01C696',
-            data: [
-                {% for info in daygraphinfo %}
-                        '{{info.value}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                    ],
-        pointBorderColor: '#01C696',
-            pointBackgroundColor: '#ffffff',
-                fontColor: '#ffffff',
-                }]
-            },
-
-        // Configuration options go here
-        options: {
-            maintainAspectRatio: false,
-                responsive: true,
-                    tooltips: {
-                mode: 'index',
-                    intersect: false,
-                },
-            hover: {
-                mode: 'nearest',
-                    intersect: true
-            },
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        format: 'DD/MM/YYYY',
-                        unit: 'day'
-                    },
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Last 30 days',
-                        padding: 1
-                    }
-                }]
-            }
-        }
-        });
-    </script>
-
-    <script>
-        var ctx = document.getElementById('ChartWiringsDay').getContext('2d');
-        Chart.defaults.global.defaultFontColor = '#ffffff';
-        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
-        Chart.defaults.global.defaultFontSize = 16;
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [
-                    {% for info in wiringgraphinfo %}
-                    '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                ],
-        datasets: [{
-            label: 'New petri-nets (new events)',
-            backgroundColor: '#000000',
-            borderColor: '#01C696',
-            data: [
-                {% for info in wiringgraphinfo %}
-                        '{{info.value}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                    ],
-        pointBorderColor: '#01C696',
-            pointBackgroundColor: '#ffffff',
-                fontColor: '#ffffff',
-                }]
-            },
-
-        // Configuration options go here
-        options: {
-            maintainAspectRatio: false,
-                responsive: true,
-                    tooltips: {
-                mode: 'index',
-                    intersect: false,
-                },
-            hover: {
-                mode: 'nearest',
-                    intersect: true
-            },
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        format: 'DD/MM/YYYY',
-                        unit: 'day'
-                    },
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Last 30 days',
-                        padding: 1
-                    }
-                }]
-            }
-        }
-        });
-    </script>
-
-    <script>
-        var ctx = document.getElementById('StateChangeTypesLast30Days').getContext('2d');
-        Chart.defaults.global.defaultFontColor = '#ffffff';
-        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
-        Chart.defaults.global.defaultFontSize = 16;
-        var chart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: [
-                    {% for info in statechangetypeslast30day %}
-                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-            ],
-        datasets: [{
-            label: 'New petri-nets (new events)',
-            backgroundColor: [
-                '#01c696',
-                '#00ad9b',
-                '#009397',
-                '#00798a',
-                '#206074',
-                '#2f4858',
-                '#48d1cc'
-            ],
-            borderColor: '#01C696',
-            data: [
-                {% for info in statechangetypeslast30day %}
-                    '{{info.value}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                ],
-        pointBorderColor: '#01C696',
-            pointBackgroundColor: '#ffffff',
-                fontColor: '#ffffff',
-            }]
-        },
-
-        // Configuration options go here
-        options: {
-            title: {
-                display: true,
-                    text: 'Amount of ticket statechanges in the last 30 days per statechange type'
-            },
-            maintainAspectRatio: false,
-                responsive: true,
-                    tooltips: {
-                mode: 'index',
-                    intersect: false,
-            },
-            animation: {
-                animateScale: true,
-                    animateRotate: true
-            }
-        }
-    });
-    </script>
-
-    <script>
-        var ctx = document.getElementById('BurnStatistics').getContext('2d');
-        Chart.defaults.global.defaultFontColor = '#ffffff';
-        Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
-        Chart.defaults.global.defaultFontSize = 16;
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [
-                    {% for info in burngraphinfo %}
-                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                ],
-        datasets: [{
-            label: 'GET left',
-            backgroundColor: '#000000',
-            borderColor: '#01C696',
-            data: [
-                {% for info in burngraphinfo %}
-                    '{{info.value}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                    ],
-        pointBorderColor: '#01C696',
-            pointBackgroundColor: '#ffffff',
-                fontColor: '#ffffff',
-                    yAxisID: 'y-axis-1',
-                }, {
-            label: '% of GET burnt',
-                backgroundColor: '#000000',
-                    borderColor: '#009397',
-                        data: [
-                            {% for info in burngraphinfo %}
-        '{{info.secondvalue}}'{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-                    ],
-        pointBorderColor: '#009397',
-            pointBackgroundColor: '#ffffff',
-                fontColor: '#ffffff',
-                    yAxisID: 'y-axis-2',
-                }]
-            },
-
-        // Configuration options go here
-        options: {
-            maintainAspectRatio: false,
-                responsive: true,
-                    tooltips: {
-                mode: 'index',
-                    intersect: false,
-                },
-            hover: {
-                mode: 'nearest',
-                    intersect: true
-            },
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        format: 'DD/MM/YYYY',
-                        displayFormats: {
-                            month: 'MMM-YYYY'
-                        }
-                    },
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Date',
-                        padding: 1
-                    },
-                    ticks: {
-                        autoskip: true,
-                        autoSkipPadding: 60
-                    }
-                }],
-                    yAxes: [{
-                        id: 'y-axis-1',
-                        position: 'left',
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }, {
-                        id: 'y-axis-2',
-                        position: 'right',
-                        ticks: {
-                            beginAtZero: true,
-                            suggestedMax: 2
-                        }
-                    }]
-            },
-            legend: {
-                align: "middle"
-            },
-            ticks: {
-                source: 'data'
-            }
-        }
-        });
-    </script>
-</body>
-
-</html>
+{% endblock %}
+{% block additionalscripts %}
+{% include 'statechanges/statechangegraph.html' %}
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'statechanges/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row align-items-center">
+  <div class="col-lg-4">
+    <div class="jumbotron">
+      <h1 class="display-4">Hello, GET community!</h1>
+      <p class="lead">This webpage contains information gathered from different sources. In different charts and tables
+        the actual usage of the GET protocol is showcased.</p>
+      <hr class="my-4">
+      <p>Where a lot of projects which were launched during the blockchain hype of 2017 didn't came a lot further than
+        releasing a whitepaper, which described a solution for a problem which didn't even exist, the GET Protocol
+        foundation differentiate itself. The proof is visualised on this site.</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'page_statechanges' %}" role="button">Show me the proof.</a>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="col align-items-center">
+      <div class="card graph">
+        <div class="row no-gutters align-items-center">
+          <div class="col-md-4">
+            <div align="center">
+              <img src="{% static 'images/sale.png' %}" class="card-img-middle rounded cardmid" alt="sale">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body center">
+              <h5 class="card-title">Tickets sold in the last 24h</h5>
+              <h1 class=getcolor>{{ticketssoldlast24h}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col align-items-center">
+      <div class=" card graph">
+        <div class="row no-gutters align-items-center">
+          <div class="col-md-4">
+            <div align="center">
+              <img src="{% static 'images/scanner.png' %}" class="card-img-middle rounded cardmid" alt="scanner">
+            </div>
+          </div>
+          <div class="col-md-8 ">
+            <div class="card-body center">
+              <h5 class="card-title">Tickets scanned in the last 24h</h5>
+              <h1 class=getcolor>{{ticketsscannedlast24h}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col align-items-center">
+      <div class="card graph">
+        <div class="row no-gutters align-items-center">
+          <div class="col-md-4">
+            <div align="center">
+              <img src="{% static 'images/money.png' %}" class="card-img-middle rounded cardmid" alt="money">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body center">
+              <h5 class="card-title">The current average GET price</h5>
+              <h1 class=getcolor>€{{geteurprice}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col align-items-center">
+      <div class="card graph">
+        <div class="row no-gutters align-items-center">
+          <div class="col-md-4">
+            <div align="center">
+              <img src="{% static 'images/events.png' %}" class="card-img-middle rounded cardmid" alt="events">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body center">
+              <h5 class="card-title">Amount of events which used GET last 24h</h5>
+              <h1 class=getcolor>{{eventsactivelast24h}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="jumbotron">
+      <h1 class="display-7">Buyback!</h1>
+      <p class="lead">GET tokens are bough back from the open market</p>
+      <p>For each state change being processed the GET token is needed. This means GET is necessary when a ticket is
+        created, sold, resold, being scanned etc.
+        The amount of GET
+        which is needed is partially bought back from the market and partially
+        subsidized by the User Growth Fund. In the last buyback a single statechange
+        cost €0.07 If this remains the same we can expect
+        <b class=getcolor>{{getburned}}</b> GET to be burned this quarter with a
+        value of <b class=getcolor>€{{burnbackvalue}}</b>. In total
+        <b class=getcolor>{{openmarketgetburned}}</b> GET will be bought back from the open market.
+        This is based on the current price of GET
+        being <b class=getcolor>€{{geteurprice}}</b></p>
+      <div class="card-body fixmidsize">
+        <canvas id="ChartBuyback"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card graph">
+      <div class="card-body fixmidsize">
+        <canvas id="BurnStatistics"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card prognose">
+      <div class="row no-gutters align-items-center">
+        <div class="col-sm-4">
+          <img src="{% static 'images/deofex.png' %}" class="card-img-middle" alt="Deofex Avatar">
+        </div>
+        <div class="col-sm-8">
+          <div class="card-body">
+            <h5 class="card-title">A word</h5>
+            <p>Hi guys, I'm trying to maintain this site when possible When you have new idea's
+              for widgets, or want to see more data, please speak to me on Telegram.</p>
+            <p>All data on this site is dynamic and updated 5 minutes after each full hour.</p>
+            <p>Cheers, Deofex</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block additionalscripts %}
+{% include 'statechanges/homegraph.html' %}
+{% endblock %}
