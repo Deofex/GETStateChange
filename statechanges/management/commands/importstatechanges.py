@@ -291,6 +291,7 @@ def new_event(hash,block):
         Event.objects.create(
             hash = hash,
             block = block,
+            lastupdate = block.date,
         )
 
         block.add_w()

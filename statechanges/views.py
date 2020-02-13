@@ -57,10 +57,7 @@ def page_statechanges(request):
         'daygraphinfo':daygraphinfo,
         'quartergraphinfo':quartergraphinfo,
         'statechangetypeslast30day':statechangetypeslast30day,
-        'geteurprice':geteurprice,
         'burnbackvalue': burnbackvalue,
-        'getburned': getburned,
-        'openmarketgetburned':openmarketgetburned,
         'navbar':'page_statechanges'
         })
 
