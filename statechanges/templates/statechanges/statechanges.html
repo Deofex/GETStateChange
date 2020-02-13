@@ -27,7 +27,9 @@
                         <h6 class="card-header" role="tab" id="headingOne">
                             <a data-parent="#accordion" class="d-block">
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col-5">
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4">
                                         <p><b>Date</b></p>
                                     </div>
                                     <div class="col-4">
@@ -48,7 +50,10 @@
                         <a data-toggle="collapse" data-parent="#accordion" href="#batch{{ pageblock.blocknumber }}"
                             aria-expanded="true" aria-controls="batch{{ pageblock.blocknumber }}" class="d-block">
                             <div class="row no-gutters align-items-center">
-                                <div class="col-md-5">
+                                <div class=col-md-1>
+                                    <p><i class="fa fa-exchange"></i></p>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="d-sm-none">
                                         <p><b>Date:</b> {{ pageblock.date |date:"d-m-Y H:i" }}</p>
                                     </div>
@@ -158,40 +163,14 @@
             </div>
         </div>
     </div>
-
-    <div class="col-lg-6">
-        <div class="card graph">
-            <div class="card-body fixmidsize">
-                <canvas id="BurnStatistics"></canvas>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
         <div class="card graph">
             <div class="card-body fixbigsize">
                 <canvas id="StateChangeTypesLast30Days"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div class="card prognose">
-            <div class="row no-gutters align-items-center">
-                <div class="col-sm-4">
-                    <img src="{% static 'images/deofex.png' %}" class="card-img-middle" alt="Deofex Avatar">
-                </div>
-                <div class="col-sm-8">
-                    <div class="card-body">
-                        <h5 class="card-title">A word</h5>
-                        <p>Hi guys, I'm trying to maintain this site when possible When you have new idea's
-                            for widgets, or want to see more data, please speak to me on Telegram.</p>
-                        <p>All data on this site is dynamic and updated 5 minutes after each full hour.</p>
-                        <p>Cheers, Deofex</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

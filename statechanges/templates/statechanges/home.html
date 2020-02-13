@@ -111,6 +111,35 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card graph">
+      <div class="card-body fixmidsize">
+        <canvas id="BurnStatistics"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card prognose">
+      <div class="row no-gutters align-items-center">
+        <div class="col-sm-4">
+          <img src="{% static 'images/deofex.png' %}" class="card-img-middle" alt="Deofex Avatar">
+        </div>
+        <div class="col-sm-8">
+          <div class="card-body">
+            <h5 class="card-title">A word</h5>
+            <p>Hi guys, I'm trying to maintain this site when possible When you have new idea's
+              for widgets, or want to see more data, please speak to me on Telegram.</p>
+            <p>All data on this site is dynamic and updated 5 minutes after each full hour.</p>
+            <p>Cheers, Deofex</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 {% block additionalscripts %}
 {% include 'statechanges/homegraph.html' %}

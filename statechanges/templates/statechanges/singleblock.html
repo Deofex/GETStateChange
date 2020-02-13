@@ -33,8 +33,10 @@
             <div class="card">
                 <h8 class="card-header" role="tab" id="headingOne">
                         <div class="row no-gutters align-items-center">
-                            <div class="col-8">
-                                <p><b>Statechange hash:</b> {{ pagestatechange.hash }}</p>
+                            <div class="col-1">
+                                <p><i class="fa fa-link"></i></p>
+                            </div>
+                            <div class="col-9">
                                 {% if pagestatechange.firing == 0 %}
                                 <p><b class="getcolor">Ticket Created</b></p>
                                 {% endif %}
@@ -77,9 +79,10 @@
                                 {% if pagestatechange.firing == 13 %}
                                 <p><b class="getcolor">Ticket unblocked</b></p>
                                 {% endif %}
+                                <p><b>Statechange hash:</b> {{ pagestatechange.hash }}</p>
                                 <p><b>Statechange corresponding event:</b> {{pagestatechange.ticket.event.hash}}</p>
                             </div>
-                            <div class="col-4">
+                            <div class="col-2">
                                 <a class="btn btn-primary btn-lg"
                                     href="{% url 'page_singleevent' eventhash=pagestatechange.ticket.event.hash%}"
                                     role="button">Go to Event</a>

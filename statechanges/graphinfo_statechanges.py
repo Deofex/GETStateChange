@@ -1,9 +1,7 @@
 from django.db.models import Sum
 from datetime import datetime
 from datetime import timedelta
-from .models import Block
-from .models import StateChange
-from .models import BurnTransaction
+from .models import Block, StateChange
 from .graphinfo_shared import GraphInfo, DoubleGraphInfo, TimeRange
 
 # Create statechange batch info object which can be used in the template
@@ -269,26 +267,4 @@ def get_statechangetypeslast30days():
                 statechangefirings
             ))
     # Return the array
-    return graphinfo
-
-
-def get_burngraphinfo():
-    # Total GET supply is 33,368,773
-    totalsupply = 33368773
-    supply = totalsupply
-    # Create an empty array
-    graphinfo = []
-    #Add each burntransaction to the array
-    for transaction in BurnTransaction.objects.all():
-        # Create the label from the date in the following format day-month-year
-        label = transaction.date.strftime("%d-%m-%Y")
-        # Supply = Supply - the amount of GET burned
-        supply = supply - transaction.getburned
-        procentburned = (totalsupply - supply) / (supply / 100)
-        #Add the graph information
-        graphinfo.append(DoubleGraphInfo(
-                label,
-                "{0:.0f}".format(supply),
-                "{0:.2f}".format(procentburned)
-            ))
     return graphinfo

@@ -3,10 +3,9 @@ from .models import Block, Event
 from .models import CryptoPrice
 from django.core.paginator import Paginator
 from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
-    get_quartergraphinfo,get_statechangetypeslast30days,\
-        get_burngraphinfo,get_paginationnrs
+    get_quartergraphinfo,get_statechangetypeslast30days,get_paginationnrs
 from .graphinfo_home import get_buybackgraphinfo,\
-    get_statechangesfiringlast24h,get_eventsactivelast24h
+    get_statechangesfiringlast24h,get_eventsactivelast24h,get_burngraphinfo
 from .graphinfo_events import get_wiringgraphinfo
 
 # Create your views here.
@@ -32,7 +31,6 @@ def page_statechanges(request):
     daygraphinfo = get_daygraphinfo()
     quartergraphinfo = get_quartergraphinfo()
     statechangetypeslast30day = get_statechangetypeslast30days()
-    burngraphinfo = get_burngraphinfo()
 
     # Get Burnback info:
     # GET price
@@ -58,7 +56,6 @@ def page_statechanges(request):
         'monthgraphinfo':monthgraphinfo,
         'daygraphinfo':daygraphinfo,
         'quartergraphinfo':quartergraphinfo,
-        'burngraphinfo':burngraphinfo,
         'statechangetypeslast30day':statechangetypeslast30day,
         'geteurprice':geteurprice,
         'burnbackvalue': burnbackvalue,
@@ -96,6 +93,8 @@ def page_home(request):
     # Open market burned:
     openmarketgetburned = getburned / 100 * 58
 
+    # Get burn info
+    burngraphinfo = get_burngraphinfo()
     #Roundup the numbers(afterward, to prevent wrong calculations):
     burnbackvalue = "{0:.0f}".format(burnbackvalue)
     getburned = "{0:.0f}".format(getburned)
@@ -111,6 +110,7 @@ def page_home(request):
         'burnbackvalue': burnbackvalue,
         'getburned': getburned,
         'openmarketgetburned':openmarketgetburned,
+        'burngraphinfo':burngraphinfo,
         'navbar':'page_home'
     })
 

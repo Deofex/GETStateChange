@@ -1,8 +1,7 @@
 from django.db.models import Sum
-from .graphinfo_shared import GraphInfo, TimeRange
-from .models import Block,Event
-from datetime import datetime
-from datetime import timedelta
+from .graphinfo_shared import GraphInfo, DoubleGraphInfo, TimeRange
+from .models import Block, Event, BurnTransaction
+from datetime import datetime, timedelta
 
 # This function creates the info for the buyback statechanges graph
 def get_buybackgraphinfo():
@@ -82,3 +81,24 @@ def get_eventsactivelast24h():
 
     # Return the amount of events which were active alst 24 hours
     return activeevents
+
+def get_burngraphinfo():
+    # Total GET supply is 33,368,773
+    totalsupply = 33368773
+    supply = totalsupply
+    # Create an empty array
+    graphinfo = []
+    #Add each burntransaction to the array
+    for transaction in BurnTransaction.objects.all():
+        # Create the label from the date in the following format day-month-year
+        label = transaction.date.strftime("%d-%m-%Y")
+        # Supply = Supply - the amount of GET burned
+        supply = supply - transaction.getburned
+        procentburned = (totalsupply - supply) / (supply / 100)
+        #Add the graph information
+        graphinfo.append(DoubleGraphInfo(
+                label,
+                "{0:.0f}".format(supply),
+                "{0:.2f}".format(procentburned)
+            ))
+    return graphinfo

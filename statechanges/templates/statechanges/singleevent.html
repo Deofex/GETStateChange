@@ -74,7 +74,10 @@
             <div class="card">
                 <h8 class="card-header" role="tab" id="headingOne">
                     <div class="row no-gutters align-items-center">
-                        <div class="col">
+                        <div class="col-1">
+                            <p><i class="fa fa-ticket fa-2x"></i></p>
+                        </div>
+                        <div class="col-11">
                             <p><b>Ticket Hash:</b> {{ pageticket.hash }}</p>
                             {% for statechange in pageticket.statechange_set.all %}
                             {% if statechange.firing == 0 %}

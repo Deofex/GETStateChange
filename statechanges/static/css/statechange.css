@@ -132,6 +132,15 @@ p {
     color: white;
 }
 
+.dropdown-menu {
+
+    background: #343a40;
+}
+.dropdown-item {
+    color: white;
+}
+
+
 @media (max-device-width: 576px) {
     .card {
         margin-bottom: 4px;
