@@ -433,6 +433,7 @@ class Command(BaseCommand):
             print("Statechange batch found in block " + \
             "{} imported in the database".format(statechangebatch.blocknumber))
 
+        # Print all imports which failed
         for failedipfs in majorfailedipfsimports:
             block = failedipfs["block"]
             print("Niet kunnen importeren:")

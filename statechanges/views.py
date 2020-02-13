@@ -111,13 +111,15 @@ def page_home(request):
         'navbar':'page_home'
     })
 
+# Page view for a single event
 def page_events(request):
-    # Get a list with all Events with the latest updates
+    # Get a list with all Events sorted on the latest updates
     event_list = Event.objects.exclude(totalsum = 0).order_by(
         "lastupdate").reverse()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
     event_paginator = Paginator(event_list,10)
 
+    # Get page numbers
     page = request.GET.get('page')
     if page == None:
         page = 1
@@ -128,6 +130,7 @@ def page_events(request):
         event_paginator.num_pages
     )
 
+    # Get information for the new event chart
     wiringgraphinfo = get_wiringgraphinfo()
     return render(request,'statechanges/events.html',{
         'pageevents':pageevents,
@@ -136,10 +139,13 @@ def page_events(request):
         'navbar':'page_events'
     })
 
+# Page for a single event
 def page_singleevent(request,eventhash):
+    # Get all events
     event = Event.objects.get(hash=eventhash)
+    # Count the amount of tickets corresponding to the event
     ticketcount = event.ticket_set.all().count()
-    # Get a list with all Events with the latest updates
+    # Get a list with all tickets
     ticket_list = event.ticket_set.all()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
     ticket_paginator = Paginator(ticket_list,10)
@@ -161,9 +167,11 @@ def page_singleevent(request,eventhash):
         'pagenrs':pagenrs,
     })
 
+# Page for a single block
 def page_singleblock(request,blocknumber):
+    # Get the information from the block
     singleblock = Block.objects.get(blocknumber=blocknumber)
-    # Get a list with all Events with the latest updates
+    # Get a list with all statechanges in the block
     statechange_list = singleblock.statechange_set.all()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
     statechange_paginator = Paginator(statechange_list,10)
