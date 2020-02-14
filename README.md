@@ -106,6 +106,12 @@ Add the following snippet to the Apache site /etc/apache2/sites-available/000-de
 ```
 Leave the content below the DocumentRoot row untouched
 
+### Create log folder
+Create the folder where the log files will be places in
+```
+sudo mkdir /var/log/getsite
+sudo chown %WEBADMINUSER% -R /var/log/getsite/
+
 ### Create the folder which contain the site
 Create the 'getsite' folder in /var/www and give ownership to the user
 ```
@@ -231,6 +237,7 @@ Add the following to the crontab, to make it run once a hour (10 minutes past th
 ```
 10 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_importburntransactions.sh' > /tmp/cron_importburntransactions.log 2>&1
 ```
+
 
 
 ## Development environment
