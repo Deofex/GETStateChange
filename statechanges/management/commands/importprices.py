@@ -4,6 +4,11 @@ import json
 from django.core.management.base import BaseCommand
 from statechanges.models import CryptoPrice
 
+# Configure logger
+import logging
+logger = logging.getLogger(__name__)
+
+
 # The function below retrieves the content from an URL which should be specified
 # as parameter. The outpuut is the raw data extracted from the URL.
 def get_url(url):
@@ -29,7 +34,7 @@ def get_getprice():
     getpricejson = get_json_from_url(getpriceurl)
     getpriceeur = getpricejson["market_data"]["current_price"]["eur"]
     getpriceeur = "{0:.2f}".format(getpriceeur)
-    print("The new price of GET is " + str(getpriceeur))
+    logger.info("The new price of GET is " + str(getpriceeur))
     return getpriceeur
 
 # The class below is  called via manage.py It will update the GET price in the
@@ -40,12 +45,12 @@ class Command(BaseCommand):
     def handle(self,*args, **kwargs):
         # If there's no GET price in the database, add a dummy prive of 0 in it
         if len(CryptoPrice.objects.filter(name="GET")) == 0:
-            print("GET price object is not found")
+            logger.warning("GET price object is not found")
             CryptoPrice.objects.create(
                 name = "GET",
                 price_eur = 0
             )
-            print("GET price object is created")
+            logger.info("GET price object is created")
 
         # Get the current GET price object
         getpriceobject = CryptoPrice.objects.filter(name="GET")[0]

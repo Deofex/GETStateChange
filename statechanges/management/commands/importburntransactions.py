@@ -6,6 +6,10 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from statechanges.models import BurnTransaction
 
+# Configure logger
+import logging
+logger = logging.getLogger(__name__)
+
 # The function below retrieves the content from an URL which should be specified
 # as parameter. The outpuut is the raw data extracted from the URL.
 def get_url(url):
@@ -51,7 +55,7 @@ def import_burntransactions(etherscanapikey,afterblocknumber):
             blocknumber = burntransaction["blockNumber"],
             getburned = getburned
         )
-        print("Burn transaction found in block %s imported" % (
+        logger.info("Burn transaction found in block %s imported" % (
             burntransaction["blockNumber"]))
     return True
 
@@ -68,7 +72,7 @@ class Command(BaseCommand):
                 '-blocknumber')[:1].get()).blocknumber
         except:
             afterblocknumber=8077320
-            print("No earlier block found")
+            logger.warning("No earlier block found")
 
         # Get burn transactions
         burntransactions = import_burntransactions(

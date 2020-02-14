@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils import timezone
+# Configure logger
+import logging
+logger = logging.getLogger(__name__)
 
 
 class Block(models.Model):
@@ -318,7 +321,7 @@ class CryptoPrice(models.Model):
 
     def updateeurprice(self, price):
         self.price_eur = price
-        print("Price will be updated.")
+        logger.info("Price will be updated.")
         self.save()
 
     def __str__(self):

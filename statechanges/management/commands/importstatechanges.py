@@ -6,6 +6,11 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from statechanges.models import Block, Ticket, StateChange, Event
 
+# Configure logger
+import logging
+logger = logging.getLogger(__name__)
+
+
 # The IPFSstatechange class stores a single IPFS statechange which is not yet in
 # the database, but will be processed later.
 class IPFSstatechange():
@@ -55,7 +60,8 @@ class StateChangeBatch():
             ipfshash = (bytearray.fromhex(inputdata[-128:]).decode())
             self.ipfshash = ipfshash.rstrip('\x00')
         except:
-            print("Can't get the IPFS token for block " + self.blocknumber)
+            logger.error("Can't get the IPFS token for block " +\
+                self.blocknumber)
 
     # This function retrieves the IPFS data via "https://gateway.ipfs.io/ipfs/"
     # IPFS data contains the details of the state changes.
@@ -63,9 +69,9 @@ class StateChangeBatch():
         url = "https://gateway.ipfs.io/ipfs/"
         #url = "https://temporal.cloud/ipfs/"
         url = url + self.ipfshash
-        print("IPFS URL: {}".format(url))
+        logger.info("IPFS URL: {}".format(url))
         ipfsdata = get_url(url)
-        print("Succesfully retrieved, split the data")
+        logger.info("IPFS succesfully retrieved, split the data")
         ipfsdata = ipfsdata.splitlines()
         self.ipfsdata = ipfsdata
 
@@ -147,23 +153,24 @@ def retrieve_statechangebatches(
 # 4) The data is decoded (seperated in different firings and wirings)
 def process_ipfsdata(statechangebatch, etherscanapikey):
     # Get the IPFS hash for the retrieved statechange batch
-    print("Retrieving IPFS hash stored in blocknumber: {}".format(
+    logger.info("Retrieving IPFS hash stored in blocknumber: {}".format(
         statechangebatch.blocknumber))
     statechangebatch.get_ipfshash(
         etherscanapikey
     )
-    print("The following hash has been found: {}.".format(
+    logger.info("The following hash has been found in the IPFS data: {}".format(
         statechangebatch.ipfshash))
 
     # Get the IPFS data from the IPFS gateway
-    print("Retrieving the IPFS data")
+    logger.info("Retrieving the IPFS data")
     statechangebatch.get_ipfsdata()
-    print("IPFS data found, decoding the data.")
+    logger.info("IPFS data found, decoding the data.")
 
     # Decode the IPFS data to get a readable list with firings and wirings
     statechangebatch.decode_ipfsdata()
-    print("IPFS data for block {} has been decoded and stored in the batch "
-    "object".format(statechangebatch.blocknumber))
+    logger.info("IPFS data for block {} ".format(
+        statechangebatch.blocknumber) +\
+    "has been decoded and stored in the batch object")
     return None
 
 
@@ -173,10 +180,9 @@ def get_afterblocknumber():
         afterblocknumber = (Block.objects.filter(fullyprocessed=True).order_by(
             '-blocknumber')[:1].get()).blocknumber
     except:
-        print("No blocks been found in the db." +
-              "The program will use the default.")
+        logger.warning("No blocks has been found in the database. " +\
+              "The program will use the default: 8915534.")
         afterblocknumber = 8915534
-        print("except true")
 
     return afterblocknumber
 
@@ -184,7 +190,7 @@ def get_afterblocknumber():
 def get_ticket(hash,previoushash):
     '''Function which lookup an event'''
     if Event.objects.filter(hash=previoushash).exists():
-        print("Ticket not found, create a new one")
+        logger.info("Ticket not found, create a new one")
         event = Event.objects.get(hash=previoushash)
         Ticket.objects.create(
             hash = hash,
@@ -194,7 +200,8 @@ def get_ticket(hash,previoushash):
     else:
         previousstate = StateChange.objects.get(hash=previoushash)
         ticket = previousstate.ticket
-        print("Existing ticket, statechange will be added: {}".format(ticket))
+        logger.info("Existing ticket, statechange will be added: {}".format(
+            ticket))
 
     return ticket
 
@@ -207,14 +214,15 @@ def new_statechange(hash,previoushash,firing,block):
 
     # Adding state change if doesn't exist
     if statechangeexist == False:
-        print("Adding state change {} to the database.".format(hash) +\
+        logger.info("Adding state change {} to the database.".format(hash) +\
         " State change found in block {}".format(block.blocknumber))
 
         # Lookup the corresponding event
         try:
             ticket = get_ticket(hash,previoushash)
         except StateChange.DoesNotExist as e:
-            print("Failed to get the ticket corresponding to the hash.")
+            logger.error("Failed to get the ticket corresponding to hash: " +\
+                "{} and previoushash {}".format(hash,previoushash))
             raise(e)
 
         # Create the state change object
@@ -284,7 +292,7 @@ def new_event(hash,block):
 
     # Adding state change if doesn't exist
     if eventexist == False:
-        print("Adding event {} to the database.".format(hash) +\
+        logger.info("Adding event {} to the database.".format(hash) +\
         " Event found in block {}".format(block.blocknumber))
 
         # Create the state change object
@@ -311,14 +319,14 @@ class Command(BaseCommand):
 
         # Retrieve all statechange batches from the Ethereum network
         # (block/date/hash)
-        print("Get tx'es containing IPFS data with " +
+        logger.warning("Get tx'es containing IPFS data with " +
               "statechange batches after block {}".format(afterblocknumber))
         statechangebatches = retrieve_statechangebatches(
             etherscanapikey,
             "0x4cd90231a36ba78a253527067f8a0a87a80d60e4",
             afterblocknumber
         )
-        print("{} new statechange batches found.".format(
+        logger.info("{} new statechange batches found.".format(
             len(statechangebatches)))
 
         majorfailedipfsimports = []
@@ -329,7 +337,7 @@ class Command(BaseCommand):
                 pk=statechangebatch.blocknumber).exists()
             # If the block doesn't exist yet import in into the database
             if BlockExists == False:
-                print("Add block {} to database".format(
+                logger.info("Add block {} to database".format(
                     statechangebatch.blocknumber))
                 Block.objects.create(
                     blocknumber = statechangebatch.blocknumber,
@@ -363,7 +371,7 @@ class Command(BaseCommand):
                         # When a hash can't be imported this can be caused
                         # because the previous hash is later in the batch
                         # Add it to a failed list, which will be retried later.
-                        print("Failed to add hash {}, ".format(
+                        logger.warning("Failed to add hash {}, ".format(
                             ipfsstatechange.hash) + \
                             "trying again at the end of the block."
                             )
@@ -395,7 +403,8 @@ class Command(BaseCommand):
                 stateimportfailure = False
                 # Try to re-import each statechange
                 for ipfsstatechange in failedipfsimports:
-                    print("Retrying to add {}".format(ipfsstatechange.hash))
+                    logger.info(
+                        "Retrying to add {}".format(ipfsstatechange.hash))
                     try:
                         new_statechange (
                             hash = ipfsstatechange.hash,
@@ -405,10 +414,14 @@ class Command(BaseCommand):
                         )
                         # If a statechange has failed to import before, set the
                         # stateimported variabele on true
+                        logger.info("{} is succesfull imported on retry".format(
+                            ipfsstatechange.hash))
                         if stateimportfailure == True:
                             stateimported = true
 
                     except StateChange.DoesNotExist:
+                        logger.warning("{} is failing in retry".format(
+                            ipfsstatechange.hash))
                         addtomajorfailedipfsimports.append({
                             "hash": ipfsstatechange.hash,
                             "previoushash": ipfsstatechange.previoushash,
@@ -430,13 +443,13 @@ class Command(BaseCommand):
             # Set block on fully processed
             block.processed()
 
-            print("Statechange batch found in block " + \
+            logger.info("Statechange batch found in block " + \
             "{} imported in the database".format(statechangebatch.blocknumber))
 
         # Print all imports which failed
         for failedipfs in majorfailedipfsimports:
             block = failedipfs["block"]
-            print("Niet kunnen importeren:")
-            print("Hash:{}".format(failedipfs["hash"]))
-            print("PreviousHash:{}".format(failedipfs["hash"]))
-            print("Block:{}".format(block.blocknumber))
+            logger.error("Niet kunnen importeren:" +\
+            "Hash:{}".format(failedipfs["hash"]) + \
+            "PreviousHash:{}".format(failedipfs["hash"]) +\
+            "Block:{}".format(block.blocknumber))

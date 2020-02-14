@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from django.core.exceptions import ImproperlyConfigured
 
+
 def get_env_variable(var_name):
     """ Get the environment variable or return exception """
     try:
@@ -20,6 +21,7 @@ def get_env_variable(var_name):
     except KeyError:
         error_msg = "Set the %s environment variable" % var_name
         raise ImproperlyConfigured(error_msg)
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,9 +34,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = get_env_variable('getsite_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ['get.powerplatz.local','get.powerplatz.nl']
+ALLOWED_HOSTS = ['get.powerplatz.local', 'get.powerplatz.nl']
 DEBUG = get_env_variable('getsite_debug') == 'True'
 
 # Application definition
@@ -151,3 +153,36 @@ SECURE_REFERRER_POLICY = "no-referrer"
 
 # Etherscanapikey needed to collect block information
 ETHERSCANAPIKEY = get_env_variable('getsite_etherscan_apikey')
+
+# Logging information
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s: %(message)s'
+        }
+    },
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'class':'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024*1024*5, # 5 MB
+            'backupCount': 5,
+            'filename': '/var/log/getsite/info.log',
+            'formatter':'verbose',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter':'verbose',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
