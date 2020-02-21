@@ -336,3 +336,22 @@ class BurnTransaction(models.Model):
 
     def __str__(self):
         return str(self.blocknumber)
+
+class AppStatus(models.Model):
+    '''Add statusses which the application use during the runtime'''
+    name = models.CharField(
+        max_length=100,
+        primary_key=True,
+    )
+    status = models.BooleanField()
+
+    def enablestatus(self):
+        self.status = True
+        self.save()
+
+    def disablestatus(self):
+        self.status = False
+        self.save()
+
+    def __str__(self):
+        return str(self.name)

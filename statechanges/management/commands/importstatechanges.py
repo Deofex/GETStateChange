@@ -4,7 +4,7 @@ import json
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from statechanges.models import Block, Ticket, StateChange, Event
+from statechanges.models import Block, Ticket, StateChange, Event, AppStatus
 
 # Configure logger
 import logging
@@ -304,6 +304,32 @@ def new_event(hash,block):
 
         block.add_w()
 
+def lockimport():
+    '''Function to lock the import state change setting'''
+    # Try to get the ImportStateChangesReady setting, if it doesn't exist create
+    # it.
+    try:
+        importstatechangesready = AppStatus.objects.get(
+            name="ImportStateChangesReady")
+    except:
+        AppStatus.objects.create(
+            name = "ImportStateChangesReady",
+            status = True
+        )
+        importstatechangesready = AppStatus.objects.get(
+            name="ImportStateChangesReady")
+
+    # If the status is ready, set is to false (lock). Otherwise create an
+    # exception
+    if importstatechangesready.status:
+        importstatechangesready.disablestatus()
+    else:
+        raise Exception('Previous import not finished correctly')
+
+def unlockimport():
+    importstatechangesready = AppStatus.objects.get(
+        name="ImportStateChangesReady")
+    importstatechangesready.enablestatus()
 
 # this class is called by the managed.py of Django. The class will be used
 # to schedule the import of state changes in the Django database.
@@ -311,6 +337,10 @@ class Command(BaseCommand):
     '''Import statechanges and import them in the database'''
 
     def handle(self, *args, **kwargs):
+        # lock the import process to avoid multiple imports jobs at the same
+        # time
+        lockimport()
+
         # Store the Etherscan API key
         etherscanapikey = settings.ETHERSCANAPIKEY
 
@@ -453,3 +483,6 @@ class Command(BaseCommand):
             "Hash:{}".format(failedipfs["hash"]) + \
             "PreviousHash:{}".format(failedipfs["hash"]) +\
             "Block:{}".format(block.blocknumber))
+
+        # Unlock import process, to make new import jobs possible
+        unlockimport()
