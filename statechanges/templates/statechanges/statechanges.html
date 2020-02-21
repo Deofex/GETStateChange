@@ -71,10 +71,10 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-sm-none">
-                                        <p><b>Total statechanges:</b> {{ pageblock.totalsum }}</p>
+                                        <p><b>Total statechanges:</b> {{ pageblock.totalsum }}{% if not pageblock.fullyprocessed %} <sub><b class=getcolor>Not fully imported yet</b></sub>{% endif %}</p>
                                     </div>
                                     <div class="d-none d-sm-block">
-                                        <p>{{ pageblock.totalsum }}</p>
+                                        <p>{{ pageblock.totalsum }}{% if not pageblock.fullyprocessed %} <sub><b class=getcolor>Not fully imported yet</b></sub>{% endif %}</p>
                                     </div>
                                 </div>
                             </div>
