@@ -1,14 +1,13 @@
 {% extends 'statechanges/base.html' %}
+{% load i18n %}
 {% block content %}
 <div class="row">
     <div class="col">
         <div class="jumbotron">
-            <h1 class="display-7">Block: {{singleblock.blocknumber}}</h1>
-            <p class="lead">This block was published on the blockchain on: {{block.date |date:"d-m-Y H:i"}}
+            <h1 class="display-7">{% trans 'Block' %}: {{singleblock.blocknumber}}</h1>
+            <p class="lead">{% trans 'This block was published on the blockchain on' %}: {{block.date |date:"d-m-Y H:i"}}
             </p>
-            <p>
-                This block contains <b class=getcolor>{{singleblock.totalsum}}</b> statechanges. The table below shows
-                the statechanges published in this block.
+            <p>{% blocktrans with blocksum=singleblock.totalsum %}This block contains <b class=getcolor>{{blocksum}}</b> statechanges. The table below shows the statechanges published in this block.{% endblocktrans %}</p>
         </div>
     </div>
 </div>
@@ -22,7 +21,7 @@
                         <a data-parent="#accordion" class="d-block">
                             <div class="row no-gutters align-items-center">
                                 <div class="col">
-                                    <p><b>Block details</b></p>
+                                    <p><b>{% trans 'Block details' %}</b></p>
                                 </div>
                             </div>
                         </a>
@@ -38,54 +37,54 @@
                             </div>
                             <div class="col-9">
                                 {% if pagestatechange.firing == 0 %}
-                                <p><b class="getcolor">Ticket Created</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket Created' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 1 %}
-                                <p><b class="getcolor">Ticket Blocked></b></p>
+                                <p><b class="getcolor">{% trans 'Ticket Blocked' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 2 %}
-                                <p><b class="getcolor">Ticket Sold in the Primary market</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket Sold in the Primary market' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 3 %}
-                                <p><b class="getcolor">Ticket sold in the secondary market</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket sold in the secondary market' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 4 %}
-                                <p><b class="getcolor">Ticket bought back</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket bought back' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 5 %}
-                                <p><b class="getcolor">Ticket cancelled</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket cancelled' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 6 %}
-                                <p><b class="getcolor">Ticket put for sale</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket put for sale' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 7 %}
-                                <p><b class="getcolor">No Show</b></p>
+                                <p><b class="getcolor">{% trans 'No Show' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 8 %}
-                                <p><b class="getcolor">Ticket not resold</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket not resold' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 9 %}
-                                <p><b class="getcolor">>Ticket not sold in the primary market</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket not sold in the primary market' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 10 %}
-                                <p><b class="getcolor">Ticket not sold in the secondary market</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket not sold in the secondary market' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 11 %}
-                                <p><b class="getcolor">Ticket scanned</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket scanned' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 12 %}
-                                <p><b class="getcolor">>Show over</b></p>
+                                <p><b class="getcolor">{% trans 'Show over' %}</b></p>
                                 {% endif %}
                                 {% if pagestatechange.firing == 13 %}
-                                <p><b class="getcolor">Ticket unblocked</b></p>
+                                <p><b class="getcolor">{% trans 'Ticket unblocked' %}</b></p>
                                 {% endif %}
-                                <p><b>Statechange hash:</b> {{ pagestatechange.hash }}</p>
-                                <p><b>Statechange corresponding event:</b> {{pagestatechange.ticket.event.hash}}</p>
+                                <p><b>{% trans 'Statechange hash' %}:</b> {{ pagestatechange.hash }}</p>
+                                <p><b>{% trans 'Statechange corresponding event' %}:</b> {{pagestatechange.ticket.event.hash}}</p>
                             </div>
                             <div class="col-2">
                                 <a class="btn btn-primary btn-lg"
                                     href="{% url 'page_singleevent' eventhash=pagestatechange.ticket.event.hash%}"
-                                    role="button">Go to Event</a>
+                                    role="button">{% trans 'Go to Event' %}</a>
                             </div>
                         </div>
                 </h8>
@@ -94,9 +93,9 @@
         </div>
         <ul class="nav nav-fill pagination">
             {% if pagestatechanges.has_previous %}
-            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
+            <li class="nav-item"><a class="page-link" href="?page=1">{% trans 'First' %}</a></li>
             <li class="nav-item"><a class="page-link"
-                    href="?page={{ pagestatechanges.previous_page_number }}">Previous</a>
+                    href="?page={{ pagestatechanges.previous_page_number }}">{% trans 'Previous' %}</a>
             </li>
             {% endif %}
             {% for pagenr in pagenrs %}
@@ -109,9 +108,9 @@
             {% endif %}
             {% endfor %}
             {% if pagestatechanges.has_next %}
-            <li class="nav-item"><a class="page-link" href="?page={{ pagestatechanges.next_page_number }}">Next</a>
+            <li class="nav-item"><a class="page-link" href="?page={{ pagestatechanges.next_page_number }}">{% trans 'Next' %}</a>
             </li>
-            <li class="nav-item"><a class="page-link" href="?page={{ pagestatechanges.paginator.num_pages }}">Last</a>
+            <li class="nav-item"><a class="page-link" href="?page={{ pagestatechanges.paginator.num_pages }}">{% trans 'Last' %}</a>
             </li>
             {% endif %}
         </ul>

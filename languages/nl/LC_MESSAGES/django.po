@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-02 10:22+0000\n"
-"PO-Revision-Date: 2020-03-02 13:14+0100\n"
+"POT-Creation-Date: 2020-03-02 13:06+0000\n"
+"PO-Revision-Date: 2020-03-02 14:10+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -1225,23 +1225,30 @@ msgstr "Tickets verkocht in de tweedehands markt laatste 24u"
 
 #: statechanges/graphinfo_statechanges.py:250
 #: statechanges/templates/statechanges/events.html:87
+#: statechanges/templates/statechanges/singleevent.html:24
 #: statechanges/templates/statechanges/statechanges.html:95
 msgid "Tickets bought back"
 msgstr "Tickets terug gekocht"
 
 #: statechanges/graphinfo_statechanges.py:251
 #: statechanges/templates/statechanges/events.html:88
+#: statechanges/templates/statechanges/singleevent.html:27
 #: statechanges/templates/statechanges/statechanges.html:96
 msgid "Tickets cancelled"
 msgstr "Tickets geannuleerd"
 
 #: statechanges/graphinfo_statechanges.py:252
-#: statechanges/templates/statechanges/statechanges.html:97
+#: statechanges/templates/statechanges/events.html:89
+#: statechanges/templates/statechanges/singleblock.html:58
+#: statechanges/templates/statechanges/singleevent.html:100
 msgid "Ticket put for sale"
-msgstr "Tickets te koop aangeboden"
+msgstr "Ticket te koop aangeboden"
 
 #: statechanges/graphinfo_statechanges.py:253
 #: statechanges/templates/statechanges/events.html:92
+#: statechanges/templates/statechanges/singleblock.html:61
+#: statechanges/templates/statechanges/singleevent.html:33
+#: statechanges/templates/statechanges/singleevent.html:103
 #: statechanges/templates/statechanges/statechanges.html:98
 msgid "No Show"
 msgstr "Geen show"
@@ -1266,18 +1273,23 @@ msgstr "Niet verkocht in de tweedehands markt"
 
 #: statechanges/graphinfo_statechanges.py:257
 #: statechanges/templates/statechanges/events.html:97
+#: statechanges/templates/statechanges/singleevent.html:45
 #: statechanges/templates/statechanges/statechanges.html:106
 msgid "Tickets scanned"
 msgstr "Tickets gescand in de laatste 24u"
 
 #: statechanges/graphinfo_statechanges.py:258
 #: statechanges/templates/statechanges/events.html:98
+#: statechanges/templates/statechanges/singleblock.html:76
+#: statechanges/templates/statechanges/singleevent.html:48
+#: statechanges/templates/statechanges/singleevent.html:118
 #: statechanges/templates/statechanges/statechanges.html:107
 msgid "Show over"
 msgstr "Show voorbij"
 
 #: statechanges/graphinfo_statechanges.py:259
 #: statechanges/templates/statechanges/events.html:99
+#: statechanges/templates/statechanges/singleevent.html:51
 #: statechanges/templates/statechanges/statechanges.html:108
 msgid "Tickets unblocked"
 msgstr "Ticket gedeblokkeerd"
@@ -1311,7 +1323,7 @@ msgid ""
 "Join the GET community on Telegram, we will welcome you, like you, love you "
 "and tell you everything you want to know about the GET Protocol project."
 msgstr ""
-"Join the GET community op Telegram, we zullen je verwelkomen, je mogen, van "
+"Join de GET community op Telegram, we zullen je verwelkomen, je mogen, van "
 "je houden en je alles vertellen wat je wilt weten over het GET Protocol "
 "project."
 
@@ -1399,20 +1411,28 @@ msgid "Show tickets of the event."
 msgstr "Laat de tickets van het evenement zien."
 
 #: statechanges/templates/statechanges/events.html:114
+#: statechanges/templates/statechanges/singleblock.html:96
+#: statechanges/templates/statechanges/singleevent.html:133
 msgid "First"
 msgstr "Eerste"
 
 #: statechanges/templates/statechanges/events.html:115
+#: statechanges/templates/statechanges/singleblock.html:98
+#: statechanges/templates/statechanges/singleevent.html:134
 #: statechanges/templates/statechanges/statechanges.html:126
 msgid "Previous"
 msgstr "Vorige"
 
 #: statechanges/templates/statechanges/events.html:128
+#: statechanges/templates/statechanges/singleblock.html:111
+#: statechanges/templates/statechanges/singleevent.html:147
 #: statechanges/templates/statechanges/statechanges.html:139
 msgid "Next"
 msgstr "Volgende"
 
 #: statechanges/templates/statechanges/events.html:130
+#: statechanges/templates/statechanges/singleblock.html:113
+#: statechanges/templates/statechanges/singleevent.html:149
 #: statechanges/templates/statechanges/statechanges.html:141
 msgid "Last"
 msgstr "Laatste"
@@ -1539,6 +1559,150 @@ msgstr "%% van GET vernietigd"
 #: statechanges/templates/statechanges/statechanges.html:30
 msgid "Date"
 msgstr "Datum"
+
+#: statechanges/templates/statechanges/singleblock.html:7
+msgid "Block"
+msgstr ""
+
+#: statechanges/templates/statechanges/singleblock.html:8
+msgid "This block was published on the blockchain on"
+msgstr "Dit block is gepubliceerd op de blockchain op"
+
+#: statechanges/templates/statechanges/singleblock.html:10
+#, python-format
+msgid ""
+"This block contains <b class=getcolor>%(blocksum)s</b> statechanges. The "
+"table below shows the statechanges published in this block."
+msgstr ""
+"Dit block bevat <b class=getcolor>%(blocksum)s</b> statechanges. De tabel "
+"hieronder laat zien welke statechanges er in dit block zijn gepubliceerd."
+
+#: statechanges/templates/statechanges/singleblock.html:24
+msgid "Block details"
+msgstr ""
+
+#: statechanges/templates/statechanges/singleblock.html:40
+#: statechanges/templates/statechanges/singleevent.html:82
+msgid "Ticket Created"
+msgstr "Ticket aangemaakt"
+
+#: statechanges/templates/statechanges/singleblock.html:43
+#: statechanges/templates/statechanges/singleevent.html:85
+msgid "Ticket Blocked"
+msgstr "Ticket geblokkeerd"
+
+#: statechanges/templates/statechanges/singleblock.html:46
+#: statechanges/templates/statechanges/singleevent.html:88
+msgid "Ticket Sold in the Primary market"
+msgstr "Ticket verkocht in de primaire markt"
+
+#: statechanges/templates/statechanges/singleblock.html:49
+#: statechanges/templates/statechanges/singleevent.html:91
+msgid "Ticket sold in the secondary market"
+msgstr "Ticket verkocht in de tweedehands markt"
+
+#: statechanges/templates/statechanges/singleblock.html:52
+#: statechanges/templates/statechanges/singleevent.html:94
+msgid "Ticket bought back"
+msgstr "Ticket terug gekocht"
+
+#: statechanges/templates/statechanges/singleblock.html:55
+#: statechanges/templates/statechanges/singleevent.html:97
+msgid "Ticket cancelled"
+msgstr "Ticket geannuleerd"
+
+#: statechanges/templates/statechanges/singleblock.html:64
+#: statechanges/templates/statechanges/singleevent.html:106
+msgid "Ticket not resold"
+msgstr "Ticket niet doorverkocht"
+
+#: statechanges/templates/statechanges/singleblock.html:67
+#: statechanges/templates/statechanges/singleevent.html:109
+msgid "Ticket not sold in the primary market"
+msgstr "Ticket verkocht in de primaire markt"
+
+#: statechanges/templates/statechanges/singleblock.html:70
+#: statechanges/templates/statechanges/singleevent.html:112
+msgid "Ticket not sold in the secondary market"
+msgstr "Ticket verkocht in de tweedehands markt"
+
+#: statechanges/templates/statechanges/singleblock.html:73
+#: statechanges/templates/statechanges/singleevent.html:115
+msgid "Ticket scanned"
+msgstr "Ticket gescand"
+
+#: statechanges/templates/statechanges/singleblock.html:79
+#: statechanges/templates/statechanges/singleevent.html:122
+msgid "Ticket unblocked"
+msgstr "Ticket gedeblokkeerd"
+
+#: statechanges/templates/statechanges/singleblock.html:81
+msgid "Statechange hash"
+msgstr ""
+
+#: statechanges/templates/statechanges/singleblock.html:82
+msgid "Statechange corresponding event"
+msgstr "Statechanges corresponderend evenement"
+
+#: statechanges/templates/statechanges/singleblock.html:87
+msgid "Go to Event"
+msgstr ""
+
+#: statechanges/templates/statechanges/singleevent.html:7
+msgid "Event:"
+msgstr "Evenementen:"
+
+#: statechanges/templates/statechanges/singleevent.html:8
+msgid "An event which was published on the blockchain on:"
+msgstr "Nieuwe evenementen gepubliceerd in de laatste 30 dagen:"
+
+#: statechanges/templates/statechanges/singleevent.html:10
+#, python-format
+msgid ""
+"This event contains <b class=getcolor>%(ticketcount)s</b> tickets and those "
+"tickets were responsible for <b class=getcolor>%(eventsum)s</b> "
+"statechanges. The following statechanges have been found:"
+msgstr ""
+"Dit evenement bevat <b class=getcolor>%(ticketcount)s</b> tickets and deze "
+"tickets zijn verantwoordelijk voor <b class=getcolor>%(eventsum)s</b> "
+"statechanges. De volgende statechanges zijn gevonden:"
+
+#: statechanges/templates/statechanges/singleevent.html:12
+msgid "Tickets Created"
+msgstr "Tickets aangemaakt"
+
+#: statechanges/templates/statechanges/singleevent.html:15
+msgid "Tickets Blocked"
+msgstr "Tickets geblokkeerd"
+
+#: statechanges/templates/statechanges/singleevent.html:18
+msgid "Tickets Sold in the Primary market"
+msgstr "Tickets verkocht in de primaire markt"
+
+#: statechanges/templates/statechanges/singleevent.html:21
+msgid "Tickets sold in the secondary market"
+msgstr "Tickets verkocht in de tweedehands markt"
+
+#: statechanges/templates/statechanges/singleevent.html:30
+#: statechanges/templates/statechanges/statechanges.html:97
+msgid "Tickets put for sale"
+msgstr "Tickets te koop aangeboden"
+
+#: statechanges/templates/statechanges/singleevent.html:36
+msgid "Tickets not resold"
+msgstr "Tickets geannuleerd"
+
+#: statechanges/templates/statechanges/singleevent.html:39
+msgid "Tickets not sold in the primary market"
+msgstr "Tickets verkocht in de primaire markt"
+
+#: statechanges/templates/statechanges/singleevent.html:42
+msgid "Tickets not sold in the secondary market"
+msgstr "Tickets verkocht in de tweedehands markt"
+
+#: statechanges/templates/statechanges/singleevent.html:79
+msgid "Ticket Hash:"
+msgstr ""
 
 #: statechanges/templates/statechanges/statechangegraph.html:17
 msgid "Statechanges per Month"
