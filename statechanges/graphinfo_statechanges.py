@@ -1,4 +1,5 @@
 from django.db.models import Sum
+from django.utils.translation import gettext as _
 from datetime import datetime
 from datetime import timedelta
 from .models import Block, StateChange
@@ -242,22 +243,22 @@ def get_statechangetypeslast30days():
 
         # Get the label of the firing
         nameconvert = {
-            0: "Tickets created",
-            1: "Tickets blocked",
-            2: "Tickets sold in the primary market",
-            3: "Tickets sold in secondary market",
-            4: "Tickets bought back",
-            5: "Tickets cancelled",
-            6: "Ticket put for sale",
-            7: "No Show",
-            8: "Not resold",
-            9: "Not sold in primary market",
-            10: "Not sold in secondary market",
-            11: "Tickets scanned",
-            12: "Show over",
-            13: "Tickets unblocked"
+            0: _("Tickets created"),
+            1: _("Tickets blocked"),
+            2: _("Tickets sold in the primary market"),
+            3: _("Tickets sold in secondary market"),
+            4: _("Tickets bought back"),
+            5: _("Tickets cancelled"),
+            6: _("Ticket put for sale"),
+            7: _("No Show"),
+            8: _("Not resold"),
+            9: _("Not sold in primary market"),
+            10: _("Not sold in secondary market"),
+            11: _("Tickets scanned"),
+            12: _("Show over"),
+            13: _("Tickets unblocked")
         }
-        label = nameconvert.get(i, "Unknown")
+        label = nameconvert.get(i, _("Unknown"))
 
         # If more than 0 statechanges of the specific type occured, add it to
         # the array

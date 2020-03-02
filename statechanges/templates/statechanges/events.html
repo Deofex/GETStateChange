@@ -1,20 +1,16 @@
 {% extends 'statechanges/base.html' %}
+{% load i18n %}
 {% block content %}
 <div class="row">
     <div class="col">
         <div class="jumbotron">
             <h1 class="display-7">Events</h1>
-            <p class="lead">The places where GET flows</p>
-            <p>Tickets are used at different events. A plane flight, a cabaret show, a festival. This page is displaying
-                the different events for which GET is used and their statistics. However, it doesn’t show the name of
-                the
-                events. This is caused by the circumstance that the GET foundation isn’t publishing event names publicly
-                (yet). Publishing event names on the blockchain, would spoil the
-                announcements which is done by event organizer. With some dedication, you will be able to link an
-                event name to the appropriate event.
-                <div class="card-body fixmidsize">
-                    <canvas id="ChartWiringsDay"></canvas>
-                </div>
+            <p class="lead">{% trans 'The places where GET flows' %}</p>
+            <p>{% trans 'Tickets are used at different events. A plane flight, a cabaret show, a festival. This page is displaying the different events for which GET is used and their statistics. However, it doesn’t show the name of the events. This is caused by the circumstance that the GET foundation isn’t publishing event names publicly (yet). Publishing event names on the blockchain, would spoil the announcements which is done by event organizer. With some dedication, you will be able to link an event name to the appropriate event.' %}
+            </p>
+            <div class="card-body fixmidsize">
+                <canvas id="ChartWiringsDay"></canvas>
+            </div>
         </div>
     </div>
 </div>
@@ -29,7 +25,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col-12">
                                     <h1 class="display-7">All events</h1>
-                                    <p class="lead">Events with the most recent statechanges are on top.</p>
+                                    <p class="lead">{% trans 'Events with the most recent statechanges are on top.' %}</p>
                                 </div>
                             </div>
                         </a>
@@ -40,10 +36,10 @@
                         <a data-parent="#accordion" class="d-block">
                             <div class="row no-gutters align-items-center">
                                 <div class="col-10">
-                                    <p><b>Event Details</b></p>
+                                    <p><b>{% trans 'Event Details' %}</b></p>
                                 </div>
                                 <div class="col-2">
-                                    <p><b>Total Statechanges</b></p>
+                                    <p><b>{% trans 'Total Statechanges' %}</b></p>
                                 </div>
                             </div>
 
@@ -62,12 +58,12 @@
                                 <p><i class="fa fa-calendar"></i></p>
                             </div>
                             <div class="col-9">
-                                <p><b>Creation date:</b> {{ pageevent.block.date |date:"d-m-Y"}}</p>
-                                <p><b>Hash:</b> {{ pageevent.hash }}</p>
+                                <p><b>{% trans 'Creation date:' %}</b> {{ pageevent.block.date |date:"d-m-Y"}}</p>
+                                <p><b>{% trans 'Hash:'%}</b> {{ pageevent.hash }}</p>
                             </div>
                             <div class="col-2">
                                 <div class="d-sm-none">
-                                    <p><b>State Changes:</b> {{ pageevent.totalsum }}</p>
+                                    <p><b>{% trans 'State Changes:' %}</b> {{ pageevent.totalsum }}</p>
                                 </div>
                                 <div class="d-none d-sm-block">
                                     <p>{{ pageevent.totalsum }}</p>
@@ -82,30 +78,31 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <p>Tickets created: <span class="getcolor">{{ pageevent.f0sum }}</span></p>
-                            <p>Tickets blocked: <span class="getcolor">{{ pageevent.f1sum }}</span></p>
-                            <p>Tickets sold in the primary market: <span class="getcolor">{{ pageevent.f2sum }}</span>
+                            <p>{% trans 'Tickets created' %}: <span class="getcolor">{{ pageevent.f0sum }}</span></p>
+                            <p>{% trans 'Tickets blocked' %}: <span class="getcolor">{{ pageevent.f1sum }}</span></p>
+                            <p>{% trans 'Tickets sold in the primary market' %}: <span class="getcolor">{{ pageevent.f2sum }}</span>
                             </p>
-                            <p>Tickets sold in secondary market: <span class="getcolor">{{ pageevent.f3sum }}</span>
+                            <p>{% trans 'Tickets sold in secondary market' %}: <span class="getcolor">{{ pageevent.f3sum }}</span>
                             </p>
-                            <p>Tickets bought back: <span class="getcolor">{{ pageevent.f4sum }}</span></p>
-                            <p>Tickets cancelled: <span class="getcolor">{{ pageevent.f5sum }}</span></p>
-                            <p>Ticket put for sale:<span class="getcolor">{{ pageevent.f6sum }}</span></p>
+                            <p>{% trans 'Tickets bought back' %}: <span class="getcolor">{{ pageevent.f4sum }}</span></p>
+                            <p>{% trans 'Tickets cancelled' %}: <span class="getcolor">{{ pageevent.f5sum }}</span></p>
+                            <p>{% trans 'Ticket put for sale' %}: <span class="getcolor">{{ pageevent.f6sum }}</span></p>
                         </div>
                         <div class="col">
-                            <p>No Show: <span class="getcolor">{{ pageevent.f7sum }}</span></p>
-                            <p>Not resold: <span class="getcolor">{{ pageevent.f8sum }}</span></p>
-                            <p>Not sold in primary market: <span class="getcolor">{{ pageevent.f9sum }}</span></p>
-                            <p>Not sold in secondary market: <span class="getcolor">{{ pageevent.f10sum }}</span>
+                            <p>{% trans 'No Show' %}: <span class="getcolor">{{ pageevent.f7sum }}</span></p>
+                            <p>{% trans 'Not resold' %}: <span class="getcolor">{{ pageevent.f8sum }}</span></p>
+                            <p>{% trans 'Not sold in primary market' %}: <span class="getcolor">{{ pageevent.f9sum }}</span></p>
+                            <p>{% trans 'Not sold in secondary market' %}: <span class="getcolor">{{ pageevent.f10sum }}</span>
                             </p>
-                            <p>Tickets scanned: <span class="getcolor">{{ pageevent.f11sum }}</span></p>
-                            <p>Show over: <span class="getcolor">{{ pageevent.f12sum }}</span></p>
-                            <p>Tickets unblocked: <span class="getcolor">{{ pageevent.f13sum }}</span></p>
+                            <p>{% trans 'Tickets scanned' %}: <span class="getcolor">{{ pageevent.f11sum }}</span></p>
+                            <p>{% trans 'Show over' %}: <span class="getcolor">{{ pageevent.f12sum }}</span></p>
+                            <p>{% trans 'Tickets unblocked' %}: <span class="getcolor">{{ pageevent.f13sum }}</span></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <a class="btn btn-primary btn-lg" href="{% url 'page_singleevent' eventhash=pageevent.hash %}" role="button">Show tickets of the event.</a>
+                            <a class="btn btn-primary btn-lg"
+                                href="{% url 'page_singleevent' eventhash=pageevent.hash %}" role="button">{% trans 'Show tickets of the event.' %}</a>
                         </div>
                     </div>
                 </div>
@@ -114,8 +111,8 @@
         </div>
         <ul class="nav nav-fill pagination">
             {% if pageevents.has_previous %}
-            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
-            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.previous_page_number }}">Previous</a>
+            <li class="nav-item"><a class="page-link" href="?page=1">{% trans 'First' %}</a></li>
+            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.previous_page_number }}">{% trans 'Previous' %}</a>
             </li>
             {% endif %}
             {% for pagenr in pagenrs %}
@@ -128,9 +125,9 @@
             {% endif %}
             {% endfor %}
             {% if pageevents.has_next %}
-            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.next_page_number }}">Next</a>
+            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.next_page_number }}">{% trans 'Next' %}</a>
             </li>
-            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.paginator.num_pages }}">Last</a>
+            <li class="nav-item"><a class="page-link" href="?page={{ pageevents.paginator.num_pages }}">{% trans 'Last' %}</a>
             </li>
             {% endif %}
         </ul>

@@ -1,148 +1,147 @@
 {% extends 'statechanges/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
 <div class="row">
     <div class="col">
         <div class="jumbotron">
-            <h1 class="display-7">Statechanges</h1>
-            <p class="lead">The proof that GET is alive and kicking</p>
+            <h1 class="display-7">{% trans 'Statechanges' %}</h1>
+            <p class="lead">{% trans 'The proof that GET is alive and kicking' %}</p>
             <p>
-                A ticket is going through different states. It’s created, unblocked, sold to an end user, maybe it’s
-                resold to someone else, it’s scanned at the event etc. Each of those actions, called statechanges, are
-                registered and is made public. This page is displaying the amount of statechanges which are registered.
-                It shows the usage of <b class=getcolor>GET</b> and can help you to determine how much <b class=getcolor>GET</b> will be bought
-                back from the market.
-                <div class="card-body fixmidsize">
-                    <canvas id="ChartStateChangesDay"></canvas>
-                </div>
+                {% trans 'A ticket is going through different states. It’s created, unblocked, sold to an end user, maybe it’s resold to someone else, it’s scanned at the event etc. Each of those actions, called statechanges, are registered and is made public. This page is displaying the amount of statechanges which are registered. It shows the usage of <b class=getcolor>GET</b> and can help you to determine how much <b class=getcolor>GET</b> will be bought back from the market.' %}</p>
+            <div class="card-body fixmidsize">
+                <canvas id="ChartStateChangesDay"></canvas>
+            </div>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col">
-            <div id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="d-none d-sm-block">
-                    <div class="card">
-                        <h6 class="card-header" role="tab" id="headingOne">
-                            <a data-parent="#accordion" class="d-block">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-1">
-                                    </div>
-                                    <div class="col-4">
-                                        <p><b>Date</b></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <p><b>Blocknumber</b></p>
-                                    </div>
-                                    <div class="col-3">
-                                        <p><b>Total Statechanges</b></p>
-                                    </div>
-                                </div>
-
-                            </a>
-                        </h6>
-                    </div>
-                </div>
-                {% for pageblock in pageblocks %}
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="d-none d-sm-block">
                 <div class="card">
-                    <h8 class="card-header" role="tab" id="headingOne">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#batch{{ pageblock.blocknumber }}"
-                            aria-expanded="true" aria-controls="batch{{ pageblock.blocknumber }}" class="d-block">
+                    <h6 class="card-header" role="tab" id="headingOne">
+                        <a data-parent="#accordion" class="d-block">
                             <div class="row no-gutters align-items-center">
-                                <div class=col-md-1>
-                                    <p><i class="fa fa-exchange"></i></p>
+                                <div class="col-1">
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="d-sm-none">
-                                        <p><b>Date:</b> {{ pageblock.date |date:"d-m-Y H:i" }}</p>
-                                    </div>
-                                    <div class="d-none d-sm-block">
-                                        <p>{{ pageblock.date |date:"d-m-Y H:i" }}</p>
-                                    </div>
+                                <div class="col-4">
+                                    <p><b>{% trans 'Date' %}</b></p>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="d-sm-none">
-                                        <p><b>Blocknumber:</b> {{ pageblock.blocknumber }}</p>
-                                    </div>
-                                    <div class="d-none d-sm-block">
-                                        <p>{{ pageblock.blocknumber }}</p>
-                                    </div>
+                                <div class="col-4">
+                                    <p><b>{% trans 'Blocknumber' %}</b></p>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="d-sm-none">
-                                        <p><b>Total statechanges:</b> {{ pageblock.totalsum }}{% if not pageblock.fullyprocessed %} <sub><b class=getcolor>Not fully imported yet</b></sub>{% endif %}</p>
-                                    </div>
-                                    <div class="d-none d-sm-block">
-                                        <p>{{ pageblock.totalsum }}{% if not pageblock.fullyprocessed %} <sub><b class=getcolor>Not fully imported yet</b></sub>{% endif %}</p>
-                                    </div>
+                                <div class="col-3">
+                                    <p><b>{% trans 'Total Statechanges' %}</b></p>
                                 </div>
                             </div>
 
                         </a>
-                    </h8>
+                    </h6>
                 </div>
-                <div id="batch{{ pageblock.blocknumber }}" class="collapse" role="tabpanel"
-                    aria-labelledby="headingOne">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <p>Tickets created: <span class="getcolor">{{ pageblock.f0sum }}</span></p>
-                                <p>Tickets blocked: <span class="getcolor">{{ pageblock.f1sum }}</span></p>
-                                <p>Tickets sold in the primary market: <span
-                                        class="getcolor">{{ pageblock.f2sum }}</span></p>
-                                <p>Tickets sold in secondary market: <span class="getcolor">{{ pageblock.f3sum }}</span>
-                                </p>
-                                <p>Tickets bought back: <span class="getcolor">{{ pageblock.f4sum }}</span></p>
-                                <p>Tickets cancelled: <span class="getcolor">{{ pageblock.f5sum }}</span></p>
-                                <p>Ticket put for sale:<span class="getcolor">{{ pageblock.f6sum }}</span></p>
-                                <p>No Show: <span class="getcolor">{{ pageblock.f7sum }}</span></p>
-
+            </div>
+            {% for pageblock in pageblocks %}
+            <div class="card">
+                <h8 class="card-header" role="tab" id="headingOne">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#batch{{ pageblock.blocknumber }}"
+                        aria-expanded="true" aria-controls="batch{{ pageblock.blocknumber }}" class="d-block">
+                        <div class="row no-gutters align-items-center">
+                            <div class=col-md-1>
+                                <p><i class="fa fa-exchange"></i></p>
                             </div>
-                            <div class="col">
-                                <p>Not resold: <span class="getcolor">{{ pageblock.f8sum }}</span></p>
-                                <p>Not sold in primary market: <span class="getcolor">{{ pageblock.f9sum }}</span></p>
-                                <p>Not sold in secondary market: <span class="getcolor">{{ pageblock.f10sum }}</span>
-                                </p>
-                                <p>Tickets scanned: <span class="getcolor">{{ pageblock.f11sum }}</span></p>
-                                <p>Show over: <span class="getcolor">{{ pageblock.f12sum }}</span></p>
-                                <p>Tickets unblocked: <span class="getcolor">{{ pageblock.f13sum }}</span></p>
-                                <p>Wirings: <span class="getcolor">{{ pageblock.wsum }}</span></p>
+                            <div class="col-md-4">
+                                <div class="d-sm-none">
+                                    <p><b>{% trans 'Date:' %}</b> {{ pageblock.date |date:"d-m-Y H:i" }}</p>
+                                </div>
+                                <div class="d-none d-sm-block">
+                                    <p>{{ pageblock.date |date:"d-m-Y H:i" }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-sm-none">
+                                    <p><b>{% trans 'Blocknumber:' %}</b> {{ pageblock.blocknumber }}</p>
+                                </div>
+                                <div class="d-none d-sm-block">
+                                    <p>{{ pageblock.blocknumber }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="d-sm-none">
+                                    <p><b>{% trans 'Total statechanges:' %}</b>
+                                        {{ pageblock.totalsum }}{% if not pageblock.fullyprocessed %} <sub><b
+                                                class=getcolor>{% trans 'Not fully imported yet' %}</b></sub>{% endif %}</p>
+                                </div>
+                                <div class="d-none d-sm-block">
+                                    <p>{{ pageblock.totalsum }}{% if not pageblock.fullyprocessed %} <sub><b
+                                                class=getcolor>{% trans 'Not fully imported yet' %}</b></sub>{% endif %}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <a class="btn btn-primary btn-lg" href="{% url 'page_singleblock' blocknumber=pageblock.blocknumber%}" role="button">Get detailed block information</a>
-                            </div>
+
+                    </a>
+                </h8>
+            </div>
+            <div id="batch{{ pageblock.blocknumber }}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <p>{% trans 'Tickets created' %}: <span class="getcolor">{{ pageblock.f0sum }}</span></p>
+                            <p>{% trans 'Tickets blocked' %}: <span class="getcolor">{{ pageblock.f1sum }}</span></p>
+                            <p>{% trans 'Tickets sold in the primary market' %}: <span class="getcolor">{{ pageblock.f2sum }}</span>
+                            </p>
+                            <p>{% trans 'Tickets sold in secondary market' %}: <span class="getcolor">{{ pageblock.f3sum }}</span>
+                            </p>
+                            <p>{% trans 'Tickets bought back' %}: <span class="getcolor">{{ pageblock.f4sum }}</span></p>
+                            <p>{% trans 'Tickets cancelled' %}: <span class="getcolor">{{ pageblock.f5sum }}</span></p>
+                            <p>{% trans 'Ticket put for sale' %}: <span class="getcolor">{{ pageblock.f6sum }}</span></p>
+                            <p>{% trans 'No Show' %}: <span class="getcolor">{{ pageblock.f7sum }}</span></p>
+
+                        </div>
+                        <div class="col">
+                            <p>{% trans 'Not resold' %}: <span class="getcolor">{{ pageblock.f8sum }}</span></p>
+                            <p>{% trans 'Not sold in primary market' %}: <span class="getcolor">{{ pageblock.f9sum }}</span></p>
+                            <p>{% trans 'Not sold in secondary market' %}: <span class="getcolor">{{ pageblock.f10sum }}</span>
+                            </p>
+                            <p>{% trans 'Tickets scanned' %}: <span class="getcolor">{{ pageblock.f11sum }}</span></p>
+                            <p>{% trans 'Show over' %}: <span class="getcolor">{{ pageblock.f12sum }}</span></p>
+                            <p>{% trans 'Tickets unblocked' %}: <span class="getcolor">{{ pageblock.f13sum }}</span></p>
+                            <p>{% trans 'Wirings' %}: <span class="getcolor">{{ pageblock.wsum }}</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary btn-lg"
+                                href="{% url 'page_singleblock' blocknumber=pageblock.blocknumber%}" role="button">{% trans 'Get detailed block information' %}</a>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-
             </div>
-            <ul class="nav nav-fill pagination">
-                {% if pageblocks.has_previous %}
-                <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
-                <li class="nav-item"><a class="page-link"
-                        href="?page={{ pageblocks.previous_page_number }}">Previous</a>
-                </li>
-                {% endif %}
-                {% for pagenr in pagenrs %}
-                {% if pagenr == pageblocks.number %}
-                <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
-                </li>
-                {% endif %}
-                {% if pagenr != pageblocks.number %}
-                <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
-                {% endif %}
-                {% endfor %}
-                {% if pageblocks.has_next %}
-                <li class="nav-item"><a class="page-link" href="?page={{ pageblocks.next_page_number }}">Next</a>
-                </li>
-                <li class="nav-item"><a class="page-link" href="?page={{ pageblocks.paginator.num_pages }}">Last</a>
-                </li>
-                {% endif %}
-            </ul>
+            {% endfor %}
+
+        </div>
+        <ul class="nav nav-fill pagination">
+            {% if pageblocks.has_previous %}
+            <li class="nav-item"><a class="page-link" href="?page=1">First</a></li>
+            <li class="nav-item"><a class="page-link" href="?page={{ pageblocks.previous_page_number }}">{% trans 'Previous' %}</a>
+            </li>
+            {% endif %}
+            {% for pagenr in pagenrs %}
+            {% if pagenr == pageblocks.number %}
+            <li class="nav-item active"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a>
+            </li>
+            {% endif %}
+            {% if pagenr != pageblocks.number %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pagenr }}">{{ pagenr }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if pageblocks.has_next %}
+            <li class="nav-item"><a class="page-link" href="?page={{ pageblocks.next_page_number }}">{% trans 'Next' %}</a>
+            </li>
+            <li class="nav-item"><a class="page-link" href="?page={{ pageblocks.paginator.num_pages }}">{% trans 'Last' %}</a>
+            </li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 <div class="row">
