@@ -274,6 +274,8 @@ class Ticket(models.Model):
 
 class StateChange(models.Model):
     '''Summery of GET state changes which are posted hourly on the blockchain'''
+    class Meta:
+        ordering = ['block']
     firingtypes = (
         (0, 'Ticket or Wiring created'),
         (1, 'Ticket blocked'),
