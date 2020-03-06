@@ -136,6 +136,7 @@ LANGUAGE_CODE = 'en-us'
 LANGUAGES = (
     ('en', _('English')),
     ('nl', _('Dutch')),
+    ('ko', _('Korean')),
 )
 
 TIME_ZONE = 'UTC'
