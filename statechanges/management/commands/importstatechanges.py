@@ -395,7 +395,6 @@ class Command(BaseCommand):
             if process_ipfsdatastatuscode == 100:
                 continue
 
-            print("Halllllllllloooooooooooooooooooooooooo")
             failedipfsimports = []
             # Process each state change which has been found in the batch
             for ipfsstatechange in statechangebatch.ipfsstatechanges:
