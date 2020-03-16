@@ -161,6 +161,13 @@ def process_ipfsdata(statechangebatch, etherscanapikey):
     logger.info("The following hash has been found in the IPFS data: {}".format(
         statechangebatch.ipfshash))
 
+    # An error has been made in by GET by posting IPFS links with quotes. These
+    # IPFS links has been reposted later and the original have been skipped.
+    if statechangebatch.ipfshash.startswith('\''):
+        logger.info("ipfshash {} is faulty. Skip".format(
+            statechangebatch.ipfshash))
+        return 100
+
     # Get the IPFS data from the IPFS gateway
     logger.info("Retrieving the IPFS data")
     statechangebatch.get_ipfsdata()
@@ -378,12 +385,17 @@ class Command(BaseCommand):
             block=Block.objects.get(pk=statechangebatch.blocknumber)
 
             # Process the IPFS data (get data, split it in transactions and
-            # store it in the statechangebatchobject)
-            process_ipfsdata(
+            # store it in the statechangebatchobject) (if status = 20) go to the
+            # next batch.
+            process_ipfsdatastatuscode =  process_ipfsdata(
                 statechangebatch,
                 etherscanapikey
             )
 
+            if process_ipfsdatastatuscode == 100:
+                continue
+
+            print("Halllllllllloooooooooooooooooooooooooo")
             failedipfsimports = []
             # Process each state change which has been found in the batch
             for ipfsstatechange in statechangebatch.ipfsstatechanges:
