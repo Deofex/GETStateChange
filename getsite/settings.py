@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import ugettext_lazy as _
 
 
 def get_env_variable(var_name):
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'getsite.urls'
@@ -130,6 +132,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'nl'
+LANGUAGES = (
+    ('en', _('English')),
+    ('nl', _('Dutch')),
+    ('ko', _('Korean')),
+    ('es', _('Spanish')),
+    ('it', _('Itilian')),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -139,6 +149,8 @@ USE_L10N = True
 
 USE_TZ = False
 
+# Files with translations
+LOCALE_PATHS = [ os.path.join(BASE_DIR, 'languages'), ]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

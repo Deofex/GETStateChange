@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!doctype html>
 <html lang="en">
 
@@ -17,18 +18,18 @@
     <nav class="navbar fixed-top navbar-light navbar-expand-lg">
         <a class="navbar-brand">
             <img src="{% static 'images/navimage.png' %}" height="30" class="d-inline-block align-top" alt="">
-            GET Protocol Fansite
+            {% trans 'GET Protocol Fansite' %}
         </a>
         <div class="d-none d-lg-block">
             <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item {% if navbar == 'page_home' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'page_home' %}">Home</a>
+                        <a class="nav-link" href="{% url 'page_home' %}">{% trans 'Home' %}</a>
                     </li>
                     <li class="nav-item {% if navbar == 'page_statechanges' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'page_statechanges' %}">Statechanges</a>
+                        <a class="nav-link" href="{% url 'page_statechanges' %}">{% trans 'Statechanges' %}</a>
                     </li>
                     <li class="nav-item {% if navbar == 'page_events' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'page_events' %}">Events</a>
+                        <a class="nav-link" href="{% url 'page_events' %}">{% trans 'Events' %}</a>
                     </li>
             </ul>
         </div>
@@ -40,11 +41,11 @@
                         Menu
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'page_home' %}">Home</a>
+                        <a class="dropdown-item" href="{% url 'page_home' %}">{% trans 'Home' %}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'page_statechanges' %}">Statechanges</a>
+                        <a class="dropdown-item" href="{% url 'page_statechanges' %}">{% trans 'Statechanges' %}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'page_events' %}">Events</a>
+                        <a class="dropdown-item" href="{% url 'page_events' %}">{% trans 'Events' %}</a>
                     </div>
                 </li>
             </ul>
@@ -59,19 +60,12 @@
             <div class="col">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title">This site is created by and for the GET community.</h5>
-                        <p class="card-text">Join the GET community on Telegram, we will welcome you, like you, love
-                            you
-                            and tell you everything you want to know about the GET Protocol project.</p>
-                        <a href="https://t.me/getprotocol" class="btn btn-primary">Join GET Telegram</a>
+                        <h5 class="card-title">{% trans 'This site is created by and for the GET community.' %}</h5>
+                        <p class="card-text">{% trans 'Join the GET community on Telegram, we will welcome you, like you, love you and tell you everything you want to know about the GET Protocol project.' %}</p>
+                        <a href="https://t.me/getprotocol" class="btn btn-primary">{% trans 'Join GET Telegram' %}</a>
                     </div>
                     <div class="card-footer text-muted">
-                        This website is not affiliated with the GET Protocol Foundation. All the
-                        information on this website is published in good faith and for general information purpose
-                        only. If you notice bugs or have suggestions please contact Deofex via the GET Protocol
-                        Telegram channel (see button above). If you are a website designer/developer and want to
-                        improve
-                        this site, speak to him or check the source on the GitHub.
+                        {% trans 'This website is not affiliated with the GET Protocol Foundation. All the information on this website is published in good faith and for general information purpose only. If you notice bugs or have suggestions please contact Deofex via the GET Protocol Telegram channel (see button above). If you are a website designer/developer and want to improve this site, speak to him or check the source on the GitHub.' %}
                     </div>
                 </div>
             </div>

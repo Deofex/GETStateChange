@@ -1,3 +1,4 @@
+{% load i18n %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
 <script>
     var ctx = document.getElementById('ChartBuyback').getContext('2d');
@@ -13,7 +14,7 @@
     {% endfor %}
             ],
     datasets: [{
-        label: 'Buyback in €',
+        label: '{% trans 'Buyback in €' %}',
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
@@ -72,7 +73,7 @@
     {% endfor %}
             ],
     datasets: [{
-        label: 'GET left',
+        label: '{% trans 'GET left' %}',
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
@@ -85,7 +86,7 @@
             fontColor: '#ffffff',
                 yAxisID: 'y-axis-1',
             }, {
-        label: '% of GET burnt',
+        label: '{% blocktrans %}% of GET burnt{% endblocktrans %}',
             backgroundColor: '#000000',
                 borderColor: '#009397',
                     data: [
@@ -124,7 +125,7 @@
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Date',
+                    labelString: '{% trans 'Date' %}',
                     padding: 1
                 },
                 ticks: {

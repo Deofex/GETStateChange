@@ -1,0 +1,1783 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-02 16:31+0000\n"
+"PO-Revision-Date: 2020-03-07 10:09+0100\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3\n"
+
+#: env/lib/python3.7/site-packages/django/contrib/messages/apps.py:7
+msgid "Messages"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/contrib/sitemaps/apps.py:7
+msgid "Site Maps"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/contrib/staticfiles/apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/contrib/syndication/apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/paginator.py:45
+msgid "That page number is not an integer"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/paginator.py:47
+msgid "That page number is less than 1"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/paginator.py:52
+msgid "That page contains no results"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:32
+msgid "Enter a valid value."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:103
+#: env/lib/python3.7/site-packages/django/forms/fields.py:659
+msgid "Enter a valid URL."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:155
+msgid "Enter a valid integer."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:166
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: env/lib/python3.7/site-packages/django/core/validators.py:240
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:247
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:256
+#: env/lib/python3.7/site-packages/django/core/validators.py:276
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:261
+#: env/lib/python3.7/site-packages/django/core/validators.py:277
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:271
+#: env/lib/python3.7/site-packages/django/core/validators.py:275
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:305
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:311
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:343
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:352
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:362
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:377
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:396
+#: env/lib/python3.7/site-packages/django/forms/fields.py:291
+#: env/lib/python3.7/site-packages/django/forms/fields.py:326
+msgid "Enter a number."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:398
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:403
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:408
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:470
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/core/validators.py:522
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/base.py:1181
+#: env/lib/python3.7/site-packages/django/forms/models.py:759
+msgid "and"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/base.py:1183
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:104
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:105
+msgid "This field cannot be null."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:106
+msgid "This field cannot be blank."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:107
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
+#. Eg: "Title must be unique for pub_date year"
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:111
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:130
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:937
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:938
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:940
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:981
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1045
+msgid "Comma-separated integers"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1094
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1096
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1239
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1099
+msgid "Date (without time)"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1237
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1241
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1245
+msgid "Date (with time)"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1393
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1395
+msgid "Decimal number"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1534
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1537
+msgid "Duration"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1587
+msgid "Email address"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1610
+msgid "File path"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1676
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1678
+msgid "Floating point number"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1716
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1718
+msgid "Integer"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1801
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1817
+msgid "IPv4 address"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1848
+msgid "IP address"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1928
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1929
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1931
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1966
+msgid "Positive integer"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1979
+msgid "Positive small integer"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1993
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2025
+msgid "Small integer"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2032
+msgid "Text"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2060
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2062
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2065
+msgid "Time"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2191
+msgid "URL"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2213
+msgid "Raw binary data"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2278
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:2280
+msgid "Universally unique identifier"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/files.py:221
+msgid "File"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/files.py:360
+msgid "Image"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/related.py:778
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/related.py:780
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/related.py:1012
+msgid "One-to-one relationship"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/related.py:1066
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/related.py:1067
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/db/models/fields/related.py:1109
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: env/lib/python3.7/site-packages/django/forms/boundfield.py:149
+msgid ":?.!"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:53
+msgid "This field is required."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:246
+msgid "Enter a whole number."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:397
+#: env/lib/python3.7/site-packages/django/forms/fields.py:1127
+msgid "Enter a valid date."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:421
+#: env/lib/python3.7/site-packages/django/forms/fields.py:1128
+msgid "Enter a valid time."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:443
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:472
+msgid "Enter a valid duration."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:473
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:533
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:534
+msgid "No file was submitted."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:535
+msgid "The submitted file is empty."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:537
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:540
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:601
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:763
+#: env/lib/python3.7/site-packages/django/forms/fields.py:853
+#: env/lib/python3.7/site-packages/django/forms/models.py:1275
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:854
+#: env/lib/python3.7/site-packages/django/forms/fields.py:969
+#: env/lib/python3.7/site-packages/django/forms/models.py:1274
+msgid "Enter a list of values."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:970
+msgid "Enter a complete value."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/fields.py:1186
+msgid "Enter a valid UUID."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: env/lib/python3.7/site-packages/django/forms/forms.py:81
+msgid ":"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/forms.py:207
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/formsets.py:93
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/formsets.py:345
+#, python-format
+msgid "Please submit %d or fewer forms."
+msgid_plural "Please submit %d or fewer forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/forms/formsets.py:352
+#, python-format
+msgid "Please submit %d or more forms."
+msgid_plural "Please submit %d or more forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/forms/formsets.py:379
+#: env/lib/python3.7/site-packages/django/forms/formsets.py:386
+msgid "Order"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/formsets.py:391
+msgid "Delete"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/models.py:754
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/models.py:758
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/models.py:764
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/models.py:773
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/models.py:1094
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/models.py:1161
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/models.py:1277
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/utils.py:162
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/widgets.py:395
+msgid "Clear"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/widgets.py:396
+msgid "Currently"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/widgets.py:397
+msgid "Change"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/widgets.py:709
+#: statechanges/graphinfo_statechanges.py:261
+msgid "Unknown"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/widgets.py:710
+msgid "Yes"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/forms/widgets.py:711
+msgid "No"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/template/defaultfilters.py:788
+msgid "yes,no,maybe"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/template/defaultfilters.py:817
+#: env/lib/python3.7/site-packages/django/template/defaultfilters.py:834
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/template/defaultfilters.py:836
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/template/defaultfilters.py:838
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/template/defaultfilters.py:840
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/template/defaultfilters.py:842
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/template/defaultfilters.py:844
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dateformat.py:62
+msgid "p.m."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dateformat.py:63
+msgid "a.m."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dateformat.py:68
+msgid "PM"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dateformat.py:69
+msgid "AM"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dateformat.py:150
+msgid "midnight"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dateformat.py:152
+msgid "noon"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:6
+msgid "Monday"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:6
+msgid "Tuesday"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:6
+msgid "Wednesday"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:6
+msgid "Thursday"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:6
+msgid "Friday"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:7
+msgid "Saturday"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:7
+msgid "Sunday"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:10
+msgid "Mon"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:10
+msgid "Tue"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:10
+msgid "Wed"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:10
+msgid "Thu"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:10
+msgid "Fri"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:11
+msgid "Sat"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:11
+msgid "Sun"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:14
+msgid "January"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:14
+msgid "February"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:14
+msgid "March"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:14
+msgid "April"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:14
+msgid "May"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:14
+msgid "June"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:15
+msgid "July"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:15
+msgid "August"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:15
+msgid "September"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:15
+msgid "October"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:15
+msgid "November"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:16
+msgid "December"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:19
+msgid "jan"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:19
+msgid "feb"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:19
+msgid "mar"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:19
+msgid "apr"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:19
+msgid "may"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:19
+msgid "jun"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:20
+msgid "jul"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:20
+msgid "aug"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:20
+msgid "sep"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:20
+msgid "oct"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:20
+msgid "nov"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:20
+msgid "dec"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:23
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:24
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:25
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:26
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:27
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:28
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:29
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:30
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:31
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:32
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:33
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:34
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:37
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:38
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:39
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:40
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:41
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:42
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:43
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:44
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:45
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:46
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:47
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/dates.py:48
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/text.py:69
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/text.py:235
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: env/lib/python3.7/site-packages/django/utils/text.py:254
+#: env/lib/python3.7/site-packages/django/utils/timesince.py:83
+msgid ", "
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/utils/timesince.py:9
+#, python-format
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/utils/timesince.py:10
+#, python-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/utils/timesince.py:14
+#, python-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.7/site-packages/django/utils/timesince.py:72
+msgid "0 minutes"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/csrf.py:110
+msgid "Forbidden"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/csrf.py:111
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/csrf.py:115
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your Web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/csrf.py:120
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/csrf.py:124
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/csrf.py:132
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/csrf.py:137
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/csrf.py:142
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:41
+msgid "No year specified"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:61
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:111
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:208
+msgid "Date out of range"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:90
+msgid "No month specified"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:142
+msgid "No day specified"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:188
+msgid "No week specified"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:338
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:367
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:589
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/dates.py:623
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/detail.py:54
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/list.py:67
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/list.py:72
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/generic/list.py:154
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/static.py:40
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/static.py:42
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/static.py:80
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:7
+msgid "Django: the Web framework for perfectionists with deadlines."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:346
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:368
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:369
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:384
+msgid "Django Documentation"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:385
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:396
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:397
+msgid "Get started with Django"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:408
+msgid "Django Community"
+msgstr ""
+
+#: env/lib/python3.7/site-packages/django/views/templates/default_urlconf.html:409
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: getsite/settings.py:137
+msgid "English"
+msgstr ""
+
+#: getsite/settings.py:138
+msgid "Dutch"
+msgstr ""
+
+#: statechanges/graphinfo_statechanges.py:246
+#: statechanges/templates/statechanges/events.html:81
+#: statechanges/templates/statechanges/statechanges.html:89
+msgid "Tickets created"
+msgstr "Tickets creados"
+
+#: statechanges/graphinfo_statechanges.py:247
+#: statechanges/templates/statechanges/events.html:82
+#: statechanges/templates/statechanges/statechanges.html:90
+msgid "Tickets blocked"
+msgstr "Tickets bloqueadas"
+
+#: statechanges/graphinfo_statechanges.py:248
+#: statechanges/templates/statechanges/events.html:83
+#: statechanges/templates/statechanges/statechanges.html:91
+msgid "Tickets sold in the primary market"
+msgstr "Tickets vendidos en el mercado primario"
+
+#: statechanges/graphinfo_statechanges.py:249
+#: statechanges/templates/statechanges/events.html:85
+#: statechanges/templates/statechanges/statechanges.html:93
+msgid "Tickets sold in secondary market"
+msgstr "Tickets vendidos en el mercado secundario"
+
+#: statechanges/graphinfo_statechanges.py:250
+#: statechanges/templates/statechanges/events.html:87
+#: statechanges/templates/statechanges/singleevent.html:24
+#: statechanges/templates/statechanges/statechanges.html:95
+msgid "Tickets bought back"
+msgstr "Tickets recomprados"
+
+#: statechanges/graphinfo_statechanges.py:251
+#: statechanges/templates/statechanges/events.html:88
+#: statechanges/templates/statechanges/singleevent.html:27
+#: statechanges/templates/statechanges/statechanges.html:96
+msgid "Tickets cancelled"
+msgstr "Tickets cancelados"
+
+#: statechanges/graphinfo_statechanges.py:252
+#: statechanges/templates/statechanges/events.html:89
+#: statechanges/templates/statechanges/singleblock.html:58
+#: statechanges/templates/statechanges/singleevent.html:100
+msgid "Ticket put for sale"
+msgstr "Tickets"
+
+#: statechanges/graphinfo_statechanges.py:253
+#: statechanges/templates/statechanges/events.html:92
+#: statechanges/templates/statechanges/singleblock.html:61
+#: statechanges/templates/statechanges/singleevent.html:33
+#: statechanges/templates/statechanges/singleevent.html:103
+#: statechanges/templates/statechanges/statechanges.html:98
+msgid "No Show"
+msgstr "Espectáculo cancelado"
+
+#: statechanges/graphinfo_statechanges.py:254
+#: statechanges/templates/statechanges/events.html:93
+#: statechanges/templates/statechanges/statechanges.html:102
+msgid "Not resold"
+msgstr "No se revendió"
+
+#: statechanges/graphinfo_statechanges.py:255
+#: statechanges/templates/statechanges/events.html:94
+#: statechanges/templates/statechanges/statechanges.html:103
+msgid "Not sold in primary market"
+msgstr "No se ha vendido en el mercado primario"
+
+#: statechanges/graphinfo_statechanges.py:256
+#: statechanges/templates/statechanges/events.html:95
+#: statechanges/templates/statechanges/statechanges.html:104
+msgid "Not sold in secondary market"
+msgstr "No se ha vendido en el mercado secundario"
+
+#: statechanges/graphinfo_statechanges.py:257
+#: statechanges/templates/statechanges/events.html:97
+#: statechanges/templates/statechanges/singleevent.html:45
+#: statechanges/templates/statechanges/statechanges.html:106
+msgid "Tickets scanned"
+msgstr "Tickets escaneados"
+
+#: statechanges/graphinfo_statechanges.py:258
+#: statechanges/templates/statechanges/events.html:98
+#: statechanges/templates/statechanges/singleblock.html:76
+#: statechanges/templates/statechanges/singleevent.html:48
+#: statechanges/templates/statechanges/singleevent.html:118
+#: statechanges/templates/statechanges/statechanges.html:107
+msgid "Show over"
+msgstr "Espectáculo terminado"
+
+#: statechanges/graphinfo_statechanges.py:259
+#: statechanges/templates/statechanges/events.html:99
+#: statechanges/templates/statechanges/singleevent.html:51
+#: statechanges/templates/statechanges/statechanges.html:108
+msgid "Tickets unblocked"
+msgstr "Tickets desbloqueados"
+
+#: statechanges/templates/statechanges/base.html:21
+msgid "GET Protocol Fansite"
+msgstr "GET Protocol Fansite"
+
+#: statechanges/templates/statechanges/base.html:26
+#: statechanges/templates/statechanges/base.html:44
+msgid "Home"
+msgstr "Inicio"
+
+#: statechanges/templates/statechanges/base.html:29
+#: statechanges/templates/statechanges/base.html:46
+#: statechanges/templates/statechanges/statechanges.html:9
+msgid "Statechanges"
+msgstr "Cambios de estado"
+
+#: statechanges/templates/statechanges/base.html:32
+#: statechanges/templates/statechanges/base.html:48
+msgid "Events"
+msgstr "Eventos"
+
+#: statechanges/templates/statechanges/base.html:63
+msgid "This site is created by and for the GET community."
+msgstr "Este sitio esta creado por y para la comunidad de GET."
+
+#: statechanges/templates/statechanges/base.html:64
+msgid ""
+"Join the GET community on Telegram, we will welcome you, like you, love you "
+"and tell you everything you want to know about the GET Protocol project."
+msgstr ""
+"Entra a la comunidad de GET en Telegram, te recibiremos con los brazos "
+"abiertos, eres libre de preguntar cualquier cosa para aprender más sobre el "
+"proyecto GET Protocol."
+
+#: statechanges/templates/statechanges/base.html:65
+msgid "Join GET Telegram"
+msgstr "Entra al Telegram de GET"
+
+#: statechanges/templates/statechanges/base.html:68
+msgid ""
+"This website is not affiliated with the GET Protocol Foundation. All the "
+"information on this website is published in good faith and for general "
+"information purpose only. If you notice bugs or have suggestions please "
+"contact Deofex via the GET Protocol Telegram channel (see button above). If "
+"you are a website designer/developer and want to improve this site, speak to "
+"him or check the source on the GitHub."
+msgstr ""
+"Ésta página web no está afiliada con la fundación de GET Protocol. Toda la "
+"información que se encuentra en esta página web es publicada de buena fe y "
+"con fines de informar solamente. Si encuentra algún error o tiene alguna "
+"sugerencia, por favor contacte con Deofex a través del canal de Telegram de "
+"GET Protocol."
+
+#: statechanges/templates/statechanges/eventgraph.html:17
+msgid "New events published in the last 30 days"
+msgstr "Nuevos eventos publicados en los últimos 30 dias"
+
+#: statechanges/templates/statechanges/eventgraph.html:53
+#: statechanges/templates/statechanges/statechangegraph.html:182
+msgid "Last 30 days"
+msgstr "Últimos 30 dias"
+
+#: statechanges/templates/statechanges/events.html:8
+msgid "The places where GET flows"
+msgstr "Los sitios donde GET fluye"
+
+#: statechanges/templates/statechanges/events.html:9
+msgid ""
+"Tickets are used at different events. A plane flight, a cabaret show, a "
+"festival. This page is displaying the different events for which GET is used "
+"and their statistics. However, it doesn’t show the name of the events. This "
+"is caused by the circumstance that the GET foundation isn’t publishing event "
+"names publicly (yet). Publishing event names on the blockchain, would spoil "
+"the announcements which is done by event organizer. With some dedication, "
+"you will be able to link an event name to the appropriate event."
+msgstr ""
+"Las s son usadas en muchos eventos diferentes. Un billete de avión, un "
+"espectáculo de cabaret, un festival... Esta página nos enseña los diferentes "
+"eventos en los cuales GET se usa y sus estadísticas. Aunque no sabemos el "
+"nombre de los eventos correspondientes. Esto es causado porque la fundación "
+"de GET no publica los nombres de los eventos(de momento). Publicando los "
+"nombres en la blockchain seria una manera de prever el día exacto de un "
+"evento concreto antes de que el organizador del evento lo anunciase. Aunque "
+"con dedicación puedes llegar a saber el nombre del evento."
+
+#: statechanges/templates/statechanges/events.html:28
+msgid "Events with the most recent statechanges are on top."
+msgstr ""
+"Los eventos con los cambios de estado más recientes están arriba del todo."
+
+#: statechanges/templates/statechanges/events.html:39
+msgid "Event Details"
+msgstr "Detalles del evento"
+
+#: statechanges/templates/statechanges/events.html:42
+#: statechanges/templates/statechanges/statechanges.html:36
+msgid "Total Statechanges"
+msgstr "Total de los cambios de estado"
+
+#: statechanges/templates/statechanges/events.html:61
+msgid "Creation date:"
+msgstr "Fecha de creación:"
+
+#: statechanges/templates/statechanges/events.html:62
+msgid "Hash:"
+msgstr "Hash:"
+
+#: statechanges/templates/statechanges/events.html:66
+msgid "State Changes:"
+msgstr "Cambios de estado:"
+
+#: statechanges/templates/statechanges/events.html:105
+msgid "Show tickets of the event."
+msgstr "Tickets de espectáculos en el evento."
+
+#: statechanges/templates/statechanges/events.html:114
+#: statechanges/templates/statechanges/singleblock.html:96
+#: statechanges/templates/statechanges/singleevent.html:133
+msgid "First"
+msgstr "Primera"
+
+#: statechanges/templates/statechanges/events.html:115
+#: statechanges/templates/statechanges/singleblock.html:98
+#: statechanges/templates/statechanges/singleevent.html:134
+#: statechanges/templates/statechanges/statechanges.html:126
+msgid "Previous"
+msgstr "Anterior"
+
+#: statechanges/templates/statechanges/events.html:128
+#: statechanges/templates/statechanges/singleblock.html:111
+#: statechanges/templates/statechanges/singleevent.html:147
+#: statechanges/templates/statechanges/statechanges.html:139
+msgid "Next"
+msgstr "Siguiente"
+
+#: statechanges/templates/statechanges/events.html:130
+#: statechanges/templates/statechanges/singleblock.html:113
+#: statechanges/templates/statechanges/singleevent.html:149
+#: statechanges/templates/statechanges/statechanges.html:141
+msgid "Last"
+msgstr "Última"
+
+#: statechanges/templates/statechanges/home.html:8
+msgid "Hello, GET community!"
+msgstr "Hola comunidad de GET!"
+
+#: statechanges/templates/statechanges/home.html:10
+msgid ""
+"This webpage contains information gathered from different sources. In "
+"different charts and tables the actual usage of the GET protocol is "
+"showcased."
+msgstr ""
+"Esta página web contiene información reunida de diferentes fuentes. Para "
+"entender mejor el funcionamiento de Get Protocol se refleja en tablas y "
+"gráficos."
+
+#: statechanges/templates/statechanges/home.html:14
+msgid ""
+"Where a lot of projects which were launched during the blockchain hype of "
+"2017 didn't came a lot further than releasing a whitepaper, which described "
+"a solution for a problem which didn't even exist, the GET Protocol "
+"foundation differentiate itself. The proof is visualised on this site."
+msgstr ""
+"Mientras muchos proyectos que fueron lanzados en la época de auge de la "
+"\"blockchain\" en el 2017 no han avanzado prácticamente mas que un "
+"whitepaper y un pagina web que intentaban solucionar problemas que ni "
+"existían, la fundación de GET Protocol se diferenciaba de las otras."
+
+#: statechanges/templates/statechanges/home.html:17
+msgid "Show me the proof."
+msgstr "Enseñame las pruebas."
+
+#: statechanges/templates/statechanges/home.html:32
+msgid "Tickets sold in the last 24h"
+msgstr "Tickets vendidos en las últimas 24h"
+
+#: statechanges/templates/statechanges/home.html:50
+msgid "Tickets scanned in the last 24h"
+msgstr "Tickets escaneados en las últimas 24h"
+
+#: statechanges/templates/statechanges/home.html:69
+msgid "The current average GET price"
+msgstr "El precio medio actual de GET"
+
+#: statechanges/templates/statechanges/home.html:86
+msgid "Amount of events which used GET last 24h"
+msgstr "Número de eventos que han usado GET en las últimas 24h"
+
+#: statechanges/templates/statechanges/home.html:98
+msgid "Buyback!"
+msgstr "Recompra!"
+
+#: statechanges/templates/statechanges/home.html:99
+msgid "GET tokens are bough back from the open market"
+msgstr "Los \"tokens\" de GET son recomprados a mercado"
+
+#. Translators: Please leave the text between <b and b> as is. The code will transfer this snippets in colored numbers.
+#: statechanges/templates/statechanges/home.html:102
+#, python-format
+msgid ""
+"For each statechange being processed the GET token is needed. This means GET "
+"is necessary when a ticket is created, sold, resold, being scanned etc. The "
+"amount of GET which is needed is partially bought back from the market and "
+"partially subsidized by the User Growth Fund. In the last buyback a single "
+"statechangecost €0.07 If this remains the same we can expect <b "
+"class=getcolor>%(getburned)s</b> GET to be burned this quarter with a value "
+"of <b class=getcolor>€%(burnbackvalue)s</b>. In total <b class=getcolor>"
+"%(openmarketgetburned)s</b> GET will be bought back from the open market. "
+"This is based on the current price of GET being <b class=getcolor>€"
+"%(geteurprice)s</b>"
+msgstr ""
+"Por cada estado de cambio procesado es necesario GET. Esto significa que es "
+"necesario GET para la creación de un ticket, venta, reventa, cuando es "
+"escaneada .etc. La cantidad de GET necesaria será recomprada a mercado y "
+"parcialmente subvencionada por el User Growth Fund. En la última recompra un "
+"cambio de estado tenia un coste de 0.07€. Si esto sigue así podemos esperar "
+"que <b class=getcolor>%(getburned)s</b> GET sean quemados con un valor de <b "
+"class=getcolor>€%(burnbackvalue)s</b>. En total <b class=getcolor>"
+"%(openmarketgetburned)s</b> GET serán recomprados a mercado. Todo esto "
+"basado en el precio actual de <b class=getcolor>€%(geteurprice)s</b>"
+
+#: statechanges/templates/statechanges/home.html:128
+msgid "A word"
+msgstr "Unas palabras"
+
+#: statechanges/templates/statechanges/home.html:129
+msgid ""
+"Hi guys, I'm trying to maintain this site when possible When you have new "
+"idea's for widgets, or want to see more data, please speak to me on Telegram."
+msgstr ""
+"Hola chicos, estoy tratando de mantener este sitio cuando sea posible. Si "
+"tienen nuevas ideas para los widgets, o quieren ver más datos, os "
+"agradecería que me hablaseis en el Telegram."
+
+#: statechanges/templates/statechanges/home.html:130
+msgid ""
+"All data on this site is dynamic and updated 5 minutes after each full hour."
+msgstr ""
+"Todos los datos de este sitio son dinámicos y actualizados 5 minutos después "
+"de cada hora completa."
+
+#: statechanges/templates/statechanges/home.html:131
+msgid "Cheers, Deofex"
+msgstr "Saludos, Deofex"
+
+#: statechanges/templates/statechanges/homegraph.html:17
+msgid "Buyback in €"
+msgstr "Recompra en €"
+
+#: statechanges/templates/statechanges/homegraph.html:76
+msgid "GET left"
+msgstr "GET restante"
+
+#: statechanges/templates/statechanges/homegraph.html:89
+#, python-format
+msgid "%% of GET burnt"
+msgstr "%% de GET quemado"
+
+#: statechanges/templates/statechanges/homegraph.html:128
+#: statechanges/templates/statechanges/statechanges.html:30
+msgid "Date"
+msgstr "Fecha"
+
+#: statechanges/templates/statechanges/singleblock.html:7
+msgid "Block"
+msgstr "Bloque"
+
+#: statechanges/templates/statechanges/singleblock.html:8
+msgid "This block was published on the blockchain on"
+msgstr "Este bloque fue publicado en la blockchain"
+
+#: statechanges/templates/statechanges/singleblock.html:10
+#, python-format
+msgid ""
+"This block contains <b class=getcolor>%(blocksum)s</b> statechanges. The "
+"table below shows the statechanges published in this block."
+msgstr ""
+"Este bloque contiene <b class=getcolor>%(blocksum)s</b>cambios de estado. En "
+"la siguiente tabla puedes ver los cambios de estado que se han publicado en "
+"este bloque."
+
+#: statechanges/templates/statechanges/singleblock.html:24
+msgid "Block details"
+msgstr "Detalles de bloques"
+
+#: statechanges/templates/statechanges/singleblock.html:40
+#: statechanges/templates/statechanges/singleevent.html:82
+msgid "Ticket Created"
+msgstr "Ticket creado"
+
+#: statechanges/templates/statechanges/singleblock.html:43
+#: statechanges/templates/statechanges/singleevent.html:85
+msgid "Ticket Blocked"
+msgstr "Ticket bloqueado"
+
+#: statechanges/templates/statechanges/singleblock.html:46
+#: statechanges/templates/statechanges/singleevent.html:88
+msgid "Ticket Sold in the Primary market"
+msgstr "Tciket vendido en el mercado primario"
+
+#: statechanges/templates/statechanges/singleblock.html:49
+#: statechanges/templates/statechanges/singleevent.html:91
+msgid "Ticket sold in the secondary market"
+msgstr "Ticket vendido en el mercado secundario"
+
+#: statechanges/templates/statechanges/singleblock.html:52
+#: statechanges/templates/statechanges/singleevent.html:94
+msgid "Ticket bought back"
+msgstr "Ticket recomprado"
+
+#: statechanges/templates/statechanges/singleblock.html:55
+#: statechanges/templates/statechanges/singleevent.html:97
+msgid "Ticket cancelled"
+msgstr "Ticket cancelado"
+
+#: statechanges/templates/statechanges/singleblock.html:64
+#: statechanges/templates/statechanges/singleevent.html:106
+msgid "Ticket not resold"
+msgstr "Ticket no recomprado"
+
+#: statechanges/templates/statechanges/singleblock.html:67
+#: statechanges/templates/statechanges/singleevent.html:109
+msgid "Ticket not sold in the primary market"
+msgstr "Ticket no vendido en el mercado primario"
+
+#: statechanges/templates/statechanges/singleblock.html:70
+#: statechanges/templates/statechanges/singleevent.html:112
+msgid "Ticket not sold in the secondary market"
+msgstr "Ticket no vendido en el mercado secundario"
+
+#: statechanges/templates/statechanges/singleblock.html:73
+#: statechanges/templates/statechanges/singleevent.html:115
+msgid "Ticket scanned"
+msgstr "Ticket escaneado"
+
+#: statechanges/templates/statechanges/singleblock.html:79
+#: statechanges/templates/statechanges/singleevent.html:122
+msgid "Ticket unblocked"
+msgstr "Ticket desbloqueado"
+
+#: statechanges/templates/statechanges/singleblock.html:81
+msgid "Statechange hash"
+msgstr "Hash del cambio de estado"
+
+#: statechanges/templates/statechanges/singleblock.html:82
+msgid "Statechange corresponding event"
+msgstr "Cambio de estado correspondiente al evento"
+
+#: statechanges/templates/statechanges/singleblock.html:87
+msgid "Go to Event"
+msgstr "Ir al evento"
+
+#: statechanges/templates/statechanges/singleevent.html:7
+msgid "Event:"
+msgstr "Evento:"
+
+#: statechanges/templates/statechanges/singleevent.html:8
+msgid "An event which was published on the blockchain on:"
+msgstr "Un evento publicado en la blockchain:"
+
+#: statechanges/templates/statechanges/singleevent.html:10
+#, python-format
+msgid ""
+"This event contains <b class=getcolor>%(ticketcount)s</b> tickets and those "
+"tickets were responsible for <b class=getcolor>%(eventsum)s</b> "
+"statechanges. The following statechanges have been found:"
+msgstr ""
+"Este evento contiene <b class=getcolor>%(ticketcount)s</b> tickets, los "
+"cuales son responsables de <b class=getcolor>%(eventsum)s</b> cambios de "
+"estado. Los siguientes cambios de estado han sido encontrados:"
+
+#: statechanges/templates/statechanges/singleevent.html:12
+msgid "Tickets Created"
+msgstr "Tickets creados"
+
+#: statechanges/templates/statechanges/singleevent.html:15
+msgid "Tickets Blocked"
+msgstr "Tickets bloqueados"
+
+#: statechanges/templates/statechanges/singleevent.html:18
+msgid "Tickets Sold in the Primary market"
+msgstr "Tickets vendidos en el mercado primario"
+
+#: statechanges/templates/statechanges/singleevent.html:21
+msgid "Tickets sold in the secondary market"
+msgstr "Tickets vendidos en el mercado secundario"
+
+#: statechanges/templates/statechanges/singleevent.html:30
+#: statechanges/templates/statechanges/statechanges.html:97
+msgid "Tickets put for sale"
+msgstr "Tickets a la venta"
+
+#: statechanges/templates/statechanges/singleevent.html:36
+msgid "Tickets not resold"
+msgstr "Tickets no revendidos"
+
+#: statechanges/templates/statechanges/singleevent.html:39
+msgid "Tickets not sold in the primary market"
+msgstr "Tickets no vendidos en el mercado primario"
+
+#: statechanges/templates/statechanges/singleevent.html:42
+msgid "Tickets not sold in the secondary market"
+msgstr "Tickets no vendidos en el mercado secundario"
+
+#: statechanges/templates/statechanges/singleevent.html:79
+msgid "Ticket Hash:"
+msgstr "Ticket Hash:"
+
+#: statechanges/templates/statechanges/statechangegraph.html:17
+msgid "Statechanges per Month"
+msgstr "Cambios de estado por mes"
+
+#: statechanges/templates/statechanges/statechangegraph.html:56
+msgid "Month"
+msgstr "Mes"
+
+#: statechanges/templates/statechanges/statechangegraph.html:83
+msgid "Statechanges per Quarter"
+msgstr "Cambios de estado por trimestre"
+
+#: statechanges/templates/statechanges/statechangegraph.html:119
+msgid "Quarter"
+msgstr "Trimestre"
+
+#: statechanges/templates/statechanges/statechangegraph.html:146
+msgid "Statechanges per day"
+msgstr "Cambios de estado por dia"
+
+#: statechanges/templates/statechanges/statechangegraph.html:205
+msgid "New petri-nets (new events)"
+msgstr "Nuevos eventos"
+
+#: statechanges/templates/statechanges/statechangegraph.html:232
+msgid "Amount of ticket Statechanges in the last 30 days per Statechange type"
+msgstr ""
+"Cantidad de cambios de estado en los últimos 30 días por cada tipo de cambio "
+"de estado"
+
+#: statechanges/templates/statechanges/statechanges.html:10
+msgid "The proof that GET is alive and kicking"
+msgstr "La prueba de que GET está en vivo y dándolo todo"
+
+#: statechanges/templates/statechanges/statechanges.html:12
+msgid ""
+"A ticket is going through different states. It’s created, unblocked, sold to "
+"an end user, maybe it’s resold to someone else, it’s scanned at the event "
+"etc. Each of those actions, called statechanges, are registered and is made "
+"public. This page is displaying the amount of statechanges which are "
+"registered. It shows the usage of <b class=getcolor>GET</b> and can help you "
+"to determine how much <b class=getcolor>GET</b> will be bought back from the "
+"market."
+msgstr ""
+"Un ticket pasa por diferentes cambios de estado. Es creado, desbloqueado, "
+"vendido a un usuario final, quizá es revendido a otro usuario, escaneado en "
+"el evento .etc. Cada una de estas acciones, nombradas cambios de estado, son "
+"registradas y publicadas. Esta página está mostrando la cantidad de cambios "
+"de estado que están registrados. Nos enseña el uso de <b class=getcolor>GET</"
+"b> y puede ayudarnos a determinar cuantos <b class=getcolor>GET</b> será "
+"recomprados a mercado."
+
+#: statechanges/templates/statechanges/statechanges.html:33
+msgid "Blocknumber"
+msgstr "Número de bloque"
+
+#: statechanges/templates/statechanges/statechanges.html:55
+msgid "Date:"
+msgstr "Fecha:"
+
+#: statechanges/templates/statechanges/statechanges.html:63
+msgid "Blocknumber:"
+msgstr "Número de bloque:"
+
+#: statechanges/templates/statechanges/statechanges.html:71
+msgid "Total statechanges:"
+msgstr "Total de cambios de estado:"
+
+#: statechanges/templates/statechanges/statechanges.html:73
+#: statechanges/templates/statechanges/statechanges.html:77
+msgid "Not fully imported yet"
+msgstr "No está totalmente importado aún"
+
+#: statechanges/templates/statechanges/statechanges.html:109
+msgid "Wirings"
+msgstr "Cableado"
+
+#: statechanges/templates/statechanges/statechanges.html:115
+msgid "Get detailed block information"
+msgstr "Obtén información detallada"

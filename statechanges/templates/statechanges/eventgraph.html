@@ -1,3 +1,4 @@
+{% load i18n %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
 <script>
     var ctx = document.getElementById('ChartWiringsDay').getContext('2d');
@@ -13,7 +14,7 @@
     {% endfor %}
             ],
     datasets: [{
-        label: 'New events published in the last 30 days',
+        label: '{% trans 'New events published in the last 30 days' %}',
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
@@ -49,7 +50,7 @@
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Last 30 days',
+                    labelString: '{% trans 'Last 30 days' %}',
                     padding: 1
                 }
             }]

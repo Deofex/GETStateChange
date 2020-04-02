@@ -1,3 +1,4 @@
+{% load i18n %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
 <script>
     var ctx = document.getElementById('ChartStateChangesMonth').getContext('2d');
@@ -13,7 +14,7 @@
     {% endfor %}
             ],
     datasets: [{
-        label: 'State Changes per Month',
+        label: '{% trans 'Statechanges per Month' %}',
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
@@ -52,7 +53,7 @@
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Month'
+                    labelString: '{% trans 'Month' %}'
                 }
             }],
                 yAxes: [{
@@ -79,7 +80,7 @@
     {% endfor %}
         ],
     datasets: [{
-        label: 'State Changes per Quarter',
+        label: '{% trans 'Statechanges per Quarter' %}',
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
@@ -115,7 +116,7 @@
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Quarter'
+                    labelString: '{% trans 'Quarter' %}'
                 }
             }],
                 yAxes: [{
@@ -142,7 +143,7 @@
     {% endfor %}
             ],
     datasets: [{
-        label: 'State Changes per day',
+        label: '{% trans 'Statechanges per day' %}',
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
@@ -178,7 +179,7 @@
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Last 30 days',
+                    labelString: '{% trans 'Last 30 days' %}',
                     padding: 1
                 }
             }]
@@ -201,7 +202,7 @@
     {% endfor %}
         ],
     datasets: [{
-        label: 'New petri-nets (new events)',
+        label: '{% trans 'New petri-nets (new events)' %}',
         backgroundColor: [
             '#01c696',
             '#00ad9b',
@@ -228,7 +229,7 @@
     options: {
         title: {
             display: true,
-                text: 'Amount of ticket statechanges in the last 30 days per statechange type'
+                text: '{% trans 'Amount of ticket Statechanges in the last 30 days per Statechange type' %}'
         },
         maintainAspectRatio: false,
             responsive: true,
