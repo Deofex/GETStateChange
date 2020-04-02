@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-02 16:32+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-03-10 18:25+0100\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3\n"
 
 #: env/lib/python3.7/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
@@ -1203,46 +1203,46 @@ msgstr ""
 #: statechanges/templates/statechanges/events.html:81
 #: statechanges/templates/statechanges/statechanges.html:89
 msgid "Tickets created"
-msgstr ""
+msgstr "Biglietti creati"
 
 #: statechanges/graphinfo_statechanges.py:247
 #: statechanges/templates/statechanges/events.html:82
 #: statechanges/templates/statechanges/statechanges.html:90
 msgid "Tickets blocked"
-msgstr ""
+msgstr "Biglietti bloccati"
 
 #: statechanges/graphinfo_statechanges.py:248
 #: statechanges/templates/statechanges/events.html:83
 #: statechanges/templates/statechanges/statechanges.html:91
 msgid "Tickets sold in the primary market"
-msgstr ""
+msgstr "Biglietti venduti nel mercato primario"
 
 #: statechanges/graphinfo_statechanges.py:249
 #: statechanges/templates/statechanges/events.html:85
 #: statechanges/templates/statechanges/statechanges.html:93
 msgid "Tickets sold in secondary market"
-msgstr ""
+msgstr "Biglietti venduti nel mercato secondario"
 
 #: statechanges/graphinfo_statechanges.py:250
 #: statechanges/templates/statechanges/events.html:87
 #: statechanges/templates/statechanges/singleevent.html:24
 #: statechanges/templates/statechanges/statechanges.html:95
 msgid "Tickets bought back"
-msgstr ""
+msgstr "Biglietti riacquistati"
 
 #: statechanges/graphinfo_statechanges.py:251
 #: statechanges/templates/statechanges/events.html:88
 #: statechanges/templates/statechanges/singleevent.html:27
 #: statechanges/templates/statechanges/statechanges.html:96
 msgid "Tickets cancelled"
-msgstr ""
+msgstr "Biglietti annullati"
 
 #: statechanges/graphinfo_statechanges.py:252
 #: statechanges/templates/statechanges/events.html:89
 #: statechanges/templates/statechanges/singleblock.html:58
 #: statechanges/templates/statechanges/singleevent.html:100
 msgid "Ticket put for sale"
-msgstr ""
+msgstr "Biglietto messo in vendita"
 
 #: statechanges/graphinfo_statechanges.py:253
 #: statechanges/templates/statechanges/events.html:92
@@ -1251,32 +1251,32 @@ msgstr ""
 #: statechanges/templates/statechanges/singleevent.html:103
 #: statechanges/templates/statechanges/statechanges.html:98
 msgid "No Show"
-msgstr ""
+msgstr "Evento annullato"
 
 #: statechanges/graphinfo_statechanges.py:254
 #: statechanges/templates/statechanges/events.html:93
 #: statechanges/templates/statechanges/statechanges.html:102
 msgid "Not resold"
-msgstr ""
+msgstr "Non rivenduto"
 
 #: statechanges/graphinfo_statechanges.py:255
 #: statechanges/templates/statechanges/events.html:94
 #: statechanges/templates/statechanges/statechanges.html:103
 msgid "Not sold in primary market"
-msgstr ""
+msgstr "Non venduto nel mercato primario"
 
 #: statechanges/graphinfo_statechanges.py:256
 #: statechanges/templates/statechanges/events.html:95
 #: statechanges/templates/statechanges/statechanges.html:104
 msgid "Not sold in secondary market"
-msgstr ""
+msgstr "Non venduto nel mercato secondario"
 
 #: statechanges/graphinfo_statechanges.py:257
 #: statechanges/templates/statechanges/events.html:97
 #: statechanges/templates/statechanges/singleevent.html:45
 #: statechanges/templates/statechanges/statechanges.html:106
 msgid "Tickets scanned"
-msgstr ""
+msgstr "Biglietto scansionato"
 
 #: statechanges/graphinfo_statechanges.py:258
 #: statechanges/templates/statechanges/events.html:98
@@ -1285,48 +1285,52 @@ msgstr ""
 #: statechanges/templates/statechanges/singleevent.html:118
 #: statechanges/templates/statechanges/statechanges.html:107
 msgid "Show over"
-msgstr ""
+msgstr "Evento terminato"
 
 #: statechanges/graphinfo_statechanges.py:259
 #: statechanges/templates/statechanges/events.html:99
 #: statechanges/templates/statechanges/singleevent.html:51
 #: statechanges/templates/statechanges/statechanges.html:108
 msgid "Tickets unblocked"
-msgstr ""
+msgstr "Biglietti sbloccati"
 
 #: statechanges/templates/statechanges/base.html:21
 msgid "GET Protocol Fansite"
-msgstr ""
+msgstr "GET Protocol Fansite"
 
 #: statechanges/templates/statechanges/base.html:26
 #: statechanges/templates/statechanges/base.html:44
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: statechanges/templates/statechanges/base.html:29
 #: statechanges/templates/statechanges/base.html:46
 #: statechanges/templates/statechanges/statechanges.html:9
 msgid "Statechanges"
-msgstr ""
+msgstr "Cambi di stato"
 
 #: statechanges/templates/statechanges/base.html:32
 #: statechanges/templates/statechanges/base.html:48
 msgid "Events"
-msgstr ""
+msgstr "Eventi"
 
 #: statechanges/templates/statechanges/base.html:63
 msgid "This site is created by and for the GET community."
 msgstr ""
+"Il sito è da un lato stato creato dalla community di GET, e dall'altro è "
+"destinato alla community di GET."
 
 #: statechanges/templates/statechanges/base.html:64
 msgid ""
 "Join the GET community on Telegram, we will welcome you, like you, love you "
 "and tell you everything you want to know about the GET Protocol project."
 msgstr ""
+"Unisciti alla community di GET su Telegram, sarai il benvenuto e ti diremo "
+"qualunque cosa tu voglia sapere riguardo il progetto GET Protocol."
 
 #: statechanges/templates/statechanges/base.html:65
 msgid "Join GET Telegram"
-msgstr ""
+msgstr "Unisciti a GET Telegram"
 
 #: statechanges/templates/statechanges/base.html:68
 msgid ""
@@ -1337,19 +1341,25 @@ msgid ""
 "you are a website designer/developer and want to improve this site, speak to "
 "him or check the source on the GitHub."
 msgstr ""
+"Questo sito web non è affiliato alla GET Protocol Foundation. Tutte le "
+"informazioni su questo sito web sono pubblicate in buona fede e solo a scopo "
+"informativo. Se noti bug o hai suggerimenti, contatta Deofex tramite il "
+"canale Telegram di GET protocol (vedi pulsante sopra). Se sei un designer / "
+"sviluppatore di siti Web e desideri migliorare questo sito, parla con lui o "
+"consulta la fonte su GitHub."
 
 #: statechanges/templates/statechanges/eventgraph.html:17
 msgid "New events published in the last 30 days"
-msgstr ""
+msgstr "Nuovi eventi pubblicati negli ultimi 30 giorni"
 
 #: statechanges/templates/statechanges/eventgraph.html:53
 #: statechanges/templates/statechanges/statechangegraph.html:182
 msgid "Last 30 days"
-msgstr ""
+msgstr "Ultimi 30 giorni"
 
 #: statechanges/templates/statechanges/events.html:8
 msgid "The places where GET flows"
-msgstr ""
+msgstr "I luoghi in cui GET scorre"
 
 #: statechanges/templates/statechanges/events.html:9
 msgid ""
@@ -1361,66 +1371,74 @@ msgid ""
 "the announcements which is done by event organizer. With some dedication, "
 "you will be able to link an event name to the appropriate event."
 msgstr ""
+"I biglietti vengono utilizzati in diversi eventi. Un volo aereo, uno "
+"spettacolo di cabaret, un festival. Questa pagina mostra i diversi eventi "
+"per i quali viene utilizzato GET e le relative statistiche. Tuttavia, non "
+"mostra il nome degli eventi. Ciò è dovuto al fatto che la GET Foundation non "
+"mostra pubblicamente (per il momento) i nomi degli eventi. La pubblicazione "
+"dei nomi degli eventi sulla blockchain, spoilererebbe gli annunci che "
+"vengono fatti dall'organizzatore dell'evento. Con un certo impegno, sarai in "
+"grado di collegare il nome di un evento all'evento appropriato."
 
 #: statechanges/templates/statechanges/events.html:28
 msgid "Events with the most recent statechanges are on top."
-msgstr ""
+msgstr "Gli eventi con i cambi di stato più recenti sono mostrati in alto."
 
 #: statechanges/templates/statechanges/events.html:39
 msgid "Event Details"
-msgstr ""
+msgstr "Dettagli dell'evento"
 
 #: statechanges/templates/statechanges/events.html:42
 #: statechanges/templates/statechanges/statechanges.html:36
 msgid "Total Statechanges"
-msgstr ""
+msgstr "Cambi di stato totali"
 
 #: statechanges/templates/statechanges/events.html:61
 msgid "Creation date:"
-msgstr ""
+msgstr "Data di creazione:"
 
 #: statechanges/templates/statechanges/events.html:62
 msgid "Hash:"
-msgstr ""
+msgstr "Hash:"
 
 #: statechanges/templates/statechanges/events.html:66
 msgid "State Changes:"
-msgstr ""
+msgstr "Cambi di stato:"
 
 #: statechanges/templates/statechanges/events.html:105
 msgid "Show tickets of the event."
-msgstr ""
+msgstr "Mostra i biglietti dell'evento."
 
 #: statechanges/templates/statechanges/events.html:114
 #: statechanges/templates/statechanges/singleblock.html:96
 #: statechanges/templates/statechanges/singleevent.html:133
 msgid "First"
-msgstr ""
+msgstr "Inizio"
 
 #: statechanges/templates/statechanges/events.html:115
 #: statechanges/templates/statechanges/singleblock.html:98
 #: statechanges/templates/statechanges/singleevent.html:134
 #: statechanges/templates/statechanges/statechanges.html:126
 msgid "Previous"
-msgstr ""
+msgstr "Precedente"
 
 #: statechanges/templates/statechanges/events.html:128
 #: statechanges/templates/statechanges/singleblock.html:111
 #: statechanges/templates/statechanges/singleevent.html:147
 #: statechanges/templates/statechanges/statechanges.html:139
 msgid "Next"
-msgstr ""
+msgstr "Successivo"
 
 #: statechanges/templates/statechanges/events.html:130
 #: statechanges/templates/statechanges/singleblock.html:113
 #: statechanges/templates/statechanges/singleevent.html:149
 #: statechanges/templates/statechanges/statechanges.html:141
 msgid "Last"
-msgstr ""
+msgstr "Fine"
 
 #: statechanges/templates/statechanges/home.html:8
 msgid "Hello, GET community!"
-msgstr ""
+msgstr "Ciao community di GET!"
 
 #: statechanges/templates/statechanges/home.html:10
 msgid ""
@@ -1428,6 +1446,9 @@ msgid ""
 "different charts and tables the actual usage of the GET protocol is "
 "showcased."
 msgstr ""
+"Questa pagina web contiene informazioni raccolte da diverse fonti. In "
+"diversi grafici e tabelle viene mostrato l'effettivo utilizzo di GET "
+"Protocol."
 
 #: statechanges/templates/statechanges/home.html:14
 msgid ""
@@ -1436,34 +1457,38 @@ msgid ""
 "a solution for a problem which didn't even exist, the GET Protocol "
 "foundation differentiate itself. The proof is visualised on this site."
 msgstr ""
+"GET Protocol si differenzia da molti progetti avviati durante l'hype che ha "
+"caratterizzato i progetti blockchain del 2017, essi infatti non andavano "
+"molto oltre il rilascio di un whitepaper, che descriveva una soluzione per "
+"un problema che non esisteva nemmeno. La prova è mostrata su questo sito."
 
 #: statechanges/templates/statechanges/home.html:17
 msgid "Show me the proof."
-msgstr ""
+msgstr "Mostrami la prova."
 
 #: statechanges/templates/statechanges/home.html:32
 msgid "Tickets sold in the last 24h"
-msgstr ""
+msgstr "Biglietti venduti nelle ultime 24h"
 
 #: statechanges/templates/statechanges/home.html:50
 msgid "Tickets scanned in the last 24h"
-msgstr ""
+msgstr "Biglietti scansionati nelle ultime 24h"
 
 #: statechanges/templates/statechanges/home.html:69
 msgid "The current average GET price"
-msgstr ""
+msgstr "Prezzo medio corrente dei token GET"
 
 #: statechanges/templates/statechanges/home.html:86
 msgid "Amount of events which used GET last 24h"
-msgstr ""
+msgstr "Numero di eventi che hanno utilizzato GET nelle ultime 24h"
 
 #: statechanges/templates/statechanges/home.html:98
 msgid "Buyback!"
-msgstr ""
+msgstr "Buyback!"
 
 #: statechanges/templates/statechanges/home.html:99
 msgid "GET tokens are bough back from the open market"
-msgstr ""
+msgstr "I token GET sono riacquistati dal mercato"
 
 #. Translators: Please leave the text between <b and b> as is. The code will transfer this snippets in colored numbers.
 #: statechanges/templates/statechanges/home.html:102
@@ -1480,51 +1505,67 @@ msgid ""
 "This is based on the current price of GET being <b class=getcolor>€"
 "%(geteurprice)s</b>"
 msgstr ""
+"Per ogni cambio di stato processato sono necessari i token GET. Ciò "
+"significa che GET è necessario quando un biglietto viene creato, venduto, "
+"rivenduto, scansionato, ecc. La quantità di GET necessaria viene "
+"parzialmente riacquistata dal mercato e parzialmente sovvenzionata dal Fondo "
+"per la crescita degli utenti (Users Growth Fund). Nell'ultimo buyback un "
+"singolo cambio di stato costava 0,07 €. Se questo valore restasse invariato, "
+"possiamo aspettarci che <b class=getcolor>%(getburned)s</b> che vengano "
+"bruciati in questo trimestre GET per  un valore di <b class=getcolor>€"
+"%(burnbackvalue)s</b>. In totale <b class=getcolor>%(openmarketgetburned)s</"
+"b> GET verranno riacquistati dal mercato. Questo valore si basa sul prezzo "
+"corrente di GET che è pari a <b class=getcolor>€%(geteurprice)s</b>"
 
 #: statechanges/templates/statechanges/home.html:128
 msgid "A word"
-msgstr ""
+msgstr "Nota"
 
 #: statechanges/templates/statechanges/home.html:129
 msgid ""
 "Hi guys, I'm trying to maintain this site when possible When you have new "
 "idea's for widgets, or want to see more data, please speak to me on Telegram."
 msgstr ""
+"Ciao ragazzi, sto cercando di mantenere questo sito quando possibile. Se "
+"avete nuove idee per i widget o volete vedere più dati, per favore fatemelo "
+"sapere su Telegram."
 
 #: statechanges/templates/statechanges/home.html:130
 msgid ""
 "All data on this site is dynamic and updated 5 minutes after each full hour."
 msgstr ""
+"Tutti i dati su questo sito sono dinamici ed aggiornati 5 minuti dopo ogni "
+"ora esatta."
 
 #: statechanges/templates/statechanges/home.html:131
 msgid "Cheers, Deofex"
-msgstr ""
+msgstr "Saluti, Deofex"
 
 #: statechanges/templates/statechanges/homegraph.html:17
 msgid "Buyback in €"
-msgstr ""
+msgstr "Buyback in €"
 
 #: statechanges/templates/statechanges/homegraph.html:76
 msgid "GET left"
-msgstr ""
+msgstr "GET residui"
 
 #: statechanges/templates/statechanges/homegraph.html:89
 #, python-format
 msgid "%% of GET burnt"
-msgstr ""
+msgstr "%% di GET bruciati"
 
 #: statechanges/templates/statechanges/homegraph.html:128
 #: statechanges/templates/statechanges/statechanges.html:30
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: statechanges/templates/statechanges/singleblock.html:7
 msgid "Block"
-msgstr ""
+msgstr "Blocco"
 
 #: statechanges/templates/statechanges/singleblock.html:8
 msgid "This block was published on the blockchain on"
-msgstr ""
+msgstr "Questo blocco è stato pubblicato sulla blockchain il"
 
 #: statechanges/templates/statechanges/singleblock.html:10
 #, python-format
@@ -1532,85 +1573,87 @@ msgid ""
 "This block contains <b class=getcolor>%(blocksum)s</b> statechanges. The "
 "table below shows the statechanges published in this block."
 msgstr ""
+"Questo blocco contiene <b class=getcolor>%(blocksum)s</b> cambi di stato. La "
+"tabella sottostante mostra i cambi di stato pubblicati in questo blocco."
 
 #: statechanges/templates/statechanges/singleblock.html:24
 msgid "Block details"
-msgstr ""
+msgstr "Dettagli del blocco"
 
 #: statechanges/templates/statechanges/singleblock.html:40
 #: statechanges/templates/statechanges/singleevent.html:82
 msgid "Ticket Created"
-msgstr ""
+msgstr "Biglietto creato"
 
 #: statechanges/templates/statechanges/singleblock.html:43
 #: statechanges/templates/statechanges/singleevent.html:85
 msgid "Ticket Blocked"
-msgstr ""
+msgstr "Biglietto bloccato"
 
 #: statechanges/templates/statechanges/singleblock.html:46
 #: statechanges/templates/statechanges/singleevent.html:88
 msgid "Ticket Sold in the Primary market"
-msgstr ""
+msgstr "Biglietto venduto nel mercato primario"
 
 #: statechanges/templates/statechanges/singleblock.html:49
 #: statechanges/templates/statechanges/singleevent.html:91
 msgid "Ticket sold in the secondary market"
-msgstr ""
+msgstr "Biglietto venduto nel mercato secondario"
 
 #: statechanges/templates/statechanges/singleblock.html:52
 #: statechanges/templates/statechanges/singleevent.html:94
 msgid "Ticket bought back"
-msgstr ""
+msgstr "Biglietto riacquistato"
 
 #: statechanges/templates/statechanges/singleblock.html:55
 #: statechanges/templates/statechanges/singleevent.html:97
 msgid "Ticket cancelled"
-msgstr ""
+msgstr "Biglietto annullato"
 
 #: statechanges/templates/statechanges/singleblock.html:64
 #: statechanges/templates/statechanges/singleevent.html:106
 msgid "Ticket not resold"
-msgstr ""
+msgstr "Biglietto non rivenduto"
 
 #: statechanges/templates/statechanges/singleblock.html:67
 #: statechanges/templates/statechanges/singleevent.html:109
 msgid "Ticket not sold in the primary market"
-msgstr ""
+msgstr "Biglietto non venduto nel mercato primario"
 
 #: statechanges/templates/statechanges/singleblock.html:70
 #: statechanges/templates/statechanges/singleevent.html:112
 msgid "Ticket not sold in the secondary market"
-msgstr ""
+msgstr "Biglietto non venduto nel mercato secondario"
 
 #: statechanges/templates/statechanges/singleblock.html:73
 #: statechanges/templates/statechanges/singleevent.html:115
 msgid "Ticket scanned"
-msgstr ""
+msgstr "Biglietto scansionato"
 
 #: statechanges/templates/statechanges/singleblock.html:79
 #: statechanges/templates/statechanges/singleevent.html:122
 msgid "Ticket unblocked"
-msgstr ""
+msgstr "Biglietto sbloccato"
 
 #: statechanges/templates/statechanges/singleblock.html:81
 msgid "Statechange hash"
-msgstr ""
+msgstr "Hash del cambio di stato"
 
 #: statechanges/templates/statechanges/singleblock.html:82
 msgid "Statechange corresponding event"
-msgstr ""
+msgstr "Evento corrispondente al cambio di stato"
 
 #: statechanges/templates/statechanges/singleblock.html:87
 msgid "Go to Event"
-msgstr ""
+msgstr "Vai all'evento"
 
 #: statechanges/templates/statechanges/singleevent.html:7
 msgid "Event:"
-msgstr ""
+msgstr "Evento:"
 
 #: statechanges/templates/statechanges/singleevent.html:8
 msgid "An event which was published on the blockchain on:"
-msgstr ""
+msgstr "Evento pubblicato sulla blockchain il:"
 
 #: statechanges/templates/statechanges/singleevent.html:10
 #, python-format
@@ -1619,75 +1662,80 @@ msgid ""
 "tickets were responsible for <b class=getcolor>%(eventsum)s</b> "
 "statechanges. The following statechanges have been found:"
 msgstr ""
+"Questo evento racchiude <b class=getcolor>%(ticketcount)s</b> biglietti, e "
+"questi biglietti sono responsabili di <b class=getcolor>%(eventsum)s</b> "
+"cambi di stato. Sono stati trovati i seguenti cambi di stato:"
 
 #: statechanges/templates/statechanges/singleevent.html:12
 msgid "Tickets Created"
-msgstr ""
+msgstr "Biglietti creati"
 
 #: statechanges/templates/statechanges/singleevent.html:15
 msgid "Tickets Blocked"
-msgstr ""
+msgstr "Biglietti bloccati"
 
 #: statechanges/templates/statechanges/singleevent.html:18
 msgid "Tickets Sold in the Primary market"
-msgstr ""
+msgstr "Biglietti venduti nel mercato primario"
 
 #: statechanges/templates/statechanges/singleevent.html:21
 msgid "Tickets sold in the secondary market"
-msgstr ""
+msgstr "Biglietti venduti nel mercato secondario"
 
 #: statechanges/templates/statechanges/singleevent.html:30
 #: statechanges/templates/statechanges/statechanges.html:97
 msgid "Tickets put for sale"
-msgstr ""
+msgstr "Biglietti messi in vendita"
 
 #: statechanges/templates/statechanges/singleevent.html:36
 msgid "Tickets not resold"
-msgstr ""
+msgstr "Biglietti non rivenduti"
 
 #: statechanges/templates/statechanges/singleevent.html:39
 msgid "Tickets not sold in the primary market"
-msgstr ""
+msgstr "Biglietti non venduti nel mercato primario"
 
 #: statechanges/templates/statechanges/singleevent.html:42
 msgid "Tickets not sold in the secondary market"
-msgstr ""
+msgstr "Biglietti non venduti nel mercato secondario"
 
 #: statechanges/templates/statechanges/singleevent.html:79
 msgid "Ticket Hash:"
-msgstr ""
+msgstr "Hash del biglietto:"
 
 #: statechanges/templates/statechanges/statechangegraph.html:17
 msgid "Statechanges per Month"
-msgstr ""
+msgstr "Cambi di stato in un mese"
 
 #: statechanges/templates/statechanges/statechangegraph.html:56
 msgid "Month"
-msgstr ""
+msgstr "Mese"
 
 #: statechanges/templates/statechanges/statechangegraph.html:83
 msgid "Statechanges per Quarter"
-msgstr ""
+msgstr "Cambi di stato in un trimestre"
 
 #: statechanges/templates/statechanges/statechangegraph.html:119
 msgid "Quarter"
-msgstr ""
+msgstr "Trimestre"
 
 #: statechanges/templates/statechanges/statechangegraph.html:146
 msgid "Statechanges per day"
-msgstr ""
+msgstr "Cambi di stati in un giorno"
 
 #: statechanges/templates/statechanges/statechangegraph.html:205
 msgid "New petri-nets (new events)"
-msgstr ""
+msgstr "Nuovo petri-nets (nuovo evento)"
 
 #: statechanges/templates/statechanges/statechangegraph.html:232
 msgid "Amount of ticket Statechanges in the last 30 days per Statechange type"
 msgstr ""
+"Numero di cambi di stato negli ultimi 30 giorni per tipologia di cambio di "
+"stato"
 
 #: statechanges/templates/statechanges/statechanges.html:10
 msgid "The proof that GET is alive and kicking"
-msgstr ""
+msgstr "La prova che GET è vivo e vegeto"
 
 #: statechanges/templates/statechanges/statechanges.html:12
 msgid ""
@@ -1699,32 +1747,39 @@ msgid ""
 "to determine how much <b class=getcolor>GET</b> will be bought back from the "
 "market."
 msgstr ""
+"Un biglietto attraversa diversi stati. Viene creato, sbloccato, venduto a un "
+"utente finale, forse è rivenduto a qualcun altro, è scansionato durante "
+"l'evento ecc. Ognuna di queste azioni, chiamate cambi di stato, è registrata "
+"e resa pubbliche. Questa pagina mostra la quantità di cambi di stato "
+"registrati. Mostra l'uso di <b class=getcolor>GET</b>> e può aiutarti a "
+"determinare quanti <b class=getcolor>GET</b>> verranno riacquistati dal "
+"mercato."
 
 #: statechanges/templates/statechanges/statechanges.html:33
 msgid "Blocknumber"
-msgstr ""
+msgstr "Numero del blocco"
 
 #: statechanges/templates/statechanges/statechanges.html:55
 msgid "Date:"
-msgstr ""
+msgstr "Data:"
 
 #: statechanges/templates/statechanges/statechanges.html:63
 msgid "Blocknumber:"
-msgstr ""
+msgstr "Numero del blocco:"
 
 #: statechanges/templates/statechanges/statechanges.html:71
 msgid "Total statechanges:"
-msgstr ""
+msgstr "Cambi di stato totali:"
 
 #: statechanges/templates/statechanges/statechanges.html:73
 #: statechanges/templates/statechanges/statechanges.html:77
 msgid "Not fully imported yet"
-msgstr ""
+msgstr "Non ancora completamente importato"
 
 #: statechanges/templates/statechanges/statechanges.html:109
 msgid "Wirings"
-msgstr ""
+msgstr "Circuiti"
 
 #: statechanges/templates/statechanges/statechanges.html:115
 msgid "Get detailed block information"
-msgstr ""
+msgstr "Ottieni informazioni dettagliate del blocco"

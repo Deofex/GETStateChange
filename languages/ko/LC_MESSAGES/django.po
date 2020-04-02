@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-03 18:55+0000\n"
-"PO-Revision-Date: 2020-03-05 20:26+0900\n"
+"PO-Revision-Date: 2020-04-02 16:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ko\n"
@@ -1632,7 +1632,7 @@ msgstr "월 별 상태 변환 수"
 
 #: statechanges/templates/statechanges/singleblock.html:87
 msgid "Go to Event"
-msgstr ""
+msgstr "이벤트로 이동"
 
 #: statechanges/templates/statechanges/singleevent.html:7
 msgid "Event:"
