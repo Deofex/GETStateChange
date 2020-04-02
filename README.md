@@ -111,7 +111,7 @@ Create the folder where the log files will be places in
 ```
 sudo mkdir /var/log/getsite
 sudo chown %WEBADMINUSER% -R /var/log/getsite/
-
+```
 ### Create the folder which contain the site
 Create the 'getsite' folder in /var/www and give ownership to the user
 ```
