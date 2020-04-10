@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-02 13:06+0000\n"
-"PO-Revision-Date: 2020-03-02 14:17+0100\n"
+"PO-Revision-Date: 2020-04-10 11:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -1654,7 +1654,7 @@ msgstr "Evenementen:"
 
 #: statechanges/templates/statechanges/singleevent.html:8
 msgid "An event which was published on the blockchain on:"
-msgstr "Nieuwe evenementen gepubliceerd in de laatste 30 dagen:"
+msgstr "Een evenement welke op de blockchain is gepubliceerd op: "
 
 #: statechanges/templates/statechanges/singleevent.html:10
 #, python-format
@@ -1663,7 +1663,7 @@ msgid ""
 "tickets were responsible for <b class=getcolor>%(eventsum)s</b> "
 "statechanges. The following statechanges have been found:"
 msgstr ""
-"Dit evenement bevat <b class=getcolor>%(ticketcount)s</b> tickets and deze "
+"Dit evenement bevat <b class=getcolor>%(ticketcount)s</b> tickets en deze "
 "tickets zijn verantwoordelijk voor <b class=getcolor>%(eventsum)s</b> "
 "statechanges. De volgende statechanges zijn gevonden:"
 
