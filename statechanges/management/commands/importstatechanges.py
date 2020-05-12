@@ -407,8 +407,8 @@ class Command(BaseCommand):
             block=Block.objects.get(pk=statechangebatch.blocknumber)
 
             # Process the IPFS data (get data, split it in transactions and
-            # store it in the statechangebatchobject) (if status = 20) go to the
-            # next batch.
+            # store it in the statechangebatchobject) (if status = 100) go to
+            # the next batch.
             process_ipfsdatastatuscode =  process_ipfsdata(
                 statechangebatch,
                 etherscanapikey
