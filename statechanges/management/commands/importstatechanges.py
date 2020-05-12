@@ -73,11 +73,16 @@ class StateChangeBatch():
         ipfsdata = get_url(url)
         logger.info("IPFS succesfully retrieved, split the data")
         ipfsdata = ipfsdata.splitlines()
+        # If the first line of the ipfs data doesn't contains 4 segments than
+        # the data is invalid. (It frequently happens that the page is a timeout
+        # page instead of statechanges.)
+        if len(ipfsdata[0].split(",")) != 4:
+            raise Exception('IPFS Data invalid')
         self.ipfsdata = ipfsdata
+
 
     # This function decodes the IPFS data and extract the different type of
     # state changes to the object.
-
     def decode_ipfsdata(self):
         # For each state change in the IPFS data check what kind of state change
         # have been processed.
@@ -170,7 +175,24 @@ def process_ipfsdata(statechangebatch, etherscanapikey):
 
     # Get the IPFS data from the IPFS gateway
     logger.info("Retrieving the IPFS data")
-    statechangebatch.get_ipfsdata()
+
+    # It often happens that the IPFs data wasn't retrieved properly, due to a
+    # timeout. The loop below is made so it will retry retrieving the ipfs data
+    # when such error occurs.
+    for i in range(1,100):
+        try:
+            statechangebatch.get_ipfsdata()
+        except:
+            if i == 99:
+                logger.error(
+                    "99 tries to retrieve IPFS data failed, exit script.")
+                raise Exception('IPFS data cannot be retrieved')
+            else:
+                logger.warning(
+                    "Error retrieving IPFS Data, timeout? {} time".format(i))
+                continue
+        break
+
     logger.info("IPFS data found, decoding the data.")
 
     # Decode the IPFS data to get a readable list with firings and wirings
