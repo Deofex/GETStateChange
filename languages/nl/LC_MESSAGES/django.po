@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-02 13:06+0000\n"
-"PO-Revision-Date: 2020-05-21 16:13+0200\n"
+"POT-Creation-Date: 2020-05-21 14:24+0000\n"
+"PO-Revision-Date: 2020-05-21 16:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -1199,6 +1199,18 @@ msgstr ""
 msgid "Dutch"
 msgstr ""
 
+#: getsite/settings.py:139
+msgid "Korean"
+msgstr ""
+
+#: getsite/settings.py:140
+msgid "Spanish"
+msgstr ""
+
+#: getsite/settings.py:141
+msgid "Itilian"
+msgstr ""
+
 #: statechanges/graphinfo_statechanges.py:246
 #: statechanges/templates/statechanges/events.html:81
 #: statechanges/templates/statechanges/statechanges.html:89
@@ -1349,8 +1361,8 @@ msgstr ""
 "website op GitHub."
 
 #: statechanges/templates/statechanges/eventgraph.html:17
-msgid "New events published in the last 30 days"
-msgstr "Nieuwe evenementen gepubliceerd in de laatste 30 dagen"
+msgid "New events published"
+msgstr "Nieuwe evenementen gepubliceerd"
 
 #: statechanges/templates/statechanges/eventgraph.html:53
 #: statechanges/templates/statechanges/statechangegraph.html:182
