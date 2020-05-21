@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-02 13:06+0000\n"
-"PO-Revision-Date: 2020-04-10 11:20+0200\n"
+"PO-Revision-Date: 2020-05-21 16:13+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: env/lib/python3.7/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
@@ -1507,7 +1507,7 @@ msgid ""
 "%(geteurprice)s</b>"
 msgstr ""
 "Voor elke statechange welke wordt uitgevoerd is de GET token benodigd. Dit "
-"betekend dat GET nodig is wanneer er een ticket wordt aangemaakt, verkocht, "
+"betekent dat GET nodig is wanneer er een ticket wordt aangemaakt, verkocht, "
 "doorverkocht, wordt gescand etc. De hoeveelheid GET welke benodigd is wordt "
 "terug gekocht vanuit de markt en is gedeeltelijk gesubsidieerd door de "
 "\"User Growth Fund\". In de laatste buyback periode kostte een enkele "
@@ -1654,7 +1654,7 @@ msgstr "Evenementen:"
 
 #: statechanges/templates/statechanges/singleevent.html:8
 msgid "An event which was published on the blockchain on:"
-msgstr "Een evenement welke op de blockchain is gepubliceerd op: "
+msgstr "Een evenement welke op de blockchain is gepubliceerd op:"
 
 #: statechanges/templates/statechanges/singleevent.html:10
 #, python-format
