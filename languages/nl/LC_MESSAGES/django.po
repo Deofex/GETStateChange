@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-21 14:24+0000\n"
-"PO-Revision-Date: 2020-05-21 16:25+0200\n"
+"PO-Revision-Date: 2020-05-29 19:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -1227,13 +1227,13 @@ msgstr "Tickets geblokkeerd"
 #: statechanges/templates/statechanges/events.html:83
 #: statechanges/templates/statechanges/statechanges.html:91
 msgid "Tickets sold in the primary market"
-msgstr "Tickets verkocht in de primaire markt laatste 24u"
+msgstr "Tickets verkocht in de primaire markt"
 
 #: statechanges/graphinfo_statechanges.py:249
 #: statechanges/templates/statechanges/events.html:85
 #: statechanges/templates/statechanges/statechanges.html:93
 msgid "Tickets sold in secondary market"
-msgstr "Tickets verkocht in de tweedehands markt laatste 24u"
+msgstr "Tickets verkocht in de tweedehands markt"
 
 #: statechanges/graphinfo_statechanges.py:250
 #: statechanges/templates/statechanges/events.html:87
@@ -1288,7 +1288,7 @@ msgstr "Niet verkocht in de tweedehands markt"
 #: statechanges/templates/statechanges/singleevent.html:45
 #: statechanges/templates/statechanges/statechanges.html:106
 msgid "Tickets scanned"
-msgstr "Tickets gescand in de laatste 24u"
+msgstr "Tickets gescand"
 
 #: statechanges/graphinfo_statechanges.py:258
 #: statechanges/templates/statechanges/events.html:98
