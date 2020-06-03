@@ -103,7 +103,7 @@ def page_home(request):
         'ticketssoldlast24h':ticketssoldlast24h,
         'ticketsscannedlast24h':ticketsscannedlast24h,
         'eventsactivelast24h':eventsactivelast24h,
-        'geteurprice':geteurprice,
+        'geteurprice':"{:.2f}".format(geteurprice),
         'burnbackvalue': burnbackvalue,
         'getburned': getburned,
         'openmarketgetburned':openmarketgetburned,
