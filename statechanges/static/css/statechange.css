@@ -140,6 +140,9 @@ p {
     color: white;
 }
 
+.header-shift {
+    margin-right: 30vw;
+}
 
 @media (max-device-width: 576px) {
     .card {
