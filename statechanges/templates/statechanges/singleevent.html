@@ -4,8 +4,14 @@
 <div class="row">
     <div class="col">
         <div class="jumbotron">
-            <h1 class="display-7">{% trans 'Event:' %} {{event.hash}}</h1>
-            <p class="lead">{% trans 'An event which was published on the blockchain on:' %} {{event.block.date |date:"d-m-Y H:i"}}
+            <div class="d-none d-md-block">
+                <h1>{% trans 'Event:' %} {{event.hash}}</h1>
+            </div>
+            <div class="d-md-none">
+                <h1>{% trans 'Event' %}</h1>
+                <span class="smalltext">(Hash: {{event.hash}})</span>
+            </div>
+            <p class="lead">{% trans 'An event which was published on the blockchain on:' %} {{event.block.date |date:"d-m-Y H:i"}} GMT
             </p>
             <p>{% blocktrans with eventsum=event.totalsum %}This event contains <b class=getcolor>{{ticketcount}}</b> tickets and those tickets were responsible for <b class=getcolor>{{eventsum}}</b> statechanges. The following statechanges have been found:{% endblocktrans %} </p>
                 {% if event.f0sum != 0 %}
@@ -72,54 +78,54 @@
             <div class="card">
                 <h8 class="card-header" role="tab" id="headingOne">
                     <div class="row no-gutters align-items-center">
-                        <div class="col-1">
+                        <div class="col-1 d-none d-sm-block">
                             <p><i class="fa fa-ticket fa-2x"></i></p>
                         </div>
                         <div class="col-11">
                             <p><b>{% trans 'Ticket Hash:' %}</b> {{ pageticket.hash }}</p>
                             {% for statechange in pageticket.statechange_set.all %}
                             {% if statechange.firing == 0 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket Created' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket Created' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 1 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket Blocked' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket Blocked' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 2 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket Sold in the Primary market' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket Sold in the Primary market' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 3 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket sold in the secondary market' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket sold in the secondary market' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 4 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket bought back' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket bought back' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 5 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket cancelled' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket cancelled' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 6 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket put for sale' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket put for sale' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 7 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'No Show' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'No Show' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 8 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket not resold' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket not resold' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 9 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket not sold in the primary market' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket not sold in the primary market' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 10 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket not sold in the secondary market' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket not sold in the secondary market' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 11 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket scanned' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket scanned' %}</b></p>
                             {% endif %}
                             {% if statechange.firing == 12 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Show over' %}</b>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Show over' %}</b>
                             </p>
                             {% endif %}
                             {% if statechange.firing == 13 %}
-                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} --- <b class=getcolor>{% trans 'Ticket unblocked' %}</b></p>
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket unblocked' %}</b></p>
                             {% endif %}
                             {% endfor %}
                         </div>

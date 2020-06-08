@@ -7,38 +7,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>GET State Changes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/statechange.css' %}">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}"/>
 </head>
 
 
 <body>
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg">
-        <a class="navbar-brand">
-            <img src="{% static 'images/navimage.png' %}" height="30" class="d-inline-block align-top" alt="">
-            {% trans 'GET Protocol Fansite' %}
-        </a>
-        <div class="d-none d-lg-block">
-            <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item {% if navbar == 'page_home' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'page_home' %}">{% trans 'Home' %}</a>
-                    </li>
-                    <li class="nav-item {% if navbar == 'page_statechanges' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'page_statechanges' %}">{% trans 'Statechanges' %}</a>
-                    </li>
-                    <li class="nav-item {% if navbar == 'page_events' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'page_events' %}">{% trans 'Events' %}</a>
-                    </li>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg justify-content-md-center">
+            <a class="navbar-brand align-vertical">
+                <div class="d-none d-sm-block">
+                    <img src="{% static 'images/navimage.png' %}" height="30" class="d-inline-block align-top" alt="">
+                    {% trans 'GET Protocol Fansite' %}
+                </div>
+                <div class="d-sm-none">
+                    <img src="{% static 'images/navimage.png' %}" height="30" class="d-inline-block align-top" alt="">
+                    {% trans 'Fansite' %}
+                </div>
+            </a>
+        <div class="d-none d-lg-block header-shift">
+            <ul class="nav navbar-nav">
+                <li class="nav-item {% if navbar == 'page_home' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'page_home' %}">{% trans 'Home' %}</a>
+                </li>
+                <li class="nav-item {% if navbar == 'page_statechanges' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'page_statechanges' %}">{% trans 'Statechanges' %}</a>
+                </li>
+                <li class="nav-item {% if navbar == 'page_events' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'page_events' %}">{% trans 'Events' %}</a>
+                </li>
             </ul>
         </div>
         <div class="d-lg-none">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle align-right" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Menu
+                        <span class="navbar-toggler-icon"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'page_home' %}">{% trans 'Home' %}</a>
@@ -61,7 +68,9 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title">{% trans 'This site is created by and for the GET community.' %}</h5>
-                        <p class="card-text">{% trans 'Join the GET community on Telegram, we will welcome you, like you, love you and tell you everything you want to know about the GET Protocol project.' %}</p>
+                        <p class="card-text">
+                            {% trans 'Join the GET community on Telegram, we will welcome you, like you, love you and tell you everything you want to know about the GET Protocol project.' %}
+                        </p>
                         <a href="https://t.me/getprotocol" class="btn btn-primary">{% trans 'Join GET Telegram' %}</a>
                     </div>
                     <div class="card-footer text-muted">

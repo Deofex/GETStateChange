@@ -52,10 +52,10 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="d-sm-none">
-                                    <p><b>{% trans 'Date:' %}</b> {{ pageblock.date |date:"d-m-Y H:i" }}</p>
+                                    <p><b>{% trans 'Date:' %}</b> {{ pageblock.date |date:"d-m-Y H:i" }} GMT</p>
                                 </div>
                                 <div class="d-none d-sm-block">
-                                    <p>{{ pageblock.date |date:"d-m-Y H:i" }}</p>
+                                    <p>{{ pageblock.date |date:"d-m-Y H:i" }} GMT</p>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -111,7 +111,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <a class="btn btn-primary btn-lg"
+                            <a class="btn btn-primary btn-lg smalldevdetection"
                                 href="{% url 'page_singleblock' blocknumber=pageblock.blocknumber%}" role="button">{% trans 'Get detailed block information' %}</a>
                         </div>
                     </div>

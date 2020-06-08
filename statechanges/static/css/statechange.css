@@ -66,6 +66,11 @@ body {
     border-color: #01C696;
 }
 
+@media (max-device-width: 768px) {
+    .smalldevdetection {
+        font-size: small;
+    }
+}
 .card.graph {
     margin-bottom: 10px;
 }
@@ -140,6 +145,21 @@ p {
     color: white;
 }
 
+.header-shift {
+    margin-right: 30vw;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-vertical {
+    align-self: flex-start;
+}
+
+.smalltext {
+    font-size: x-small;
+}
 
 @media (max-device-width: 576px) {
     .card {

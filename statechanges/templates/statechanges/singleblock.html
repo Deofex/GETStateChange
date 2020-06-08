@@ -5,7 +5,7 @@
     <div class="col">
         <div class="jumbotron">
             <h1 class="display-7">{% trans 'Block' %}: {{singleblock.blocknumber}}</h1>
-            <p class="lead">{% trans 'This block was published on the blockchain on' %}: {{block.date |date:"d-m-Y H:i"}}
+            <p class="lead">{% trans 'This block was published on the blockchain on' %}: {{singleblock.date |date:"d-m-Y H:i"}} GMT
             </p>
             <p>{% blocktrans with blocksum=singleblock.totalsum %}This block contains <b class=getcolor>{{blocksum}}</b> statechanges. The table below shows the statechanges published in this block.{% endblocktrans %}</p>
         </div>
@@ -82,7 +82,7 @@
                                 <p><b>{% trans 'Statechange corresponding event' %}:</b> {{pagestatechange.ticket.event.hash}}</p>
                             </div>
                             <div class="col-2">
-                                <a class="btn btn-primary btn-lg"
+                                <a class="btn btn-primary btn-lg smalldevdetection"
                                     href="{% url 'page_singleevent' eventhash=pagestatechange.ticket.event.hash%}"
                                     role="button">{% trans 'Go to Event' %}</a>
                             </div>

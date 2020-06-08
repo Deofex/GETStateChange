@@ -158,23 +158,27 @@ def retrieve_statechangebatches(
 # 4) The data is decoded (seperated in different firings and wirings)
 def process_ipfsdata(statechangebatch, etherscanapikey):
     # Get the IPFS hash for the retrieved statechange batch
-    logger.info("Retrieving IPFS hash stored in blocknumber: {}".format(
+    logger.info("Retrieving IPFS hash from blocknumber: {}".format(
         statechangebatch.blocknumber))
     statechangebatch.get_ipfshash(
         etherscanapikey
     )
-    logger.info("The following hash has been found in the IPFS data: {}".format(
+    logger.info("The following hash has been found in block {}: {}".format(
+        statechangebatch.blocknumber,
         statechangebatch.ipfshash))
 
     # An error has been made in by GET by posting IPFS links with quotes. These
     # IPFS links has been reposted later and the original have been skipped.
     if statechangebatch.ipfshash.startswith('\''):
-        logger.info("ipfshash {} is faulty. Skip".format(
+        logger.info("ipfshash {} is faulty. It will be ignored".format(
             statechangebatch.ipfshash))
         return 100
 
     # Get the IPFS data from the IPFS gateway
-    logger.info("Retrieving the IPFS data")
+    logger.info(
+        "Retrieving the IPFS data with hash {} from the IPFS Gateway".format(
+            statechangebatch.ipfshash
+        ))
 
     # It often happens that the IPFs data wasn't retrieved properly, due to a
     # timeout. The loop below is made so it will retry retrieving the ipfs data
@@ -189,11 +193,15 @@ def process_ipfsdata(statechangebatch, etherscanapikey):
                 raise Exception('IPFS data cannot be retrieved')
             else:
                 logger.warning(
-                    "Error retrieving IPFS Data, timeout? {} time".format(i))
+                    "Error retrieving IPFS Data with hash:{}" \
+                        ", timeout? {} time".format(
+                            statechangebatch.ipfshash,i))
                 continue
         break
 
-    logger.info("IPFS data found, decoding the data.")
+    logger.info(
+        "IPFS data with hash {} succesfully retrieved, " \
+            "decoding the data.".format(statechangebatch.ipfshash))
 
     # Decode the IPFS data to get a readable list with firings and wirings
     statechangebatch.decode_ipfsdata()
@@ -219,7 +227,8 @@ def get_afterblocknumber():
 def get_ticket(hash,previoushash):
     '''Function which lookup an event'''
     if Event.objects.filter(hash=previoushash).exists():
-        logger.info("Ticket not found, create a new one")
+        logger.info("Ticket with hash {} not found, create a new one".format(
+            previoushash))
         event = Event.objects.get(hash=previoushash)
         Ticket.objects.create(
             hash = hash,
@@ -229,8 +238,9 @@ def get_ticket(hash,previoushash):
     else:
         previousstate = StateChange.objects.get(hash=previoushash)
         ticket = previousstate.ticket
-        logger.info("Existing ticket, statechange will be added: {}".format(
-            ticket))
+        logger.info(
+            "Existing ticket found, statechange {} will be added.".format(
+                ticket))
 
     return ticket
 
@@ -378,7 +388,7 @@ class Command(BaseCommand):
 
         # Retrieve all statechange batches from the Ethereum network
         # (block/date/hash)
-        logger.warning("Get tx'es containing IPFS data with " +
+        logger.info("Get tx'es containing IPFS data with " +
               "statechange batches after block {}".format(afterblocknumber))
         statechangebatches = retrieve_statechangebatches(
             etherscanapikey,
