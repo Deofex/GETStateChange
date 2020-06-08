@@ -144,8 +144,12 @@ p {
     margin-right: 30vw;
 }
 
-.allign-right {
+.align-right {
     text-align: right;
+}
+
+.align-vertical {
+    align-self: flex-start;
 }
 
 @media (max-device-width: 576px) {
