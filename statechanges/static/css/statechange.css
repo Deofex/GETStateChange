@@ -152,6 +152,10 @@ p {
     align-self: flex-start;
 }
 
+.smalltext {
+    font-size: x-small;
+}
+
 @media (max-device-width: 576px) {
     .card {
         margin-bottom: 4px;

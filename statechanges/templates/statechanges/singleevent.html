@@ -4,7 +4,13 @@
 <div class="row">
     <div class="col">
         <div class="jumbotron">
-            <h1 class="display-7">{% trans 'Event:' %} {{event.hash}}</h1>
+            <div class="d-none d-md-block">
+                <h1>{% trans 'Event:' %} {{event.hash}}</h1>
+            </div>
+            <div class="d-md-none">
+                <h1>{% trans 'Event' %}</h1>
+                <span class="smalltext">(Hash: {{event.hash}})</span>
+            </div>
             <p class="lead">{% trans 'An event which was published on the blockchain on:' %} {{event.block.date |date:"d-m-Y H:i"}} GMT
             </p>
             <p>{% blocktrans with eventsum=event.totalsum %}This event contains <b class=getcolor>{{ticketcount}}</b> tickets and those tickets were responsible for <b class=getcolor>{{eventsum}}</b> statechanges. The following statechanges have been found:{% endblocktrans %} </p>
