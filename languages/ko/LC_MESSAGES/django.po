@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 14:24+0000\n"
-"PO-Revision-Date: 2020-05-21 16:33+0200\n"
+"POT-Creation-Date: 2020-06-08 12:14+0000\n"
+"PO-Revision-Date: 2020-06-08 14:17+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ko\n"
@@ -1291,33 +1291,37 @@ msgstr "참석"
 msgid "Tickets unblocked"
 msgstr "잠금 해제된 티켓"
 
-#: statechanges/templates/statechanges/base.html:21
+#: statechanges/templates/statechanges/base.html:22
 msgid "GET Protocol Fansite"
 msgstr "겟(GET) 프로토콜 팬 사이트"
 
 #: statechanges/templates/statechanges/base.html:26
-#: statechanges/templates/statechanges/base.html:44
+msgid "Fansite"
+msgstr "팬 사이트"
+
+#: statechanges/templates/statechanges/base.html:32
+#: statechanges/templates/statechanges/base.html:50
 msgid "Home"
 msgstr "HOME"
 
-#: statechanges/templates/statechanges/base.html:29
-#: statechanges/templates/statechanges/base.html:46
+#: statechanges/templates/statechanges/base.html:35
+#: statechanges/templates/statechanges/base.html:52
 #: statechanges/templates/statechanges/statechanges.html:9
 msgid "Statechanges"
 msgstr "상태 변환"
 
-#: statechanges/templates/statechanges/base.html:32
-#: statechanges/templates/statechanges/base.html:48
+#: statechanges/templates/statechanges/base.html:38
+#: statechanges/templates/statechanges/base.html:54
 msgid "Events"
 msgstr "이벤트"
 
-#: statechanges/templates/statechanges/base.html:63
+#: statechanges/templates/statechanges/base.html:69
 msgid "This site is created by and for the GET community."
 msgstr ""
 "이 사이트는 겟(GET) 커뮤니티를 위해, 그리고 겟(GET) 커뮤니티에 의해 만들어졌"
 "습니다."
 
-#: statechanges/templates/statechanges/base.html:64
+#: statechanges/templates/statechanges/base.html:71
 msgid ""
 "Join the GET community on Telegram, we will welcome you, like you, love you "
 "and tell you everything you want to know about the GET Protocol project."
@@ -1325,11 +1329,11 @@ msgstr ""
 "텔레그램을 통해 겟(GET) 커뮤니티에 참여해보세요! 겟(GET) 프로토콜에 관해 알아"
 "보고 싶은 모든 분들에게 다양한 정보로 환영해드리겠습니다."
 
-#: statechanges/templates/statechanges/base.html:65
+#: statechanges/templates/statechanges/base.html:73
 msgid "Join GET Telegram"
 msgstr "겟(GET) 텔레그램에 참여하기"
 
-#: statechanges/templates/statechanges/base.html:68
+#: statechanges/templates/statechanges/base.html:76
 msgid ""
 "This website is not affiliated with the GET Protocol Foundation. All the "
 "information on this website is published in good faith and for general "

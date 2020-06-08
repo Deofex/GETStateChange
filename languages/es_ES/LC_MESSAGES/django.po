@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 14:24+0000\n"
+"POT-Creation-Date: 2020-06-08 12:14+0000\n"
 "PO-Revision-Date: 2020-05-21 16:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1306,31 +1306,35 @@ msgstr "Espectáculo terminado"
 msgid "Tickets unblocked"
 msgstr "Tickets desbloqueados"
 
-#: statechanges/templates/statechanges/base.html:21
+#: statechanges/templates/statechanges/base.html:22
 msgid "GET Protocol Fansite"
 msgstr "GET Protocol Fansite"
 
 #: statechanges/templates/statechanges/base.html:26
-#: statechanges/templates/statechanges/base.html:44
+msgid "Fansite"
+msgstr ""
+
+#: statechanges/templates/statechanges/base.html:32
+#: statechanges/templates/statechanges/base.html:50
 msgid "Home"
 msgstr "Inicio"
 
-#: statechanges/templates/statechanges/base.html:29
-#: statechanges/templates/statechanges/base.html:46
+#: statechanges/templates/statechanges/base.html:35
+#: statechanges/templates/statechanges/base.html:52
 #: statechanges/templates/statechanges/statechanges.html:9
 msgid "Statechanges"
 msgstr "Cambios de estado"
 
-#: statechanges/templates/statechanges/base.html:32
-#: statechanges/templates/statechanges/base.html:48
+#: statechanges/templates/statechanges/base.html:38
+#: statechanges/templates/statechanges/base.html:54
 msgid "Events"
 msgstr "Eventos"
 
-#: statechanges/templates/statechanges/base.html:63
+#: statechanges/templates/statechanges/base.html:69
 msgid "This site is created by and for the GET community."
 msgstr "Este sitio esta creado por y para la comunidad de GET."
 
-#: statechanges/templates/statechanges/base.html:64
+#: statechanges/templates/statechanges/base.html:71
 msgid ""
 "Join the GET community on Telegram, we will welcome you, like you, love you "
 "and tell you everything you want to know about the GET Protocol project."
@@ -1339,11 +1343,11 @@ msgstr ""
 "abiertos, eres libre de preguntar cualquier cosa para aprender más sobre el "
 "proyecto GET Protocol."
 
-#: statechanges/templates/statechanges/base.html:65
+#: statechanges/templates/statechanges/base.html:73
 msgid "Join GET Telegram"
 msgstr "Entra al Telegram de GET"
 
-#: statechanges/templates/statechanges/base.html:68
+#: statechanges/templates/statechanges/base.html:76
 msgid ""
 "This website is not affiliated with the GET Protocol Foundation. All the "
 "information on this website is published in good faith and for general "
