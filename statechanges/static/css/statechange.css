@@ -66,6 +66,11 @@ body {
     border-color: #01C696;
 }
 
+@media (max-device-width: 768px) {
+    .btn-primary {
+        font-size: small;
+    }
+}
 .card.graph {
     margin-bottom: 10px;
 }
