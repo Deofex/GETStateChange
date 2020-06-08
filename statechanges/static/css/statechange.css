@@ -67,7 +67,7 @@ body {
 }
 
 @media (max-device-width: 768px) {
-    .btn-primary {
+    .smalldevdetection {
         font-size: small;
     }
 }
