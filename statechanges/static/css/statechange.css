@@ -144,6 +144,10 @@ p {
     margin-right: 30vw;
 }
 
+.allign-right {
+    text-align: right;
+}
+
 @media (max-device-width: 576px) {
     .card {
         margin-bottom: 4px;
