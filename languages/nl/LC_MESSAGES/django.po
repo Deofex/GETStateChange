@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-08 14:24+0000\n"
-"PO-Revision-Date: 2020-06-09 07:41+0200\n"
+"POT-Creation-Date: 2020-06-09 09:48+0000\n"
+"PO-Revision-Date: 2020-06-09 11:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -1486,12 +1486,12 @@ msgid "Show me the proof."
 msgstr "Laat mij het bewijs zien."
 
 #: statechanges/templates/statechanges/home.html:32
-msgid "Tickets sold in the last 24h"
-msgstr "Tickets verkocht in de laatste 24u"
+msgid "Tickets/Upsell items sold in the last 24h"
+msgstr "Tickets/Upsell artikelen verkocht in de laatste 24u"
 
 #: statechanges/templates/statechanges/home.html:50
-msgid "Tickets scanned in the last 24h"
-msgstr "Tickets gescand in de laatste 24u"
+msgid "Tickets/Upsell items scanned in the last 24h"
+msgstr "Tickets/Upsell artikelen gescand in de laatste 24u"
 
 #: statechanges/templates/statechanges/home.html:69
 msgid "The current average GET price"
