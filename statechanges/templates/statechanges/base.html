@@ -48,11 +48,11 @@
                         <span class="navbar-toggler-icon"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'page_home' %}">{% trans 'Home' %}</a>
+                        <a class="dropdown-item {% if navbar == 'page_home' %}active{% endif %}" href="{% url 'page_home' %}">{% trans 'Home' %}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'page_statechanges' %}">{% trans 'Statechanges' %}</a>
+                        <a class="dropdown-item  {% if navbar == 'page_statechanges' %}active{% endif %}" href="{% url 'page_statechanges' %}">{% trans 'Statechanges' %}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'page_events' %}">{% trans 'Events' %}</a>
+                        <a class="dropdown-item {% if navbar == 'page_events' %}active{% endif %}" href="{% url 'page_events' %}">{% trans 'Events' %}</a>
                     </div>
                 </li>
             </ul>

@@ -52,6 +52,11 @@ body {
     border-color: #01C696;
 }
 
+.dropdown-item.active {
+    background-color: #343a40;
+    font-weight: bold;
+}
+
 .card {
     background-color: #343a40;
 }
