@@ -418,7 +418,7 @@ class Command(BaseCommand):
 
             # Skip block 10277166 (This is a manual entry which don't state)
             # an IPFS hash, but an entire link
-            if statechangebatch.blocknumer == "10277166":
+            if statechangebatch.blocknumber == "10277166":
                 continue
 
             # Process the IPFS data (get data, split it in transactions and
