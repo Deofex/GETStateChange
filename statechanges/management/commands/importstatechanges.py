@@ -343,6 +343,36 @@ def new_event(hash,block):
 
         block.add_w()
 
+def process_statechange(statechange,block):
+    '''Add a statechange tot the database'''
+    # Create statechange object
+    if (statechange.statechangetype == "f"):
+        # Create the state change object
+        try:
+            new_statechange (
+                hash = statechange.hash,
+                previoushash = statechange.previoushash,
+                firing = statechange.statechangesubtype,
+                block = block,
+                )
+        except StateChange.DoesNotExist:
+            # When a hash can't be imported this can be caused
+            # because the previous hash is later in the batch
+            # Add it to a failed list, which will be retried later.
+            logger.warning("Failed to add hash {}, ".format(
+                statechange.hash) + \
+                "trying again at the end of the block."
+                )
+
+
+    if (statechange.statechangetype == "w"):
+        # Create the state change object
+        new_event (
+            hash = statechange.hash,
+            block = block,
+        )
+
+
 def lockimport():
     '''Function to lock the import state change setting'''
     # Try to get the ImportStateChangesReady setting, if it doesn't exist create
@@ -427,105 +457,33 @@ class Command(BaseCommand):
             if process_ipfsdatastatuscode == 100:
                 continue
 
-            failedipfsimports = []
             # Process each state change which has been found in the batch
-            for ipfsstatechange in statechangebatch.ipfsstatechanges:
-                # Create statechange object
-                if (ipfsstatechange.statechangetype == "f"):
-                    # Create the state change object
-                    try:
-                        new_statechange (
-                            hash = ipfsstatechange.hash,
-                            previoushash = ipfsstatechange.previoushash,
-                            firing = ipfsstatechange.statechangesubtype,
-                            block = block,
-                            )
-                    except StateChange.DoesNotExist:
-                        # When a hash can't be imported this can be caused
-                        # because the previous hash is later in the batch
-                        # Add it to a failed list, which will be retried later.
-                        logger.warning("Failed to add hash {}, ".format(
-                            ipfsstatechange.hash) + \
-                            "trying again at the end of the block."
-                            )
-                        failedipfsimports.append(
-                            ipfsstatechange
-                        )
+            statechanges = statechangebatch.ipfsstatechanges
 
+            while any(statechanges):
+                # Create 2 empty lists which contains statechanges which have to
+                # be processed and statechanged which have to be delayed because
+                # it's depend on a statechange later in the batch
+                statechangestodelay = []
+                #TO DO -- lijst maken hashes
 
-                if (ipfsstatechange.statechangetype == "w"):
-                    # Create the state change object
-                    new_event (
-                        hash = ipfsstatechange.hash,
-                        block = block,
-                    )
+                for statechange in statechanges:
+                    dependencyfound = any(x.hash == statechange.previoushash for x in statechanges)
+                    if dependencyfound == True:
+                        print("Dependency found, {} added to delay list.".format(statechange.hash))
+                        statechangestodelay.append(statechange)
+                    else:
+                        print("No dependency found, {} added.".format(statechange.hash))
+                        process_statechange(statechange,block)
 
+                statechanges = statechangestodelay
 
-            # Retry failed ipfs state changes (keep doing this until no )
-            # state changes can be imported anymore. IPFS data doesn't seemd to
-            # be always in the correct order.
-            stateimported = True
-            while stateimported == True:
-                addtomajorfailedipfsimports = []
-                # Set the stateimproted value on false, will be set true again
-                # after a succesfull update (after a failure)
-                stateimported = False
-                # Stateimport failure is a variable which will check or there
-                # is a wrong import. If there's 1 failure the state imported
-                # might be set to true, to prevent a loop.
-                stateimportfailure = False
-                # Try to re-import each statechange
-                for ipfsstatechange in failedipfsimports:
-                    logger.info(
-                        "Retrying to add {}".format(ipfsstatechange.hash))
-                    try:
-                        new_statechange (
-                            hash = ipfsstatechange.hash,
-                            previoushash = ipfsstatechange.previoushash,
-                            firing = ipfsstatechange.statechangesubtype,
-                            block = block,
-                        )
-                        # If a statechange has failed to import before, set the
-                        # stateimported variabele on true
-                        logger.info("{} is succesfull imported on retry".format(
-                            ipfsstatechange.hash))
-                        if stateimportfailure == True:
-                            stateimported = true
-
-                    except StateChange.DoesNotExist:
-                        logger.warning("{} is failing in retry".format(
-                            ipfsstatechange.hash))
-                        addtomajorfailedipfsimports.append({
-                            "hash": ipfsstatechange.hash,
-                            "previoushash": ipfsstatechange.previoushash,
-                            "block": block
-                        })
-                        # Set the stateimport failure on true, so the import
-                        # will be retried when there's a succesfull add
-                        stateimportfailure = True
-
-            # Import the statechanges to the majorfailedipfsimports which went
-            # wrong
-            for failure in addtomajorfailedipfsimports:
-                majorfailedipfsimports.append({
-                    "hash": failure["hash"],
-                    "previoushash": failure["previoushash"],
-                    "block": failure["block"]
-                })
 
             # Set block on fully processed
             block.processed()
 
             logger.info("Statechange batch found in block " + \
             "{} imported in the database".format(statechangebatch.blocknumber))
-
-        # Print all imports which failed
-        for failedipfs in majorfailedipfsimports:
-            block = failedipfs["block"]
-            logger.error("Niet kunnen importeren:" +\
-            "Hash:{}".format(failedipfs["hash"]) + \
-            "PreviousHash:{}".format(failedipfs["hash"]) +\
-            "Block:{}".format(block.blocknumber))
 
         # Unlock import process, to make new import jobs possible
         unlockimport()
