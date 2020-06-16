@@ -462,19 +462,17 @@ class Command(BaseCommand):
             statechanges = statechangebatch.ipfsstatechanges
 
             while any(statechanges):
-                # Create 2 empty lists which contains statechanges which have to
-                # be processed and statechanged which have to be delayed because
-                # it's depend on a statechange later in the batch
+                # Create an empty lists which contains statechanges which have
+                # to be delayed because they are depending on a statechange
+                # later in the batch
                 statechangestodelay = []
-                #TO DO -- lijst maken hashes
 
                 for statechange in statechanges:
-                    dependencyfound = any(x.hash == statechange.previoushash for x in statechanges)
+                    dependencyfound = any(x.hash == statechange.previoushash \
+                        for x in statechanges)
                     if dependencyfound == True:
-                        print("Dependency found, {} added to delay list.".format(statechange.hash))
                         statechangestodelay.append(statechange)
                     else:
-                        print("No dependency found, {} added.".format(statechange.hash))
                         process_statechange(statechange,block)
 
                 statechanges = statechangestodelay
