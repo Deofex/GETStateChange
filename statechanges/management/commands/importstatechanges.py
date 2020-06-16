@@ -416,6 +416,11 @@ class Command(BaseCommand):
             # Store block object in variabel
             block=Block.objects.get(pk=statechangebatch.blocknumber)
 
+            # Skip block 10277166 (This is a manual entry which don't state)
+            # an IPFS hash, but an entire link
+            if statechangebatch.blocknumer == "10277166":
+                continue
+
             # Process the IPFS data (get data, split it in transactions and
             # store it in the statechangebatchobject) (if status = 100) go to
             # the next batch.
