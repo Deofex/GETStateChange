@@ -67,7 +67,8 @@ class StateChangeBatch():
     # IPFS data contains the details of the state changes.
     def get_ipfsdata(self):
         #url = "https://gateway.ipfs.io/ipfs/"
-        url = "https://cloudflare-ipfs.com/ipfs/"
+        #url = "https://cloudflare-ipfs.com/ipfs/"
+        url = "https://ipfs.infura.io/ipfs/"
         url = url + self.ipfshash
         logger.info("IPFS URL: {}".format(url))
         ipfsdata = get_url(url)
