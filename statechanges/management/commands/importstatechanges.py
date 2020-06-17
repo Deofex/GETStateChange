@@ -375,7 +375,7 @@ def process_statechange(statechange,block):
 
 
 def lockimport():
-    '''Function to lock the import state change setting'''
+    '''Lock the database for new statechanges import batches'''
     # Try to get the ImportStateChangesReady setting, if it doesn't exist create
     # it.
     try:
@@ -397,6 +397,7 @@ def lockimport():
         raise Exception('Previous import not finished correctly')
 
 def unlockimport():
+    '''Funtion to inlock the database for new statechanges import batches'''
     importstatechangesready = AppStatus.objects.get(
         name="ImportStateChangesReady")
     importstatechangesready.enablestatus()
