@@ -398,7 +398,7 @@ def process_statechange(statechange,block):
         )
 
 
-def checkcatchallticker():
+def checkcatchallticket():
     '''This function created a catchall evend and ticket, used to store events
     which can't be linked'''
     catchallisavailable = Event.objects.filter(
@@ -474,7 +474,7 @@ class Command(BaseCommand):
         lockimport()
 
         # Create catch all event if it doesn't exist yet
-        checkcatchallticker()
+        checkcatchallticket()
 
         # Store the Etherscan API key
         etherscanapikey = settings.ETHERSCANAPIKEY
