@@ -231,7 +231,13 @@ def get_afterblocknumber():
 
 
 def get_ticket(hash,previoushash):
-    '''Function which lookup an event'''
+    '''Function which lookup a ticket'''
+    # If the previous hash is an event, than it means that the current
+    # statechange is a new ticket. Therefor a new ticket have to be created
+    # where the hash is the same as the first statechange and the eevent is
+    # the event correspodinding to the previous hash.
+    # If the previous hash is a statechange, than the ticket can be retrieved
+    # from this statechange.
     if Event.objects.filter(hash=previoushash).exists():
         logger.info("Ticket with hash {} not found, create a new one".format(
             previoushash))
