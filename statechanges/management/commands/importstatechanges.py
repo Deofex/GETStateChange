@@ -401,11 +401,13 @@ def lockimport():
     else:
         raise Exception('Previous import not finished correctly')
 
+
 def unlockimport():
     '''Funtion to inlock the database for new statechanges import batches'''
     importstatechangesready = AppStatus.objects.get(
         name="ImportStateChangesReady")
     importstatechangesready.enablestatus()
+
 
 # this class is called by the managed.py of Django. The class will be used
 # to schedule the import of state changes in the Django database.
