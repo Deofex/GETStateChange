@@ -379,6 +379,28 @@ def process_statechange(statechange,block):
         )
 
 
+def checkcatchallevent():
+    '''This function created a catchall event, used to store events which can't
+    be linked'''
+    catchallisavailable = Event.objects.filter(
+        hash="TheUnknownStateChangesParadise").exists()
+    if catchallisavailable == False:
+        block = Block.objects.create(
+            blocknumber = "8915534",
+            date = datetime.datetime(2020, 6, 17, 4, 1, 39),
+            fullyprocessed = True
+        )
+
+        Event.objects.create(
+            hash = "TheUnknownStateChangesParadise",
+            block = block ,
+            name = "The unknown Statechange paradise",
+            lastupdate = block.date,
+        )
+
+        logger.info("Catch all event is created")
+
+
 def lockimport():
     '''Lock the database for new statechanges import batches'''
     # Try to get the ImportStateChangesReady setting, if it doesn't exist create
@@ -418,6 +440,9 @@ class Command(BaseCommand):
         # lock the import process to avoid multiple imports jobs at the same
         # time
         lockimport()
+
+        # Create catch all event if it doesn't exist yet
+        checkcatchallevent()
 
         # Store the Etherscan API key
         etherscanapikey = settings.ETHERSCANAPIKEY
