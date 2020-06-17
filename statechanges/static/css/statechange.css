@@ -122,6 +122,10 @@ img.cardmid {
     color: #01C696
 }
 
+.errorcolor {
+    color: #ef0f0f
+}
+
 p {
     color: white;
 }

@@ -48,7 +48,11 @@
                         aria-expanded="true" aria-controls="batch{{ pageblock.blocknumber }}" class="d-block">
                         <div class="row no-gutters align-items-center">
                             <div class=col-md-1>
-                                <p><i class="fa fa-exchange"></i></p>
+                                {% if pageblock.f999sum == 0 %}
+                                    <p><i class="fa fa-exchange getcolor"></i></p>
+                                {% else %}
+                                    <p><i class="fa fa-exchange errorcolor"></i></p>
+                                {% endif %}
                             </div>
                             <div class="col-md-4">
                                 <div class="d-sm-none">
@@ -107,6 +111,9 @@
                             <p>{% trans 'Show over' %}: <span class="getcolor">{{ pageblock.f12sum }}</span></p>
                             <p>{% trans 'Tickets unblocked' %}: <span class="getcolor">{{ pageblock.f13sum }}</span></p>
                             <p>{% trans 'Wirings' %}: <span class="getcolor">{{ pageblock.wsum }}</span></p>
+                            {% if pageblock.f999sum != 0 %}
+                            <p>{% trans 'Faulty' %}: <span class="errorcolor">{{ pageblock.f999sum }}</span></p>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="row">

@@ -78,8 +78,13 @@
                                 {% if pagestatechange.firing == 13 %}
                                 <p><b class="getcolor">{% trans 'Ticket unblocked' %}</b></p>
                                 {% endif %}
+                                {% if pagestatechange.firing == 999 %}
+                                <p><b class="errorcolor">{% trans 'Faulty' %}</b></p>
+                                {% endif %}
                                 <p><b>{% trans 'Statechange hash' %}:</b> {{ pagestatechange.hash }}</p>
+                                {% if pagestatechange.firing != 999 %}
                                 <p><b>{% trans 'Statechange corresponding event' %}:</b> {{pagestatechange.ticket.event.hash}}</p>
+                                {% endif %}
                             </div>
                             <div class="col-2">
                                 <a class="btn btn-primary btn-lg smalldevdetection"
