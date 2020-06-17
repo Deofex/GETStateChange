@@ -127,6 +127,9 @@
                             {% if statechange.firing == 13 %}
                             <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- <b class=getcolor>{% trans 'Ticket unblocked' %}</b></p>
                             {% endif %}
+                            {% if statechange.firing == 999 and statechange.hash != "catchall" %}
+                            <p>{{statechange.block.date |date:"d-m-Y H:i" }} GMT --- {{statechange.hash}} --- <b class=errorcolor>{% trans 'Faulty' %}</b></p>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
