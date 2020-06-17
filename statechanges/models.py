@@ -28,6 +28,7 @@ class Block(models.Model):
     f11sum = models.IntegerField(default=0)
     f12sum = models.IntegerField(default=0)
     f13sum = models.IntegerField(default=0)
+    f999sum = models.IntegerField(default=0)
     wsum = models.IntegerField(default=0)
     totalsum = models.IntegerField(default=0)
 
@@ -102,6 +103,11 @@ class Block(models.Model):
         self.totalsum = self.totalsum + 1
         self.save()
 
+    def add_f999(self):
+        self.f999sum = self.f999sum + 1
+        self.totalsum = self.totalsum + 1
+        self.save()
+
     def add_w(self):
         self.wsum = self.wsum + 1
         self.totalsum = self.totalsum + 1
@@ -154,6 +160,7 @@ class Event(models.Model):
     f11sum = models.IntegerField(default=0)
     f12sum = models.IntegerField(default=0)
     f13sum = models.IntegerField(default=0)
+    f999sum = models.IntegerField(default=0)
     totalsum = models.IntegerField(default=0)
 
     # Multiple function to increase the firings and total sum
@@ -255,6 +262,13 @@ class Event(models.Model):
             self.lastupdate = updatedate
         self.save()
 
+    def add_f999(self,updatedate):
+        self.f999sum = self.f999sum + 1
+        self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
+        self.save()
+
     def __str__(self):
         return str(self.hash)
 
@@ -291,6 +305,7 @@ class StateChange(models.Model):
         (11, 'Ticket scanned'),
         (12, 'Show over'),
         (13, 'Ticket unblocked'),
+        (999, 'Error'),
     )
     hash = models.CharField(
         max_length=100,

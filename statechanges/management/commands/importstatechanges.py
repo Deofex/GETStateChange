@@ -270,6 +270,14 @@ def new_statechange(hash,previoushash,firing,block):
                 "{} and previoushash {}".format(hash,previoushash))
             raise(e)
 
+        # If the ticket is part of the catchall address, add the ticket directly
+        # under the catchall ticket, because the statechange isn't part of a
+        #  valid chain.
+        if ticket.pk == 'catchall':
+            previoushash = 'catchall'
+            ticket = get_ticket(hash,previoushash)
+            firing = '999'
+
         # Create the state change object
         statechangeobject = StateChange.objects.create(
             hash = hash,
@@ -328,6 +336,10 @@ def new_statechange(hash,previoushash,firing,block):
         elif firing == "13":
             block.add_f13()
             statechangeobject.ticket.event.add_f13(block.date)
+        elif firing == "999":
+            block.add_f999()
+            statechangeobject.ticket.event.add_f999(block.date)
+
 
 def new_event(hash,block):
     '''Function to register a new statechange (firing)'''
@@ -362,12 +374,19 @@ def process_statechange(statechange,block):
                 block = block,
                 )
         except StateChange.DoesNotExist:
-            # When a hash can't be imported this can be caused
-            # because the previous hash is later in the batch
-            # Add it to a failed list, which will be retried later.
-            logger.warning("Failed to add hash {}, ".format(
-                statechange.hash) + \
-                "trying again at the end of the block."
+            # When a hash can't be imported this is caused that the previous
+            # hash has never been uploaded to IPFS/published in the blockchain.
+            # The Statechange is invalid and will be added to the catch all
+            # address.
+            logger.warning("Failed to add hash {}, in block {}. ".format(
+                statechange.hash, block.blocknumber) + \
+                "because previous hash can't be found. Moved to catchall."
+                )
+            new_statechange (
+                hash = statechange.hash,
+                previoushash = "catchall",
+                firing = "999",
+                block = block,
                 )
 
 
@@ -379,9 +398,9 @@ def process_statechange(statechange,block):
         )
 
 
-def checkcatchallevent():
-    '''This function created a catchall event, used to store events which can't
-    be linked'''
+def checkcatchallticker():
+    '''This function created a catchall evend and ticket, used to store events
+    which can't be linked'''
     catchallisavailable = Event.objects.filter(
         hash="TheUnknownStateChangesParadise").exists()
     if catchallisavailable == False:
@@ -391,11 +410,24 @@ def checkcatchallevent():
             fullyprocessed = True
         )
 
-        Event.objects.create(
+        event = Event.objects.create(
             hash = "TheUnknownStateChangesParadise",
             block = block ,
             name = "The unknown Statechange paradise",
             lastupdate = block.date,
+        )
+
+        ticket = Ticket.objects.create(
+            hash = "catchall",
+            event = event
+        )
+
+        statechangeobject = StateChange.objects.create(
+            hash = "catchall",
+            previoushash = "TheUnknownStateChangesParadise",
+            firing = 999,
+            block = block,
+            ticket = ticket,
         )
 
         logger.info("Catch all event is created")
@@ -442,7 +474,7 @@ class Command(BaseCommand):
         lockimport()
 
         # Create catch all event if it doesn't exist yet
-        checkcatchallevent()
+        checkcatchallticker()
 
         # Store the Etherscan API key
         etherscanapikey = settings.ETHERSCANAPIKEY
