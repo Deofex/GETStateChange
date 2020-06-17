@@ -21,11 +21,11 @@ class IPFSstatechange():
         self.statechangetype = statechangetype
         self.statechangesubtype = statechangesubtype
 
+
 # The StateChangeBatch class stores each state change registered in the
 # blockchain. The object need the TX information (timestamp, blocknumber and
 # hash) and contains functions to gather additional information like the IPFS
 # token.
-
 class StateChangeBatch():
     '''Stores information about StateChangeBatch '''
 
@@ -63,6 +63,7 @@ class StateChangeBatch():
             logger.error("Can't get the IPFS token for block " +\
                 self.blocknumber)
 
+
     # This function retrieves the IPFS data via "https://gateway.ipfs.io/ipfs/"
     # IPFS data contains the details of the state changes.
     def get_ipfsdata(self):
@@ -98,19 +99,21 @@ class StateChangeBatch():
                 dataparts[3]
             ))
 
+
 # The function below retrieves the content from an URL which should be specified
 # as parameter. The outpuut is the raw data extracted from the URL.
 def get_url(url):
+    '''URL to retrieve an URL'''
     response = requests.get(url)
     content = response.content.decode("utf8")
     return content
 
+
 # The function below retrieves a JSON file from an URL. The function ask the
 # content of an URL via the get_URL function and convert to content to the JSON
 # format.
-
-
 def get_json_from_url(url):
+    '''Function to retrieve a JSON file from an URL'''
     content = get_url(url)
     js = json.loads(content)
     return js
@@ -122,6 +125,7 @@ def get_json_from_url(url):
 # and the blocknumber which from where to start searching.
 def retrieve_statechangebatches(
         etherscanapikey, ethregaddress, afterblocknumber):
+    '''Function to retrieve statechange batches'''
     ethregurl = "http://api.etherscan.io/api" + \
         "?module=account&action=txlist" + \
         "&address=" + ethregaddress + \
@@ -158,6 +162,7 @@ def retrieve_statechangebatches(
 # 3) Via the IPFS gateway the IPFS data is retrieved for the TX
 # 4) The data is decoded (seperated in different firings and wirings)
 def process_ipfsdata(statechangebatch, etherscanapikey):
+    '''Function to process IPFS data'''
     # Get the IPFS hash for the retrieved statechange batch
     logger.info("Retrieving IPFS hash from blocknumber: {}".format(
         statechangebatch.blocknumber))
@@ -213,7 +218,7 @@ def process_ipfsdata(statechangebatch, etherscanapikey):
 
 
 def get_afterblocknumber():
-    # Store the blocknumber from where to search for changes
+    ''''Function to return the first blocknumber which should be imported'''
     try:
         afterblocknumber = (Block.objects.filter(fullyprocessed=True).order_by(
             '-blocknumber')[:1].get()).blocknumber
