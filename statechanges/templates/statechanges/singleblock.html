@@ -5,8 +5,8 @@
     <div class="col">
         <div class="jumbotron">
             <h1 class="display-7">{% trans 'Block' %}: {{singleblock.blocknumber}}</h1>
-            <p class="lead">{% trans 'This block was published on the blockchain on' %}: {{singleblock.date |date:"d-m-Y H:i"}} GMT
-            </p>
+            <p class="lead">{% trans 'This block was published on the blockchain on' %}: {{singleblock.date |date:"d-m-Y H:i"}} GMT</p>
+            <p class="lead">{% trans 'The IPFS hash found in this block is' %}: {{singleblock.ipfshash}}</p>
             <p>{% blocktrans with blocksum=singleblock.totalsum %}This block contains <b class=getcolor>{{blocksum}}</b> statechanges. The table below shows the statechanges published in this block.{% endblocktrans %}</p>
         </div>
     </div>
