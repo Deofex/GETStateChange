@@ -10,7 +10,10 @@ class Block(models.Model):
     blocknumber = models.IntegerField(primary_key=True)
     date = models.DateTimeField()
     fullyprocessed = models.BooleanField(default=False)
-
+    ipfshash = models.CharField(
+        blank=True,
+        max_length=100,
+    )
     # The sums of the firings in the event. (Those can be retrieved from the)
     # underlying statechanges, but this cost to much performance when
     # dynamically requested.
@@ -115,6 +118,10 @@ class Block(models.Model):
 
     def processed(self):
         self.fullyprocessed = True
+        self.save()
+
+    def addipfshash(self,ipfshash):
+        self.ipfshash = ipfshash
         self.save()
 
     def __str__(self):

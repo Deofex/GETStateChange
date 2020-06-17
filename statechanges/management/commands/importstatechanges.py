@@ -523,6 +523,8 @@ class Command(BaseCommand):
             if process_ipfsdatastatuscode == 100:
                 continue
 
+            block.addipfshash(statechangebatch.ipfshash)
+
             # Process each state change which has been found in the batch
             statechanges = statechangebatch.ipfsstatechanges
 
