@@ -114,7 +114,8 @@ def page_home(request):
 # Page view for a single event
 def page_events(request):
     # Get a list with all Events sorted on the latest updates
-    event_list = Event.objects.exclude(totalsum = 0).order_by(
+    event_list = Event.objects.exclude(totalsum = 0).exclude(
+        hash = 'TheUnknownStateChangesParadise').order_by(
         "lastupdate").reverse()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
     event_paginator = Paginator(event_list,10)
