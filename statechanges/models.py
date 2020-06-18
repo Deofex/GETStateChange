@@ -10,7 +10,10 @@ class Block(models.Model):
     blocknumber = models.IntegerField(primary_key=True)
     date = models.DateTimeField()
     fullyprocessed = models.BooleanField(default=False)
-
+    ipfshash = models.CharField(
+        blank=True,
+        max_length=100,
+    )
     # The sums of the firings in the event. (Those can be retrieved from the)
     # underlying statechanges, but this cost to much performance when
     # dynamically requested.
@@ -28,6 +31,7 @@ class Block(models.Model):
     f11sum = models.IntegerField(default=0)
     f12sum = models.IntegerField(default=0)
     f13sum = models.IntegerField(default=0)
+    f999sum = models.IntegerField(default=0)
     wsum = models.IntegerField(default=0)
     totalsum = models.IntegerField(default=0)
 
@@ -102,6 +106,11 @@ class Block(models.Model):
         self.totalsum = self.totalsum + 1
         self.save()
 
+    def add_f999(self):
+        self.f999sum = self.f999sum + 1
+        self.totalsum = self.totalsum + 1
+        self.save()
+
     def add_w(self):
         self.wsum = self.wsum + 1
         self.totalsum = self.totalsum + 1
@@ -109,6 +118,10 @@ class Block(models.Model):
 
     def processed(self):
         self.fullyprocessed = True
+        self.save()
+
+    def addipfshash(self,ipfshash):
+        self.ipfshash = ipfshash
         self.save()
 
     def __str__(self):
@@ -154,6 +167,7 @@ class Event(models.Model):
     f11sum = models.IntegerField(default=0)
     f12sum = models.IntegerField(default=0)
     f13sum = models.IntegerField(default=0)
+    f999sum = models.IntegerField(default=0)
     totalsum = models.IntegerField(default=0)
 
     # Multiple function to increase the firings and total sum
@@ -255,6 +269,13 @@ class Event(models.Model):
             self.lastupdate = updatedate
         self.save()
 
+    def add_f999(self,updatedate):
+        self.f999sum = self.f999sum + 1
+        self.totalsum = self.totalsum + 1
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
+        self.save()
+
     def __str__(self):
         return str(self.hash)
 
@@ -291,6 +312,7 @@ class StateChange(models.Model):
         (11, 'Ticket scanned'),
         (12, 'Show over'),
         (13, 'Ticket unblocked'),
+        (999, 'Error'),
     )
     hash = models.CharField(
         max_length=100,

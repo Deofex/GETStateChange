@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-09 09:48+0000\n"
-"PO-Revision-Date: 2020-06-09 12:33+0200\n"
+"POT-Creation-Date: 2020-06-18 05:09+0000\n"
+"PO-Revision-Date: 2020-06-18 07:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ko\n"
@@ -1198,39 +1198,39 @@ msgstr ""
 
 #: statechanges/graphinfo_statechanges.py:246
 #: statechanges/templates/statechanges/events.html:81
-#: statechanges/templates/statechanges/statechanges.html:89
+#: statechanges/templates/statechanges/statechanges.html:93
 msgid "Tickets created"
 msgstr "생성된 티켓"
 
 #: statechanges/graphinfo_statechanges.py:247
 #: statechanges/templates/statechanges/events.html:82
-#: statechanges/templates/statechanges/statechanges.html:90
+#: statechanges/templates/statechanges/statechanges.html:94
 msgid "Tickets blocked"
 msgstr "잠긴 티켓"
 
 #: statechanges/graphinfo_statechanges.py:248
 #: statechanges/templates/statechanges/events.html:83
-#: statechanges/templates/statechanges/statechanges.html:91
+#: statechanges/templates/statechanges/statechanges.html:95
 msgid "Tickets sold in the primary market"
 msgstr "1차 시장에서 판매된 티켓"
 
 #: statechanges/graphinfo_statechanges.py:249
 #: statechanges/templates/statechanges/events.html:85
-#: statechanges/templates/statechanges/statechanges.html:93
+#: statechanges/templates/statechanges/statechanges.html:97
 msgid "Tickets sold in secondary market"
 msgstr "2차 시장에서 판매된 티켓"
 
 #: statechanges/graphinfo_statechanges.py:250
 #: statechanges/templates/statechanges/events.html:87
 #: statechanges/templates/statechanges/singleevent.html:30
-#: statechanges/templates/statechanges/statechanges.html:95
+#: statechanges/templates/statechanges/statechanges.html:99
 msgid "Tickets bought back"
 msgstr "재판매된 티켓"
 
 #: statechanges/graphinfo_statechanges.py:251
 #: statechanges/templates/statechanges/events.html:88
 #: statechanges/templates/statechanges/singleevent.html:33
-#: statechanges/templates/statechanges/statechanges.html:96
+#: statechanges/templates/statechanges/statechanges.html:100
 msgid "Tickets cancelled"
 msgstr "취소된 티켓"
 
@@ -1246,32 +1246,32 @@ msgstr "판매 중인 티켓"
 #: statechanges/templates/statechanges/singleblock.html:61
 #: statechanges/templates/statechanges/singleevent.html:39
 #: statechanges/templates/statechanges/singleevent.html:109
-#: statechanges/templates/statechanges/statechanges.html:98
+#: statechanges/templates/statechanges/statechanges.html:102
 msgid "No Show"
 msgstr "미참석"
 
 #: statechanges/graphinfo_statechanges.py:254
 #: statechanges/templates/statechanges/events.html:93
-#: statechanges/templates/statechanges/statechanges.html:102
+#: statechanges/templates/statechanges/statechanges.html:106
 msgid "Not resold"
 msgstr "재판매되지 않은 티켓"
 
 #: statechanges/graphinfo_statechanges.py:255
 #: statechanges/templates/statechanges/events.html:94
-#: statechanges/templates/statechanges/statechanges.html:103
+#: statechanges/templates/statechanges/statechanges.html:107
 msgid "Not sold in primary market"
 msgstr "1차 시장에서 판매되지 않은 티켓"
 
 #: statechanges/graphinfo_statechanges.py:256
 #: statechanges/templates/statechanges/events.html:95
-#: statechanges/templates/statechanges/statechanges.html:104
+#: statechanges/templates/statechanges/statechanges.html:108
 msgid "Not sold in secondary market"
 msgstr "2차 시장에서 판매되지 않은 티켓"
 
 #: statechanges/graphinfo_statechanges.py:257
 #: statechanges/templates/statechanges/events.html:97
 #: statechanges/templates/statechanges/singleevent.html:51
-#: statechanges/templates/statechanges/statechanges.html:106
+#: statechanges/templates/statechanges/statechanges.html:110
 msgid "Tickets scanned"
 msgstr "스캔된 티켓"
 
@@ -1280,14 +1280,14 @@ msgstr "스캔된 티켓"
 #: statechanges/templates/statechanges/singleblock.html:76
 #: statechanges/templates/statechanges/singleevent.html:54
 #: statechanges/templates/statechanges/singleevent.html:124
-#: statechanges/templates/statechanges/statechanges.html:107
+#: statechanges/templates/statechanges/statechanges.html:111
 msgid "Show over"
 msgstr "참석"
 
 #: statechanges/graphinfo_statechanges.py:259
 #: statechanges/templates/statechanges/events.html:99
 #: statechanges/templates/statechanges/singleevent.html:57
-#: statechanges/templates/statechanges/statechanges.html:108
+#: statechanges/templates/statechanges/statechanges.html:112
 msgid "Tickets unblocked"
 msgstr "잠금 해제된 티켓"
 
@@ -1412,29 +1412,29 @@ msgid "Show tickets of the event."
 msgstr "행사 티켓 확인."
 
 #: statechanges/templates/statechanges/events.html:114
-#: statechanges/templates/statechanges/singleblock.html:96
-#: statechanges/templates/statechanges/singleevent.html:139
+#: statechanges/templates/statechanges/singleblock.html:103
+#: statechanges/templates/statechanges/singleevent.html:142
 msgid "First"
 msgstr "처음"
 
 #: statechanges/templates/statechanges/events.html:115
-#: statechanges/templates/statechanges/singleblock.html:98
-#: statechanges/templates/statechanges/singleevent.html:140
-#: statechanges/templates/statechanges/statechanges.html:126
+#: statechanges/templates/statechanges/singleblock.html:105
+#: statechanges/templates/statechanges/singleevent.html:143
+#: statechanges/templates/statechanges/statechanges.html:133
 msgid "Previous"
 msgstr "이전"
 
 #: statechanges/templates/statechanges/events.html:128
-#: statechanges/templates/statechanges/singleblock.html:111
-#: statechanges/templates/statechanges/singleevent.html:153
-#: statechanges/templates/statechanges/statechanges.html:139
+#: statechanges/templates/statechanges/singleblock.html:118
+#: statechanges/templates/statechanges/singleevent.html:156
+#: statechanges/templates/statechanges/statechanges.html:146
 msgid "Next"
 msgstr "다음"
 
 #: statechanges/templates/statechanges/events.html:130
-#: statechanges/templates/statechanges/singleblock.html:113
-#: statechanges/templates/statechanges/singleevent.html:155
-#: statechanges/templates/statechanges/statechanges.html:141
+#: statechanges/templates/statechanges/singleblock.html:120
+#: statechanges/templates/statechanges/singleevent.html:158
+#: statechanges/templates/statechanges/statechanges.html:148
 msgid "Last"
 msgstr "마지막"
 
@@ -1568,6 +1568,10 @@ msgstr "블록"
 msgid "This block was published on the blockchain on"
 msgstr "이 블록은 블록체인 상에 기록됐습니다"
 
+#: statechanges/templates/statechanges/singleblock.html:9
+msgid "The IPFS hash found in this block is"
+msgstr "이 블록에서 발견된 IPFS 해시 값"
+
 #: statechanges/templates/statechanges/singleblock.html:10
 #, python-format
 msgid ""
@@ -1636,15 +1640,21 @@ msgstr "스캔된 티켓"
 msgid "Ticket unblocked"
 msgstr "잠금 해제된 티켓"
 
-#: statechanges/templates/statechanges/singleblock.html:81
+#: statechanges/templates/statechanges/singleblock.html:82
+#: statechanges/templates/statechanges/singleevent.html:131
+#: statechanges/templates/statechanges/statechanges.html:115
+msgid "Faulty"
+msgstr "비정상적 상태"
+
+#: statechanges/templates/statechanges/singleblock.html:84
 msgid "Statechange hash"
 msgstr "상태 변환"
 
-#: statechanges/templates/statechanges/singleblock.html:82
+#: statechanges/templates/statechanges/singleblock.html:86
 msgid "Statechange corresponding event"
 msgstr "월 별 상태 변환 수"
 
-#: statechanges/templates/statechanges/singleblock.html:87
+#: statechanges/templates/statechanges/singleblock.html:93
 msgid "Go to Event"
 msgstr "이벤트로 이동"
 
@@ -1653,8 +1663,6 @@ msgid "Event:"
 msgstr "이벤트:"
 
 #: statechanges/templates/statechanges/singleevent.html:11
-#, fuzzy
-#| msgid "Events"
 msgid "Event"
 msgstr "이벤트"
 
@@ -1690,7 +1698,7 @@ msgid "Tickets sold in the secondary market"
 msgstr "2차 시장에서 판매된 티켓"
 
 #: statechanges/templates/statechanges/singleevent.html:36
-#: statechanges/templates/statechanges/statechanges.html:97
+#: statechanges/templates/statechanges/statechanges.html:101
 msgid "Tickets put for sale"
 msgstr "판매 중인 티켓"
 
@@ -1764,27 +1772,27 @@ msgstr ""
 msgid "Blocknumber"
 msgstr "블록 넘버"
 
-#: statechanges/templates/statechanges/statechanges.html:55
+#: statechanges/templates/statechanges/statechanges.html:59
 msgid "Date:"
 msgstr "날짜:"
 
-#: statechanges/templates/statechanges/statechanges.html:63
+#: statechanges/templates/statechanges/statechanges.html:67
 msgid "Blocknumber:"
 msgstr "블록 넘버:"
 
-#: statechanges/templates/statechanges/statechanges.html:71
+#: statechanges/templates/statechanges/statechanges.html:75
 msgid "Total statechanges:"
 msgstr "총 상태 변화:"
 
-#: statechanges/templates/statechanges/statechanges.html:73
 #: statechanges/templates/statechanges/statechanges.html:77
+#: statechanges/templates/statechanges/statechanges.html:81
 msgid "Not fully imported yet"
 msgstr "데이터가 아직 완전히 입력되지 않음"
 
-#: statechanges/templates/statechanges/statechanges.html:109
+#: statechanges/templates/statechanges/statechanges.html:113
 msgid "Wirings"
 msgstr "회차"
 
-#: statechanges/templates/statechanges/statechanges.html:115
+#: statechanges/templates/statechanges/statechanges.html:122
 msgid "Get detailed block information"
 msgstr "상세 블록 정보 확인"

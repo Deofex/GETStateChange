@@ -21,11 +21,11 @@ class IPFSstatechange():
         self.statechangetype = statechangetype
         self.statechangesubtype = statechangesubtype
 
+
 # The StateChangeBatch class stores each state change registered in the
 # blockchain. The object need the TX information (timestamp, blocknumber and
 # hash) and contains functions to gather additional information like the IPFS
 # token.
-
 class StateChangeBatch():
     '''Stores information about StateChangeBatch '''
 
@@ -63,11 +63,13 @@ class StateChangeBatch():
             logger.error("Can't get the IPFS token for block " +\
                 self.blocknumber)
 
+
     # This function retrieves the IPFS data via "https://gateway.ipfs.io/ipfs/"
     # IPFS data contains the details of the state changes.
     def get_ipfsdata(self):
         #url = "https://gateway.ipfs.io/ipfs/"
-        url = "https://cloudflare-ipfs.com/ipfs/"
+        #url = "https://cloudflare-ipfs.com/ipfs/"
+        url = "https://ipfs.infura.io/ipfs/"
         url = url + self.ipfshash
         logger.info("IPFS URL: {}".format(url))
         ipfsdata = get_url(url)
@@ -97,19 +99,21 @@ class StateChangeBatch():
                 dataparts[3]
             ))
 
+
 # The function below retrieves the content from an URL which should be specified
 # as parameter. The outpuut is the raw data extracted from the URL.
 def get_url(url):
+    '''URL to retrieve an URL'''
     response = requests.get(url)
     content = response.content.decode("utf8")
     return content
 
+
 # The function below retrieves a JSON file from an URL. The function ask the
 # content of an URL via the get_URL function and convert to content to the JSON
 # format.
-
-
 def get_json_from_url(url):
+    '''Function to retrieve a JSON file from an URL'''
     content = get_url(url)
     js = json.loads(content)
     return js
@@ -121,6 +125,7 @@ def get_json_from_url(url):
 # and the blocknumber which from where to start searching.
 def retrieve_statechangebatches(
         etherscanapikey, ethregaddress, afterblocknumber):
+    '''Function to retrieve statechange batches'''
     ethregurl = "http://api.etherscan.io/api" + \
         "?module=account&action=txlist" + \
         "&address=" + ethregaddress + \
@@ -157,6 +162,7 @@ def retrieve_statechangebatches(
 # 3) Via the IPFS gateway the IPFS data is retrieved for the TX
 # 4) The data is decoded (seperated in different firings and wirings)
 def process_ipfsdata(statechangebatch, etherscanapikey):
+    '''Function to process IPFS data'''
     # Get the IPFS hash for the retrieved statechange batch
     logger.info("Retrieving IPFS hash from blocknumber: {}".format(
         statechangebatch.blocknumber))
@@ -212,7 +218,7 @@ def process_ipfsdata(statechangebatch, etherscanapikey):
 
 
 def get_afterblocknumber():
-    # Store the blocknumber from where to search for changes
+    ''''Function to return the first blocknumber which should be imported'''
     try:
         afterblocknumber = (Block.objects.filter(fullyprocessed=True).order_by(
             '-blocknumber')[:1].get()).blocknumber
@@ -225,7 +231,13 @@ def get_afterblocknumber():
 
 
 def get_ticket(hash,previoushash):
-    '''Function which lookup an event'''
+    '''Function which lookup a ticket'''
+    # If the previous hash is an event, than it means that the current
+    # statechange is a new ticket. Therefor a new ticket have to be created
+    # where the hash is the same as the first statechange and the eevent is
+    # the event correspodinding to the previous hash.
+    # If the previous hash is a statechange, than the ticket can be retrieved
+    # from this statechange.
     if Event.objects.filter(hash=previoushash).exists():
         logger.info("Ticket with hash {} not found, create a new one".format(
             previoushash))
@@ -263,6 +275,14 @@ def new_statechange(hash,previoushash,firing,block):
             logger.error("Failed to get the ticket corresponding to hash: " +\
                 "{} and previoushash {}".format(hash,previoushash))
             raise(e)
+
+        # If the ticket is part of the catchall address, add the ticket directly
+        # under the catchall ticket, because the statechange isn't part of a
+        #  valid chain.
+        if ticket.pk == 'catchall':
+            previoushash = 'catchall'
+            ticket = get_ticket(hash,previoushash)
+            firing = '999'
 
         # Create the state change object
         statechangeobject = StateChange.objects.create(
@@ -322,6 +342,10 @@ def new_statechange(hash,previoushash,firing,block):
         elif firing == "13":
             block.add_f13()
             statechangeobject.ticket.event.add_f13(block.date)
+        elif firing == "999":
+            block.add_f999()
+            statechangeobject.ticket.event.add_f999(block.date)
+
 
 def new_event(hash,block):
     '''Function to register a new statechange (firing)'''
@@ -343,8 +367,80 @@ def new_event(hash,block):
 
         block.add_w()
 
+def process_statechange(statechange,block):
+    '''Add a statechange tot the database'''
+    # Create statechange object
+    if (statechange.statechangetype == "f"):
+        # Create the state change object
+        try:
+            new_statechange (
+                hash = statechange.hash,
+                previoushash = statechange.previoushash,
+                firing = statechange.statechangesubtype,
+                block = block,
+                )
+        except StateChange.DoesNotExist:
+            # When a hash can't be imported this is caused that the previous
+            # hash has never been uploaded to IPFS/published in the blockchain.
+            # The Statechange is invalid and will be added to the catch all
+            # address.
+            logger.warning("Failed to add hash {}, in block {}. ".format(
+                statechange.hash, block.blocknumber) + \
+                "because previous hash can't be found. Moved to catchall."
+                )
+            new_statechange (
+                hash = statechange.hash,
+                previoushash = "catchall",
+                firing = "999",
+                block = block,
+                )
+
+
+    if (statechange.statechangetype == "w"):
+        # Create the state change object
+        new_event (
+            hash = statechange.hash,
+            block = block,
+        )
+
+
+def checkcatchallticket():
+    '''This function created a catchall evend and ticket, used to store events
+    which can't be linked'''
+    catchallisavailable = Event.objects.filter(
+        hash="TheUnknownStateChangesParadise").exists()
+    if catchallisavailable == False:
+        block = Block.objects.create(
+            blocknumber = "8915534",
+            date = datetime.datetime(2020, 6, 17, 4, 1, 39),
+            fullyprocessed = True
+        )
+
+        event = Event.objects.create(
+            hash = "TheUnknownStateChangesParadise",
+            block = block ,
+            name = "The unknown Statechange paradise",
+            lastupdate = block.date,
+        )
+
+        ticket = Ticket.objects.create(
+            hash = "catchall",
+            event = event
+        )
+
+        statechangeobject = StateChange.objects.create(
+            hash = "catchall",
+            previoushash = "TheUnknownStateChangesParadise",
+            firing = 999,
+            block = block,
+            ticket = ticket,
+        )
+
+        logger.info("Catch all event is created")
+
+
 def lockimport():
-    '''Function to lock the import state change setting'''
+    '''Lock the database for new statechanges import batches'''
     # Try to get the ImportStateChangesReady setting, if it doesn't exist create
     # it.
     try:
@@ -365,10 +461,13 @@ def lockimport():
     else:
         raise Exception('Previous import not finished correctly')
 
+
 def unlockimport():
+    '''Funtion to inlock the database for new statechanges import batches'''
     importstatechangesready = AppStatus.objects.get(
         name="ImportStateChangesReady")
     importstatechangesready.enablestatus()
+
 
 # this class is called by the managed.py of Django. The class will be used
 # to schedule the import of state changes in the Django database.
@@ -379,6 +478,9 @@ class Command(BaseCommand):
         # lock the import process to avoid multiple imports jobs at the same
         # time
         lockimport()
+
+        # Create catch all event if it doesn't exist yet
+        checkcatchallticket()
 
         # Store the Etherscan API key
         etherscanapikey = settings.ETHERSCANAPIKEY
@@ -432,105 +534,33 @@ class Command(BaseCommand):
             if process_ipfsdatastatuscode == 100:
                 continue
 
-            failedipfsimports = []
+            block.addipfshash(statechangebatch.ipfshash)
+
             # Process each state change which has been found in the batch
-            for ipfsstatechange in statechangebatch.ipfsstatechanges:
-                # Create statechange object
-                if (ipfsstatechange.statechangetype == "f"):
-                    # Create the state change object
-                    try:
-                        new_statechange (
-                            hash = ipfsstatechange.hash,
-                            previoushash = ipfsstatechange.previoushash,
-                            firing = ipfsstatechange.statechangesubtype,
-                            block = block,
-                            )
-                    except StateChange.DoesNotExist:
-                        # When a hash can't be imported this can be caused
-                        # because the previous hash is later in the batch
-                        # Add it to a failed list, which will be retried later.
-                        logger.warning("Failed to add hash {}, ".format(
-                            ipfsstatechange.hash) + \
-                            "trying again at the end of the block."
-                            )
-                        failedipfsimports.append(
-                            ipfsstatechange
-                        )
+            statechanges = statechangebatch.ipfsstatechanges
 
+            while any(statechanges):
+                # Create an empty lists which contains statechanges which have
+                # to be delayed because they are depending on a statechange
+                # later in the batch
+                statechangestodelay = []
 
-                if (ipfsstatechange.statechangetype == "w"):
-                    # Create the state change object
-                    new_event (
-                        hash = ipfsstatechange.hash,
-                        block = block,
-                    )
+                for statechange in statechanges:
+                    dependencyfound = any(x.hash == statechange.previoushash \
+                        for x in statechanges)
+                    if dependencyfound == True:
+                        statechangestodelay.append(statechange)
+                    else:
+                        process_statechange(statechange,block)
 
+                statechanges = statechangestodelay
 
-            # Retry failed ipfs state changes (keep doing this until no )
-            # state changes can be imported anymore. IPFS data doesn't seemd to
-            # be always in the correct order.
-            stateimported = True
-            while stateimported == True:
-                addtomajorfailedipfsimports = []
-                # Set the stateimproted value on false, will be set true again
-                # after a succesfull update (after a failure)
-                stateimported = False
-                # Stateimport failure is a variable which will check or there
-                # is a wrong import. If there's 1 failure the state imported
-                # might be set to true, to prevent a loop.
-                stateimportfailure = False
-                # Try to re-import each statechange
-                for ipfsstatechange in failedipfsimports:
-                    logger.info(
-                        "Retrying to add {}".format(ipfsstatechange.hash))
-                    try:
-                        new_statechange (
-                            hash = ipfsstatechange.hash,
-                            previoushash = ipfsstatechange.previoushash,
-                            firing = ipfsstatechange.statechangesubtype,
-                            block = block,
-                        )
-                        # If a statechange has failed to import before, set the
-                        # stateimported variabele on true
-                        logger.info("{} is succesfull imported on retry".format(
-                            ipfsstatechange.hash))
-                        if stateimportfailure == True:
-                            stateimported = true
-
-                    except StateChange.DoesNotExist:
-                        logger.warning("{} is failing in retry".format(
-                            ipfsstatechange.hash))
-                        addtomajorfailedipfsimports.append({
-                            "hash": ipfsstatechange.hash,
-                            "previoushash": ipfsstatechange.previoushash,
-                            "block": block
-                        })
-                        # Set the stateimport failure on true, so the import
-                        # will be retried when there's a succesfull add
-                        stateimportfailure = True
-
-            # Import the statechanges to the majorfailedipfsimports which went
-            # wrong
-            for failure in addtomajorfailedipfsimports:
-                majorfailedipfsimports.append({
-                    "hash": failure["hash"],
-                    "previoushash": failure["previoushash"],
-                    "block": failure["block"]
-                })
 
             # Set block on fully processed
             block.processed()
 
             logger.info("Statechange batch found in block " + \
             "{} imported in the database".format(statechangebatch.blocknumber))
-
-        # Print all imports which failed
-        for failedipfs in majorfailedipfsimports:
-            block = failedipfs["block"]
-            logger.error("Niet kunnen importeren:" +\
-            "Hash:{}".format(failedipfs["hash"]) + \
-            "PreviousHash:{}".format(failedipfs["hash"]) +\
-            "Block:{}".format(block.blocknumber))
 
         # Unlock import process, to make new import jobs possible
         unlockimport()
