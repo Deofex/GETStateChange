@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 05:09+0000\n"
-"PO-Revision-Date: 2020-06-18 07:41+0200\n"
+"PO-Revision-Date: 2020-06-18 07:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ko\n"
@@ -1648,11 +1648,11 @@ msgstr "비정상적 상태"
 
 #: statechanges/templates/statechanges/singleblock.html:84
 msgid "Statechange hash"
-msgstr "상태 변환"
+msgstr "상태변환 해시 값"
 
 #: statechanges/templates/statechanges/singleblock.html:86
 msgid "Statechange corresponding event"
-msgstr "월 별 상태 변환 수"
+msgstr "행사로 인해 변환된 값"
 
 #: statechanges/templates/statechanges/singleblock.html:93
 msgid "Go to Event"
