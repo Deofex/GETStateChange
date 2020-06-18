@@ -503,6 +503,10 @@ class Command(BaseCommand):
         majorfailedipfsimports = []
 
         for statechangebatch in statechangebatches:
+            # Skip block 10277166 (This is a manual entry which don't state)
+            # an IPFS hash, but an entire link
+            if statechangebatch.blocknumber == "10277166":
+                continue
             # Check or block exists
             BlockExists = Block.objects.filter(
                 pk=statechangebatch.blocknumber).exists()
@@ -517,11 +521,6 @@ class Command(BaseCommand):
 
             # Store block object in variabel
             block=Block.objects.get(pk=statechangebatch.blocknumber)
-
-            # Skip block 10277166 (This is a manual entry which don't state)
-            # an IPFS hash, but an entire link
-            if statechangebatch.blocknumber == "10277166":
-                continue
 
             # Process the IPFS data (get data, split it in transactions and
             # store it in the statechangebatchobject) (if status = 100) go to
