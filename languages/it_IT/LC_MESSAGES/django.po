@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-18 05:09+0000\n"
-"PO-Revision-Date: 2020-06-18 07:35+0200\n"
+"PO-Revision-Date: 2020-06-18 11:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1661,7 +1661,7 @@ msgstr "Biglietto sbloccato"
 #: statechanges/templates/statechanges/singleevent.html:131
 #: statechanges/templates/statechanges/statechanges.html:115
 msgid "Faulty"
-msgstr "Colpevole"
+msgstr "Difettoso"
 
 #: statechanges/templates/statechanges/singleblock.html:84
 msgid "Statechange hash"
