@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'statechanges.apps.StateChangesConfig',
+    'shared.apps.SharedConfig',
+    'hodlers.apps.HodlersConfig',
 ]
 
 MIDDLEWARE = [
