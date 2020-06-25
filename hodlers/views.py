@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+# Page for hodler info
+def page_hodlers(request):
+
+    return render(request,'hodlers/hodlers.html',{
+
+    })
