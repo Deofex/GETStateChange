@@ -1,12 +1,98 @@
 {% extends 'shared/base.html' %}
+{% load static %}
 {% load i18n %}
 {% block content %}
-<div class="row">
+<div class="row align-items-center">
     <div class="col">
-        <p>test</p>
+        <div class="col align-items-center">
+            <div class="card graph">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-4">
+                        <div align="center">
+                            <img src="{% static 'images/wallet.png' %}" class="card-img-middle rounded cardmid"
+                                alt="sale">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body center">
+                            <h5 class="card-title">{% trans "Amount of wallets with GET in it" %}</h5>
+                            <h1 class=getcolor>{{totalwalletamount}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col align-items-center">
+            <div class=" card graph">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-4">
+                        <div align="center">
+                            <img src="{% static 'images/average.png' %}" class="card-img-middle rounded cardmid"
+                                alt="scanner">
+                        </div>
+                    </div>
+                    <div class="col-md-8 ">
+                        <div class="card-body center">
+                            <h5 class="card-title">{% trans "Avarage GET amount per active wallet" %}</h5>
+                            <h1 class=getcolor>{{averagegetperwallet}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col align-items-center">
+            <div class="card graph">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-4">
+                        <div align="center">
+                            <img src="{% static 'images/transaction.png' %}" class="card-img-middle rounded cardmid"
+                                alt="money">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body center">
+                            <h5 class="card-title">{% trans "GET transactions in the last 24 hour" %}</h5>
+                            <h1 class=getcolor>{{gettransactions24h}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col align-items-center">
+            <div class="card graph">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-4">
+                        <div align="center">
+                            <img src="{% static 'images/amount.png' %}" class="card-img-middle rounded cardmid"
+                                alt="events">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body center">
+                            <h5 class="card-title">{% trans "Amount GET transfered in the last 24h" %}</h5>
+                            <h1 class=getcolor>{{gettransfered24h}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col">
-        <p>page</p>
+    <div class="col-lg-4">
+        <div class="jumbotron">
+            <h1 class="display-4">{% trans "The GET Token" %}</h1>
+            <p class="lead">
+                {% trans "The fuel of the protocol." %}
+            </p>
+            <hr class="my-4">
+            <p>
+                {% trans "Every action in the GET Protcol needs the GET token. The token is the fuel of the system. The token is needed in the protocol, exchanged by their holders, adored by fanboys and lost because of human errors. This page is displaying statistics about this token, the movement activity and statistics of the holders." %}
+            </p>
+            <a class="btn btn-primary btn-lg" href="{% url 'page_statechanges' %}"
+                role="button">{% trans "Show me the proof." %}</a>
+        </div>
     </div>
 </div>
 
