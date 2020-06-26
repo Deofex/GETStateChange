@@ -3,6 +3,18 @@
 {% load i18n %}
 {% block content %}
 <div class="row align-items-center">
+    <div class="col-lg-4 order-md-last">
+        <div class="jumbotron">
+            <h1 class="display-4">{% trans "The GET Token" %}</h1>
+            <p class="lead">
+                {% trans "The fuel of the protocol." %}
+            </p>
+            <hr class="my-4">
+            <p>
+                {% trans "Every action in the GET Protcol needs the GET token. The token is the fuel of the system. The token is needed in the protocol, exchanged by their holders, adored by fanboys and lost because of human errors. This page is displaying statistics about this token, the movement activity and statistics of the holders." %}
+            </p>
+        </div>
+    </div>
     <div class="col">
         <div class="col align-items-center">
             <div class="card graph">
@@ -80,19 +92,10 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
-        <div class="jumbotron">
-            <h1 class="display-4">{% trans "The GET Token" %}</h1>
-            <p class="lead">
-                {% trans "The fuel of the protocol." %}
-            </p>
-            <hr class="my-4">
-            <p>
-                {% trans "Every action in the GET Protcol needs the GET token. The token is the fuel of the system. The token is needed in the protocol, exchanged by their holders, adored by fanboys and lost because of human errors. This page is displaying statistics about this token, the movement activity and statistics of the holders." %}
-            </p>
-            <a class="btn btn-primary btn-lg" href="{% url 'page_statechanges' %}"
-                role="button">{% trans "Show me the proof." %}</a>
-        </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p>test</p>
     </div>
 </div>
 
