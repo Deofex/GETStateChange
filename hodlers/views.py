@@ -24,6 +24,9 @@ def page_hodlers(request):
     transactions24htotal = transactions24h.aggregate(
         Sum('amount'))['amount__sum']
 
+    if transactions24htotal == None:
+        transactions24htotal = 0
+
 
     return render(request, 'hodlers/hodlers.html', {
         'totalwalletamount': GETAddress.objects.exclude(balance__lt=1).count(),
