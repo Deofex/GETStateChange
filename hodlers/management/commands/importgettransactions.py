@@ -27,136 +27,121 @@ def get_json_from_url(url):
     js = json.loads(content)
     return js
 
-# This function is designed to communicate with infura. It will does a post
-# API request with the parameters specified
-def get_rpc_response(method, infuraapikey, params=[]):
-    '''Does an Inufra API request'''
-    url = "https://mainnet.infura.io/v3/{}".format(infuraapikey)
-    params = params or []
-    data = {"jsonrpc": "2.0", "method": method, "params": params, "id": 1}
-    headers = {"Content-Type": "application/json"}
-    response = requests.post(url, headers=headers, json=data)
-    return response.json()
 
-# This function get all transactions logs via the Infura node
-def get_contract_transfers(infuraapikey, etherscanapikey, address,
-    decimals=18, from_block=None, to_block=None):
-    '''Get a list with logs of ERC20 transfers'''
-    from_block = from_block or "0x0"
-    # The transfer events on ETH can be identified via the following transfer
-    # hash
+def import_transactions(etherscanapikey,startblocknr):
+    lastblocknumber = startblocknr
+    while(lastblocknumber==startblocknr or len(trans["result"]) == 1000):
+        # The new lastblocknumber is the last blocknumber which will be
+        # processed+ 1 (oterwise the latest block will be imported twice)
+        lastblocknumber = lastblocknumber + 1
+
+        # Specify interesting ETH topics
+        transfer_hash = \
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+        burn_hash = \
+            "0x696de425f79f4a40bc6d2122ca50507f0efbeabbff86a84871b7196ab8ea8df7"
+
+        # Get JSON from the lastblocknumber with the transaction hash
+        urltrans="https://api.etherscan.io/api?module=logs&action=getLogs&" + \
+            "fromBlock=" + str(lastblocknumber) + \
+            "&toBlock=latest" + \
+            "&address=0x8a854288a5976036a725879164ca3e91d30c6a1b" + \
+            "&topic0=" + transfer_hash + \
+            "&apikey=" + etherscanapikey
+        trans = get_json_from_url(urltrans)
+
+        # Get JSON from the lastblocknumber with the burn hash
+        urlburns="https://api.etherscan.io/api?module=logs&action=getLogs&" + \
+            "fromBlock=" + str(lastblocknumber) + \
+            "&toBlock=latest" + \
+            "&address=0x8a854288a5976036a725879164ca3e91d30c6a1b" + \
+            "&topic0=" + burn_hash + \
+            "&apikey=" + etherscanapikey
+        burns = get_json_from_url(urlburns)
+
+        # Determine last block number for the next result
+        lastblocknumber = int(trans["result"][-1]["blockNumber"],0)
+
+        logger.info("Amount of new transactions found: {}".format(
+            len(trans["result"])))
+        logger.info("Amount of burns found: {}".format(
+            len(burns["result"])))
+
+        # Remove results with the highest blocknumbers if the length of the results
+        # is 1000 (max) to avoid diplicated items in later batches
+        if len(trans["result"]) == 1000:
+            newresultstrans = [k for k in trans["result"] if int(
+                k["blockNumber"],0) !=  lastblocknumber]
+            newresultsburns = [k for k in burns["result"] if int(
+                k["blockNumber"],0) <  lastblocknumber]
+            # -1 from last blocknumber so it will be included in the next batch
+            # more transaction might be located in this block
+            lastblocknumber = lastblocknumber - 1
+        else:
+            newresultstrans = [k for k in trans["result"]]
+            newresultsburns = [k for k in burns["result"]]
+
+        # Add the results from the transaction and burns to the results list
+        for newtrans in newresultstrans:
+            add_transtodb(newtrans)
+        for newburn in newresultsburns:
+            add_transtodb(newburn)
+
+
+def add_transtodb(trans):
+    # Specify interesting ETH topics and burn address
     transfer_hash = \
         "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
-    params = [{
-        "address": address,
-        "fromBlock": from_block,
-        "toBlock": to_block
-    }]
-    # Get all eventlogs via Infura, with the above parameters
-    logs = get_rpc_response("eth_getLogs", infuraapikey, params)
-    logs = logs['result']
-    decimals_factor = Decimal("10") ** Decimal("-{}".format(decimals))
+    burn_hash = \
+        "0x696de425f79f4a40bc6d2122ca50507f0efbeabbff86a84871b7196ab8ea8df7"
+    burnaddress = "0x0000000000000000000000000000000000000000"
 
-    importcountdown = 0
-    for log in logs:
-        importcountdown = importcountdown + 1
-        logger.info("Processing {} of {}".format(importcountdown,len(logs)))
-        # If the log entry is something else than the transfer hash, skip
-        if log["topics"][0] != transfer_hash:
-            continue
+    # Convert hex blocknumber to int
+    blocknumber = int(trans["blockNumber"],0)
 
-        # Add amount/from and the to from the object and add them implicitly
-        log["amount"] = Decimal(str(int(log["data"], 16))) * decimals_factor
-        log["from"] = log["topics"][1][0:2] + log["topics"][1][26:]
-        log["to"] = log["topics"][2][0:2] + log["topics"][2][26:]
-        log["timestamp"] = get_blocktimestamp(
-            log["blockNumber"], etherscanapikey)
-        # Quarter of a second sleep, to not ask to much from the API
-        #time.sleep(0.2)
-    return logs
-
-# This function query a blocknumber at etherscan and returns the timestamp
-def get_blocktimestamp(blocknumber,etherscanapikey):
-    '''This function get the timestamp for the block via EtherScan'''
-    blocknumber = int(blocknumber,0)
-    blockinfourl = "https://api.etherscan.io/api" + \
-        "?module=block&action=getblockreward" + \
-        "&blockno=" +str(blocknumber) + \
-        "&apikey=" + etherscanapikey
-
-    blockinfo = get_json_from_url(blockinfourl)
-    return blockinfo["result"]["timeStamp"]
-
-# This function import transactions and stores the information in the database
-def import_transactions(infuraapikey, etherscanapikey, getcontractaddress,
-    from_block, to_block):
-    '''Function to import all information in the database'''
-
-    # Get all the transfers with the needed info
-    transfers = get_contract_transfers(infuraapikey,etherscanapikey,
-    getcontractaddress,from_block=from_block,to_block=to_block)
-
-    # Process each log seperatly
-    for t in transfers:
-        # Some transaction will not have a from address and should be skipped
-        if not "from" in t:
-            continue
-        # Convert hex blocknumber to int
-        blocknumber = int(t["blockNumber"],0)
-        # Add the block to the database if it doesn't exist
-        if not Tblock.objects.filter(blocknumber=blocknumber).exists():
-            logger.info("Create TBlock {}".format(blocknumber))
-            Tblock.objects.create(
-                blocknumber = blocknumber,
-                date = datetime.datetime.fromtimestamp(int(t["timestamp"]))
-            )
-
-        # Add the from and to addresses to the database if they don't exist
-        if not GETAddress.objects.filter(address=t["from"]).exists():
-            logger.info("Create GET address {}".format(t["from"]))
-            GETAddress.objects.create(address=t["from"])
-        if not GETAddress.objects.filter(address=t["to"]).exists():
-            GETAddress.objects.create(address=t["to"])
-            logger.info("Create GET address {}".format(t["to"]))
-
-        # Get the block and addresses
-        block = Tblock.objects.get(blocknumber=blocknumber)
-        fromaddress = GETAddress.objects.get(address=t["from"])
-        toaddress = GETAddress.objects.get(address=t["to"])
-
-        # Add transaction to the database
-        logger.info("Create GETTransaction {}".format(t["transactionHash"]))
-        GETTransaction.objects.create(
-            transactionhash = t["transactionHash"],
-            fromaddress = fromaddress ,
-            toaddress = toaddress,
-            amount = t["amount"],
-            block = block,
+    # Add the block to the database if it doesn't exist
+    if not Tblock.objects.filter(blocknumber=blocknumber).exists():
+        logger.info("Create TBlock {}".format(blocknumber))
+        Tblock.objects.create(
+            blocknumber = blocknumber,
+            date = datetime.datetime.fromtimestamp(int(trans["timeStamp"],0))
         )
+    # Store block to varibele
+    block = Tblock.objects.get(blocknumber=blocknumber)
 
-        # Update the balances of the to and from address
-        fromaddress.send(t["amount"])
-        toaddress.recieve(t["amount"])
+    # Get information from the transfer info
+    if trans["topics"][0] == transfer_hash:
+        fromaddress = trans["topics"][1][0:2] + trans["topics"][1][26:]
+        toaddress = trans["topics"][2][0:2] + trans["topics"][2][26:]
+        amount = Decimal(str(int(trans["data"],0))) / 1000000000000000000
+    elif trans["topics"][0] == burn_hash:
+        data = trans["data"]
+        fromaddress = "0x" + data[26:66]
+        toaddress = burnaddress
+        amount =  Decimal(str(int(data[67:131],16))) / 1000000000000000000
 
-        # Update the last update time of the to and from addresses
-        fromaddress.newupdate(block.date)
-        toaddress.newupdate(block.date)
+    # Add the from and to addresses to the database if they don't exist
+    if not GETAddress.objects.filter(address=fromaddress).exists():
+        logger.info("Create GET address: {}".format(fromaddress))
+        GETAddress.objects.create(address=fromaddress)
+    if not GETAddress.objects.filter(address=toaddress).exists():
+        GETAddress.objects.create(address=toaddress)
+        logger.info("Create GET address: {}".format(toaddress))
 
+    # Store to and from addresses in variabel
+    fromaddress = GETAddress.objects.get(address=fromaddress)
+    toaddress = GETAddress.objects.get(address=toaddress)
 
-# This function is for the first run. It imports multiple transactions batches
-def firstrun(infuraapikey, etherscanapikey, getcontractaddress):
-    '''Function to run if no earlier transactions have been imported'''
-    # If no run has performed before, you can't query everything at all, because
-    # Infura won't give so much results back. Using the blocks below will help
-    # to import the first blocks in block which aren't to big.
-    bulks = [{"fromblock": "0x428FE9","toblock":"0x4F6C67"},
-    {"fromblock": "0x4F6C68","toblock":"0x53E6C1"},
-    {"fromblock": "0x53E6C2","toblock":"0x667CB1"},
-    {"fromblock": "0x667CB2","toblock":"0x9D8949"}]
-
-    for bulk in bulks:
-        import_transactions(infuraapikey,etherscanapikey,
-        getcontractaddress,bulk["fromblock"],bulk["toblock"])
+    # Create the transaction
+    GETTransaction.objects.create(
+        transactionhash = trans["transactionHash"],
+        fromaddress = fromaddress ,
+        toaddress = toaddress,
+        amount = amount,
+        block = block,
+    )
+    logger.info("Create GET Transaction with hash: {}".format(
+        trans["transactionHash"]))
 
 
 def lockimport():
@@ -189,6 +174,7 @@ def unlockimport():
         name="ImportGETTransactionsReady")
     importstatechangesready.enablestatus()
 
+
 # Base class, the start of each Django management command
 class Command(BaseCommand):
     '''Import GET transactions in the database'''
@@ -197,28 +183,23 @@ class Command(BaseCommand):
         # lock the import process to avoid multiple imports jobs at the same
         # time
         lockimport()
-        # Import the Infura and EtherScan API key from the setting file
-        infuraapikey = settings.INFURAAPIKEY
+        # EtherScan API key from the setting file
         etherscanapikey = settings.ETHERSCANAPIKEY
 
-        # State the GET Protocol contract
-        getcontractaddress = "0x8a854288a5976036a725879164ca3e91d30c6a1b"
+        # If initial mint transaction isn't created, create it
+        burnaddress = "0x0000000000000000000000000000000000000000"
+        if not GETAddress.objects.filter(address=burnaddress).exists():
+            burnaddress = GETAddress.objects.create(address=burnaddress)
+            burnaddress.recieve(Decimal("33368773.400000170376363909"))
 
-        # If a transaction with hash
-        # 0xf1d0f66fca5189d27f6c322a594fc4a6298145e183d5c73cdf7dd5e11bb6c3ec
-        # doesn't exists. (last transaction in the initial batch), run the
-        # first run
-        ih= "0xf1d0f66fca5189d27f6c322a594fc4a6298145e183d5c73cdf7dd5e11bb6c3ec"
-        if not GETTransaction.objects.filter(transactionhash=ih).exists():
-            firstrun(infuraapikey,etherscanapikey,getcontractaddress)
+        # Determine startblock (=lastblock or default =)
+        if GETTransaction.objects.last() == None:
+            lastblocknumber=4362216
+        else:
+            lastblocknumber=GETTransaction.objects.last().block.blocknumber
 
-        # Determine the blocks which aren't imported yet
-        startblock = Tblock.objects.last().blocknumber + 1
-        # Maximal 60000 blocks per batch (approx 10 days), to avoid limits
-        endblock = startblock + 50000
-        # Import next 50000 blocks
-        import_transactions(infuraapikey,etherscanapikey,
-        getcontractaddress,hex(startblock),hex(endblock))
+        # Import transactions
+        import_transactions(etherscanapikey,lastblocknumber)
 
         # Unlock import process, to make new import jobs possible
         unlockimport()

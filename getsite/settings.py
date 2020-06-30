@@ -169,9 +169,6 @@ SECURE_REFERRER_POLICY = "no-referrer"
 # Etherscanapikey needed to collect block information
 ETHERSCANAPIKEY = get_env_variable('getsite_etherscan_apikey')
 
-# Infura API key needed to collect Eth Transactions (hodlers app)
-INFURAAPIKEY = get_env_variable('getsite_infura_apikey')
-
 # Logging information
 LOGGING = {
     'version': 1,
