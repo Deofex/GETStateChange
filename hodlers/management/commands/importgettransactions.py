@@ -60,7 +60,8 @@ def import_transactions(etherscanapikey,startblocknr):
         burns = get_json_from_url(urlburns)
 
         # Determine last block number for the next result
-        lastblocknumber = int(trans["result"][-1]["blockNumber"],0)
+        if len(trans["result"]) != 0:
+            lastblocknumber = int(trans["result"][-1]["blockNumber"],0)
 
         logger.info("Amount of new transactions found: {}".format(
             len(trans["result"])))
