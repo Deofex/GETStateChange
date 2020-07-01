@@ -37,7 +37,7 @@ SECRET_KEY = get_env_variable('getsite_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['get.powerplatz.local', 'get.powerplatz.nl']
+ALLOWED_HOSTS = ['get.powerplatz.local', 'get.powerplatz.nl','getprotocol.info','getcommunityinsights.com']
 DEBUG = get_env_variable('getsite_debug') == 'True'
 
 # Application definition
