@@ -131,7 +131,12 @@ def add_transtodb(trans):
 
     # Store to and from addresses in variabel
     fromaddress = GETAddress.objects.get(address=fromaddress)
+    fromaddress.send(amount)
+    fromaddress.newupdate(datetime.datetime.fromtimestamp(int(trans["timeStamp"],0)))
+
     toaddress = GETAddress.objects.get(address=toaddress)
+    toaddress.recieve(amount)
+    toaddress.newupdate(datetime.datetime.fromtimestamp(int(trans["timeStamp"],0)))
 
     # Create the transaction
     GETTransaction.objects.create(
@@ -143,7 +148,6 @@ def add_transtodb(trans):
     )
     logger.info("Create GET Transaction with hash: {}".format(
         trans["transactionHash"]))
-
 
 def lockimport():
     '''Lock the database for new statechanges import batches'''
