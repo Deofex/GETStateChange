@@ -14,8 +14,6 @@ def create_monthstats(balances):
         "0x2752cd55caf736de9da26e555f602cafecd81282",
         "0x36842c31d6e82d72139b42efc35f3d37de36da5e" ]
 
-    excludeaddress = ["0x0000000000000000000000000000000000000000"]
-
     for ea in excludeaddress:
         balances[ea] = 0
 
@@ -56,7 +54,8 @@ def collect_monthinfo():
 
     # Create Default dictionary, with a decimal number (0)
     balances = defaultdict(Decimal)
-
+    burnaddress = "0x0000000000000000000000000000000000000000"
+    balances[burnaddress] = Decimal("33368773.400000170376363909")
     for trans in GETTransaction.objects.all():
         # If the month change, we have to collect information from the previous
         # month.
