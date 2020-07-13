@@ -3,6 +3,10 @@ from decimal import Decimal
 from django.core.management.base import BaseCommand
 from hodlers.models import GETTransaction, GETPeriodSummary
 
+# Configure logger
+import logging
+logger = logging.getLogger(__name__)
+
 def create_monthstats(balances):
     # Zero out the holding of the addresses which shouldn't be part of the
     # rapport (SF address + burn address)
@@ -68,21 +72,51 @@ def collect_monthinfo():
             # Create period name from the last collected period
             periodname = ("{}-{}".format(month,year))
 
-            # Get the stats from the month
-            periodinfo = create_monthstats(balances)
-
-            # Print information about this stats
-            print("------------{}---------------".format(periodname))
-            print('Amount of transactions which found place: {}'.format(
-                transactioncount
-            ))
-            print('Amount of GET transfered between wallets: {}'.format(
-                transactionamountcount))
-            print("Active addresses (more than 5 GET stored): {}".format(
-                periodinfo["activeaddresses"]))
-            print('Amount of GET stored on exchanges: {}'.format(
-                periodinfo["totalexchangebalance"]
-            ))
+            # If the GET Period summeray is available but not fully processed
+            # update the statistics and finalize the period.
+            # If the period isn't available create it and directly finalize it.
+            if GETPeriodSummary.objects.filter(periodname=periodname).exists():
+                gps = GETPeriodSummary.objects.get(periodname=periodname)
+                if not gps.fullyprocessed:
+                    # The stats are already in the database but might be out-
+                    # dated. Updated the stats and finalize the period
+                    logger.info('Update the summarize period: {}'.format(
+                        periodname
+                    ))
+                    periodinfo = create_monthstats(balances)
+                    gps.update(
+                        activewallets = periodinfo["activeaddresses"],
+                        transactions = transactioncount,
+                        getdistributed = transactionamountcount,
+                        exetherdeltabalance = periodinfo["etherdeltabalance"],
+                        excoinonebalance = periodinfo["coinonebalance"],
+                        exidexbalance = periodinfo["idexbalance"],
+                        exliquidbalance = periodinfo["liquidbalance"],
+                        exuniswapbalance = periodinfo["uniswapbalance"],
+                        exhotbitbalance = periodinfo["hotbitbalance"],
+                        extotalbalance = periodinfo["totalexchangebalance"],
+                        fullyprocessed = True
+                    )
+            else:
+                # Get the stats from the month and store it in the database
+                logger.info('Creating the summarize period: {}'.format(
+                    periodname
+                ))
+                periodinfo = create_monthstats(balances)
+                GETPeriodSummary.objects.create(
+                    periodname = periodname,
+                    activewallets = periodinfo["activeaddresses"],
+                    transactions = transactioncount,
+                    getdistributed = transactionamountcount,
+                    exetherdeltabalance = periodinfo["etherdeltabalance"],
+                    excoinonebalance = periodinfo["coinonebalance"],
+                    exidexbalance = periodinfo["idexbalance"],
+                    exliquidbalance = periodinfo["liquidbalance"],
+                    exuniswapbalance = periodinfo["uniswapbalance"],
+                    exhotbitbalance = periodinfo["hotbitbalance"],
+                    extotalbalance = periodinfo["totalexchangebalance"],
+                    fullyprocessed = True
+                )
 
             # Set the month and year to the new block
             month = trans.block.date.month
@@ -103,7 +137,45 @@ def collect_monthinfo():
         balances[trans.fromaddress.address] = \
             balances[trans.fromaddress.address] - trans.amount
 
+
+    # Update the active perdiod or create it
+    # Set the month and year to the new block
+    periodname = ("{}-{}".format(
+        trans.block.date.month,
+        trans.block.date.year))
+    logger.info('Update the active summarize period: {}'.format(periodname))
     periodinfo = create_monthstats(balances)
+    if GETPeriodSummary.objects.filter(periodname=periodname).exists():
+        gps = GETPeriodSummary.objects.get(periodname=periodname)
+        gps.update(
+            activewallets = periodinfo["activeaddresses"],
+            transactions = transactioncount,
+            getdistributed = transactionamountcount,
+            exetherdeltabalance = periodinfo["etherdeltabalance"],
+            excoinonebalance = periodinfo["coinonebalance"],
+            exidexbalance = periodinfo["idexbalance"],
+            exliquidbalance = periodinfo["liquidbalance"],
+            exuniswapbalance = periodinfo["uniswapbalance"],
+            exhotbitbalance = periodinfo["hotbitbalance"],
+            extotalbalance = periodinfo["totalexchangebalance"],
+            fullyprocessed = False
+        )
+    else:
+        GETPeriodSummary.objects.create(
+            periodname = periodname,
+            activewallets = periodinfo["activeaddresses"],
+            transactions = transactioncount,
+            getdistributed = transactionamountcount,
+            exetherdeltabalance = periodinfo["etherdeltabalance"],
+            excoinonebalance = periodinfo["coinonebalance"],
+            exidexbalance = periodinfo["idexbalance"],
+            exliquidbalance = periodinfo["liquidbalance"],
+            exuniswapbalance = periodinfo["uniswapbalance"],
+            exhotbitbalance = periodinfo["hotbitbalance"],
+            extotalbalance = periodinfo["totalexchangebalance"],
+            fullyprocessed = False
+        )
+
 
 # Base class, the start of each Django management command
 class Command(BaseCommand):
@@ -112,10 +184,3 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         collect_monthinfo()
 
-
-#Monthinfo:
-# +Amount of wallets with 5+ GET in it
-# +Amount of transactions
-# +Amount of GET transfered from 1 wallet to another
-# +Amount of GET on the exchanges
-# -On page (whale/guppies/dutchies etc.)
