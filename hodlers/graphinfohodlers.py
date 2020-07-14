@@ -65,7 +65,7 @@ def get_amountoftokensmovedgraphinfo():
         periodname = period.periodname.strftime("%d-%m-%Y")
         graphinfo.append(GraphInfo(
             periodname,
-            period.getdistributed
+            "{0:.0f}".format(period.getdistributed)
         ))
 
     return graphinfo
@@ -83,7 +83,7 @@ def get_tokensonexchangesgraphinfo():
         periodname = period.periodname.strftime("%d-%m-%Y")
         graphinfo.append(GraphInfo(
             periodname,
-            period.extotalbalance
+            "{0:.0f}".format(period.extotalbalance)
         ))
 
     return graphinfo
