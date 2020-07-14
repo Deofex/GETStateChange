@@ -51,7 +51,7 @@ class GETTransaction(models.Model):
 
 class GETPeriodSummary(models.Model):
     '''A model which stores data about the GET tokens for a period'''
-    periodname = models.CharField(primary_key=True, max_length=100)
+    periodname = models.DateTimeField(primary_key=True)
     activewallets = models.IntegerField()
     transactions = models.IntegerField()
     getdistributed = models.DecimalField(max_digits=12, decimal_places=2)
