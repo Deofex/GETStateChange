@@ -45,7 +45,7 @@
             xAxes: [{
                 type: 'time',
                 time: {
-                    format: 'DD/MM/YYYY',
+                    format: 'MM/YYYY',
                     unit: 'month',
                     displayFormats: {
                         month: 'MMM-YYYY',
@@ -90,7 +90,7 @@
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
-        {% for info in amountoftransactions %}
+            {% for info in amountoftransactions %}
     '{{info.value}}'{% if not forloop.last %}, {% endif %}
     {% endfor %}
                 ],
@@ -116,7 +116,7 @@
             xAxes: [{
                 type: 'time',
                 time: {
-                    format: 'DD/MM/YYYY',
+                    format: 'MM/YYYY',
                     unit: 'month',
                     displayFormats: {
                         month: 'MMM-YYYY',
@@ -160,7 +160,7 @@
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
-        {% for info in amountoftokensmoved %}
+            {% for info in amountoftokensmoved %}
     '{{info.value}}'{% if not forloop.last %}, {% endif %}
     {% endfor %}
                 ],
@@ -186,7 +186,7 @@
             xAxes: [{
                 type: 'time',
                 time: {
-                    format: 'DD/MM/YYYY',
+                    format: 'MM/YYYY',
                     unit: 'month',
                     displayFormats: {
                         month: 'MMM-YYYY',
@@ -230,7 +230,7 @@
         backgroundColor: '#000000',
         borderColor: '#01C696',
         data: [
-        {% for info in tokenonexchanges %}
+            {% for info in tokenonexchanges %}
     '{{info.value}}'{% if not forloop.last %}, {% endif %}
     {% endfor %}
                 ],
@@ -256,7 +256,7 @@
             xAxes: [{
                 type: 'time',
                 time: {
-                    format: 'DD/MM/YYYY',
+                    format: 'MM/YYYY',
                     unit: 'month',
                     displayFormats: {
                         month: 'MMM-YYYY',

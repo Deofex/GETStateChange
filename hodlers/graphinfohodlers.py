@@ -17,7 +17,7 @@ def get_amountofhodlersgraphinfo():
 
     for period in periods:
         # Create the label from the date in the following format day-month-year
-        periodname = period.periodname.strftime("%d-%m-%Y")
+        periodname = period.periodname.strftime("%m-%Y")
         graphinfo.append(GraphInfo(
             periodname,
             period.activewallets
@@ -40,7 +40,7 @@ def get_amountoftransactionsgraphinfo():
         if period.periodname <= excludebefore:
             continue
         # Create the label from the date in the following format day-month-year
-        periodname = period.periodname.strftime("%d-%m-%Y")
+        periodname = period.periodname.strftime("%m-%Y")
         graphinfo.append(GraphInfo(
             periodname,
             period.transactions
@@ -62,7 +62,7 @@ def get_amountoftokensmovedgraphinfo():
         if period.periodname <= excludebefore:
             continue
         # Create the label from the date in the following format day-month-year
-        periodname = period.periodname.strftime("%d-%m-%Y")
+        periodname = period.periodname.strftime("%m-%Y")
         graphinfo.append(GraphInfo(
             periodname,
             "{0:.0f}".format(period.getdistributed)
@@ -80,7 +80,7 @@ def get_tokensonexchangesgraphinfo():
 
     for period in periods:
         # Create the label from the date in the following format day-month-year
-        periodname = period.periodname.strftime("%d-%m-%Y")
+        periodname = period.periodname.strftime("%m-%Y")
         graphinfo.append(GraphInfo(
             periodname,
             "{0:.0f}".format(period.extotalbalance)
