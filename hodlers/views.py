@@ -18,7 +18,7 @@ def page_hodlers(request):
            ]
 
     # Average of the addresses, without the earlier specified excludes
-    average = GETAddress.objects.exclude(balance__lt=1).exclude(
+    average = GETAddress.objects.exclude(balance__lt=5).exclude(
         address__in=ewl).aggregate(Avg('balance'))['balance__avg']
 
     # GET Transactions last 24 hours
