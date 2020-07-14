@@ -1,0 +1,340 @@
+{% load i18n %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
+
+<script>
+    var ctx = document.getElementById('ChartAmountOfHodlers').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for info in amountofhodlers %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    datasets: [{
+        label: '{% trans 'Wallets > 5 GET' %}',
+        backgroundColor: '#000000',
+        borderColor: '#01C696',
+        data: [
+        {% for info in amountofhodlers %}
+    '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+                ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+            }]
+        },
+
+    // Configuration options go here
+    options: {
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+            },
+        hover: {
+            mode: 'nearest',
+                intersect: true
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    format: 'DD/MM/YYYY',
+                    unit: 'month',
+                    displayFormats: {
+                        month: 'MMM-YYYY',
+                    }
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '{% trans 'Month' %}'
+                },
+                ticks: {
+                    maxTicksLimit: 10,
+                    autoskip: true,
+                }
+            }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+        }
+    }
+    });
+</script>
+
+
+<script>
+    var ctx = document.getElementById('ChartAmountOfTransactions').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for info in amountoftransactions %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    datasets: [{
+        label: '{% trans 'Tokens transactions' %}',
+        backgroundColor: '#000000',
+        borderColor: '#01C696',
+        data: [
+        {% for info in amountoftransactions %}
+    '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+                ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+            }]
+        },
+
+    // Configuration options go here
+    options: {
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+            },
+        hover: {
+            mode: 'nearest',
+                intersect: true
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    format: 'DD/MM/YYYY',
+                    unit: 'month',
+                    displayFormats: {
+                        month: 'MMM-YYYY',
+                    }
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '{% trans 'Month' %}'
+                },
+                ticks: {
+                    maxTicksLimit: 10,
+                    autoskip: true,
+                }
+            }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+        }
+    }
+    });
+</script>
+
+<script>
+    var ctx = document.getElementById('ChartAmountOfTokensMoved').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for info in amountoftokensmoved %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    datasets: [{
+        label: '{% trans 'Tokens moved' %}',
+        backgroundColor: '#000000',
+        borderColor: '#01C696',
+        data: [
+        {% for info in amountoftokensmoved %}
+    '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+                ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+            }]
+        },
+
+    // Configuration options go here
+    options: {
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+            },
+        hover: {
+            mode: 'nearest',
+                intersect: true
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    format: 'DD/MM/YYYY',
+                    unit: 'month',
+                    displayFormats: {
+                        month: 'MMM-YYYY',
+                    }
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '{% trans 'Month' %}'
+                },
+                ticks: {
+                    maxTicksLimit: 10,
+                    autoskip: true,
+                }
+            }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+        }
+    }
+    });
+</script>
+
+<script>
+    var ctx = document.getElementById('ChartTokensOnExchanges').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for info in tokenonexchanges %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    datasets: [{
+        label: '{% trans 'Tokens on Exchanges' %}',
+        backgroundColor: '#000000',
+        borderColor: '#01C696',
+        data: [
+        {% for info in tokenonexchanges %}
+    '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+                ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+            }]
+        },
+
+    // Configuration options go here
+    options: {
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+            },
+        hover: {
+            mode: 'nearest',
+                intersect: true
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    format: 'DD/MM/YYYY',
+                    unit: 'month',
+                    displayFormats: {
+                        month: 'MMM-YYYY',
+                    }
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '{% trans 'Month' %}'
+                },
+                ticks: {
+                    maxTicksLimit: 10,
+                    autoskip: true,
+                }
+            }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+        }
+    }
+    });
+</script>
+
+<script>
+    var ctx = document.getElementById('TokenDistribution').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                {% for info in tokendistribution %}
+            '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+        ],
+    datasets: [{
+        label: '{% trans 'ranges' %}',
+        backgroundColor: [
+            '#01c696',
+            '#00ad9b',
+            '#009397',
+            '#00798a',
+            '#206074',
+            '#2f4858',
+            '#afe67b',
+            '#f9f871',
+        ],
+        borderColor: '#01C696',
+        data: [
+            {% for info in tokendistribution %}
+                '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        title: {
+            display: true,
+                text: '{% trans 'Token distribution' %}'
+        },
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+        },
+        animation: {
+            animateScale: true,
+                animateRotate: true
+        }
+    }
+});
+</script>

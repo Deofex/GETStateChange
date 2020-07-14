@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
 <div class="row align-items-center">
-    <div class="col-lg-4 order-md-last">
+    <div class="col-lg-5 order-md-last">
         <div class="jumbotron">
             <h1 class="display-4">{% trans "The GET Token" %}</h1>
             <p class="lead">
@@ -11,7 +11,13 @@
             </p>
             <hr class="my-4">
             <p>
-                {% trans "Every action in the GET Protcol needs the GET token. The token is the fuel of the system. The token is needed in the protocol, exchanged by their holders, adored by fanboys and lost because of human errors. This page is displaying statistics about this token, the movement activity and statistics of the holders." %}
+                {% trans "Each action in the GET Protocol needs the GET token. The token is the fuel of the system. The token is needed for each statechange which occurs for example when a ticket is created, sold, or scanned." %}
+            </p>
+            <p>
+                {% trans "The GET token is distributed among people which act as Shell does in the oil industry. The people which hold GET can sell the token to the Protocol when the Protocol demands GET to perform actions. The token holders can hold the token and speculate it will raise in value. Some holders hold the token for days, others for months and some even for years. The token is adored by fanboys and lost because of human errors." %}
+            </p>
+            <p>
+                {% trans "This page is trying to display statistics about this token outside of the protocol. It tries to give insights in the token movement activity and statistics of the holders." %}
             </p>
         </div>
     </div>
@@ -27,7 +33,8 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body center">
-                            <h5 class="card-title">{% trans "Amount of wallets with the GET token in it" %}</h5>
+                            <h5 class="card-title">{% trans "Amount of wallets with more than 5 GET tokens in it" %}
+                            </h5>
                             <h1 class=getcolor>{{totalwalletamount}}</h1>
                         </div>
                     </div>
@@ -46,7 +53,7 @@
                     </div>
                     <div class="col-md-8 ">
                         <div class="card-body center">
-                            <h5 class="card-title">{% trans "Avarage GET tokens per active wallet" %}</h5>
+                            <h5 class="card-title">{% trans "Average GET tokens per active wallet" %}</h5>
                             <h1 class=getcolor>{{averagegetperwallet}}</h1>
                         </div>
                     </div>
@@ -93,11 +100,55 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col">
-        <p>test</p>
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartTokensOnExchanges"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartAmountOfTransactions"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartAmountOfTokensMoved"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartAmountOfHodlers"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="TokenDistribution"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
 
+
+{% endblock %}
+
+{% block additionalscripts %}
+{% include 'hodlers/hodlersgraph.html' %}
 {% endblock %}
