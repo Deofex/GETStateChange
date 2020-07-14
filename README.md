@@ -238,6 +238,49 @@ Add the following to the crontab, to make it run once a hour (10 minutes past th
 10 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_importburntransactions.sh' > /tmp/cron_importburntransactions.log 2>&1
 ```
 
+### Create Cronjob to import the GET transactions
+Create /etc/getsite/cron_importgettransactions.sh with the following content
+```
+source /usr/local/venv/getsite/bin/activate
+
+export getsite_secret_key='%DJANGOSECRETKEY%'
+export getsite_debug='False'
+export getsite_etherscan_apikey='%ETHERSCANAPIKEY%'
+export getsite_environment='Production'
+export getsite_dbpassword='%DATABASEPASSWORD%'
+
+
+/var/www/getsite/manage.py importgettransactions
+```
+
+Provide 'run' permissions to the file
+
+Add the following to the crontab, to make it run once a hour (10 minutes past the hour)
+```
+0 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_importgettransactions.sh' > /tmp/cron_importgettransactions.log 2>&1
+```
+
+### Create Cronjob to import the GET burn transaction
+Create /etc/getsite/cron_createmonthstatistics.sh with the following content
+```
+source /usr/local/venv/getsite/bin/activate
+
+export getsite_secret_key='%DJANGOSECRETKEY%'
+export getsite_debug='False'
+export getsite_etherscan_apikey='%ETHERSCANAPIKEY%'
+export getsite_environment='Production'
+export getsite_dbpassword='%DATABASEPASSWORD%'
+
+
+/var/www/getsite/manage.py createmonthstatistics
+```
+
+Provide 'run' permissions to the file
+
+Add the following to the crontab, to make it run once a hour (10 minutes past the hour)
+```
+10 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_createmonthstatistics.sh' > /tmp/cron_createmonthstatistics.log 2>&1
+```
 
 
 ## Development environment
