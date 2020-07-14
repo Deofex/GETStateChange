@@ -2,6 +2,7 @@ from collections import defaultdict
 from decimal import Decimal
 from django.core.management.base import BaseCommand
 from hodlers.models import GETTransaction, GETPeriodSummary
+from datetime import datetime
 
 # Configure logger
 import logging
@@ -48,6 +49,20 @@ def create_monthstats(balances):
 
     return(output)
 
+def createperiodname(month, year):
+    '''Function to create a period name'''
+    # Create period name from the last collected period
+    # period for january 2020 = 31-1-2020 because its shows the last
+    # date of the month
+    if month in [1,3,5,7,8,10,12]:
+        day = 31
+    elif month in [4,6,9,11]:
+        day = 30
+    elif month == 2:
+        day = 28
+    periodname = datetime(year,month,day,23,59)
+    return periodname
+
 def collect_monthinfo():
     # Provide the month and year from where to start collecting
     month = 10
@@ -69,8 +84,8 @@ def collect_monthinfo():
         # If the month change, we have to collect information from the previous
         # month.
         if trans.block.date.month != month:
-            # Create period name from the last collected period
-            periodname = ("{}-{}".format(month,year))
+            # Get periodname
+            periodname = createperiodname(month,year)
 
             # If the GET Period summeray is available but not fully processed
             # update the statistics and finalize the period.
@@ -139,10 +154,7 @@ def collect_monthinfo():
 
 
     # Update the active perdiod or create it
-    # Set the month and year to the new block
-    periodname = ("{}-{}".format(
-        trans.block.date.month,
-        trans.block.date.year))
+    periodname = createperiodname(trans.block.date.month, trans.block.date.year)
     logger.info('Update the active summarize period: {}'.format(periodname))
     periodinfo = create_monthstats(balances)
     if GETPeriodSummary.objects.filter(periodname=periodname).exists():
