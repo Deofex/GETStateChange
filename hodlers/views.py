@@ -44,4 +44,5 @@ def page_hodlers(request):
         'amountoftokensmoved': get_amountoftokensmovedgraphinfo,
         'tokenonexchanges': get_tokensonexchangesgraphinfo,
         'tokendistribution': get_tokendistribution,
+        'navbar': 'page_hodlers',
     })
