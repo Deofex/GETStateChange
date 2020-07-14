@@ -216,7 +216,7 @@ Add the following to the crontab, to make it run once a hour (Every 5 minutes)
 */5 * * * * /usr/bin/env bash -c '/etc/getsite/cron_importprice.sh' > /tmp/cron_importprice.log 2>&1
 ```
 
-### Create Cronjob to create the GET month statistics
+### Create Cronjob to import the GET burn transaction
 Create /etc/getsite/cron_importburntransactions.sh with the following content
 ```
 source /usr/local/venv/getsite/bin/activate
@@ -260,7 +260,7 @@ Add the following to the crontab, to make it run once a hour (10 minutes past th
 0 */1 * * * /usr/bin/env bash -c '/etc/getsite/cron_importgettransactions.sh' > /tmp/cron_importgettransactions.log 2>&1
 ```
 
-### Create Cronjob to import the GET burn transaction
+### Create Cronjob to import create the GET month statistics
 Create /etc/getsite/cron_createmonthstatistics.sh with the following content
 ```
 source /usr/local/venv/getsite/bin/activate
