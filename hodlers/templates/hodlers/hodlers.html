@@ -28,7 +28,7 @@
                     <div class="col-md-4">
                         <div align="center">
                             <img src="{% static 'images/wallet.png' %}" class="card-img-middle rounded cardmid"
-                                alt="sale">
+                                alt="wallet">
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -48,7 +48,7 @@
                     <div class="col-md-4">
                         <div align="center">
                             <img src="{% static 'images/average.png' %}" class="card-img-middle rounded cardmid"
-                                alt="scanner">
+                                alt="average">
                         </div>
                     </div>
                     <div class="col-md-8 ">
@@ -68,7 +68,7 @@
                     <div class="col-md-4">
                         <div align="center">
                             <img src="{% static 'images/transaction.png' %}" class="card-img-middle rounded cardmid"
-                                alt="money">
+                                alt="transaction">
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -80,13 +80,14 @@
                 </div>
             </div>
         </div>
+
         <div class="col align-items-center">
             <div class="card graph">
                 <div class="row no-gutters align-items-center">
                     <div class="col-md-4">
                         <div align="center">
                             <img src="{% static 'images/amount.png' %}" class="card-img-middle rounded cardmid"
-                                alt="events">
+                                alt="transfered">
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -98,6 +99,26 @@
                 </div>
             </div>
         </div>
+
+        <div class="col align-items-center">
+            <div class="card graph">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-4">
+                        <div align="center">
+                            <img src="{% static 'images/inactive.png' %}" class="card-img-middle rounded cardmid"
+                                alt="inactive">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body center">
+                            <h5 class="card-title">{% trans "Amount of GET in wallets which haven't been touched for a year" %}</h5>
+                            <h1 class=getcolor>{{untouchedget1y}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
