@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-14 12:40+0000\n"
-"PO-Revision-Date: 2020-07-14 15:13+0200\n"
+"POT-Creation-Date: 2020-07-17 14:45+0000\n"
+"PO-Revision-Date: 2020-07-17 16:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -1232,11 +1232,17 @@ msgstr ""
 "bijvoorbeeld het creëren, verkopen of scannen vaan een ticket."
 
 #: hodlers/templates/hodlers/hodlers.html:17
+#, fuzzy
+#| msgid ""
+#| "Since the Protocol can’t function without <b class=getcolor>GET</b>, the "
+#| "token is stored by speculators who hope that it will raise in value as "
+#| "the protocol grows. Some hold the token for days, others for months and "
+#| "some even for years. "
 msgid ""
 "Since the Protocol can’t function without <b class=getcolor>GET</b>, the "
 "token is stored by speculators who hope that it will raise in value as the "
 "protocol grows. Some hold the token for days, others for months and some "
-"even for years. "
+"even for years."
 msgstr ""
 "Omdat het protocol niet kan functioneren zonder <b class=getcolor>GET</b> "
 "wordt de token opgeslagen door speculanten welke hopen dat de token in "
@@ -1265,9 +1271,14 @@ msgstr "Gemiddelde aantal GET tokens per actieve wallet"
 msgid "Amount of GET transactions in the last 24h"
 msgstr "Aantal GET transacties in de laatste 24u"
 
-#: hodlers/templates/hodlers/hodlers.html:94
+#: hodlers/templates/hodlers/hodlers.html:95
 msgid "Amount of GET tokens transfered in the last 24h"
 msgstr "Aantal GET tokens welke getransfereerd zijn in de laatste 24u"
+
+#: hodlers/templates/hodlers/hodlers.html:114
+msgid "Amount of GET tokens in wallets which haven't been touched for a year"
+msgstr ""
+"Aantal GET tokens in wallets welke het afgelopen jaar niet zijn gebruikt."
 
 #: hodlers/templates/hodlers/hodlersgraph.html:18
 msgid "Wallets > 5 GET"
