@@ -38,6 +38,9 @@
                 <li class="nav-item {% if navbar == 'page_events' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'page_events' %}">{% trans 'Events' %}</a>
                 </li>
+                <li class="nav-item {% if navbar == 'page_hodlers' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'page_hodlers' %}">{% trans 'TokenInfo' %}</a>
+                </li>
             </ul>
         </div>
         <div class="d-lg-none">
@@ -53,6 +56,8 @@
                         <a class="dropdown-item  {% if navbar == 'page_statechanges' %}active{% endif %}" href="{% url 'page_statechanges' %}">{% trans 'Statechanges' %}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item {% if navbar == 'page_events' %}active{% endif %}" href="{% url 'page_events' %}">{% trans 'Events' %}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item {% if navbar == 'page_hodlers' %}active{% endif %}" href="{% url 'page_hodlers' %}">{% trans 'TokenInfo' %}</a>
                     </div>
                 </li>
             </ul>
@@ -71,7 +76,12 @@
                         <p class="card-text">
                             {% trans 'Join the GET community on Telegram, we will welcome you, like you, love you and tell you everything you want to know about the GET Protocol project.' %}
                         </p>
-                        <a href="https://t.me/getprotocol" class="btn btn-primary">{% trans 'Join GET Telegram' %}</a>
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE == "ko" %}
+                            <a href="https://t.me/getkoreal" class="btn btn-primary">{% trans 'Join GET Telegram' %}</a>
+                        {% else %}
+                            <a href="https://t.me/getprotocol" class="btn btn-primary">{% trans 'Join GET Telegram' %}</a>
+                        {% endif %}
                     </div>
                     <div class="card-footer text-muted">
                         {% trans 'This website is not affiliated with the GET Protocol Foundation. All the information on this website is published in good faith and for general information purpose only. If you notice bugs or have suggestions please contact Deofex via the GET Protocol Telegram channel (see button above). If you are a website designer/developer and want to improve this site, speak to him or check the source on the GitHub.' %}

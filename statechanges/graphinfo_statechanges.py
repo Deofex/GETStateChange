@@ -147,7 +147,7 @@ def get_monthgraphinfo():
                 'statechange').count()
 
         # Create the label from the date in the following format day-month-year
-        label = timerange.startdate.strftime("%d-%m-%Y")
+        label = timerange.startdate.strftime("%m-%Y")
 
         # Add the sum of the state changes and period name in an object and add
         # this to the list
@@ -175,7 +175,7 @@ def get_quartergraphinfo():
                 'statechange').count()
 
         # Create the label from the date in the following format day-month-year
-        label = timerange.startdate.strftime("%d-%m-%Y")
+        label = timerange.startdate.strftime("%m-%Y")
 
         # Add the sum of the state changes and period name in an object and add
         # this to the list

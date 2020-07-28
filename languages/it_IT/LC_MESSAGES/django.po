@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-18 05:09+0000\n"
-"PO-Revision-Date: 2020-06-18 11:43+0200\n"
+"POT-Creation-Date: 2020-07-17 14:45+0000\n"
+"PO-Revision-Date: 2020-07-28 07:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1191,25 +1191,178 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#: getsite/settings.py:137
+#: getsite/settings.py:139
 msgid "English"
 msgstr ""
 
-#: getsite/settings.py:138
+#: getsite/settings.py:140
 msgid "Dutch"
 msgstr ""
 
-#: getsite/settings.py:139
+#: getsite/settings.py:141
 msgid "Korean"
 msgstr ""
 
-#: getsite/settings.py:140
+#: getsite/settings.py:142
 msgid "Spanish"
 msgstr ""
 
-#: getsite/settings.py:141
+#: getsite/settings.py:143
 msgid "Itilian"
 msgstr ""
+
+#: hodlers/templates/hodlers/hodlers.html:8
+msgid "The GET Token"
+msgstr "Il token GET"
+
+#: hodlers/templates/hodlers/hodlers.html:10
+msgid "The fuel of the protocol"
+msgstr " carburante del protocollo"
+
+#: hodlers/templates/hodlers/hodlers.html:14
+msgid ""
+"The <b class=getcolor>GET</b> token is required for each interaction in the "
+"<b class=getcolor>GET</b> Protocol. The token is the fuel of the system. It "
+"is needed for each statechange that occurs when a ticket is for example "
+"created, sold or scanned."
+msgstr ""
+"Il token <b class=getcolor>GET</b>è richiesto per ogni interazione nel "
+"protocollo <b class=getcolor>GET</b>. Il token è il carburante del sistema. "
+"È necessario per ogni cambio di stato che si verifica quando un ticket viene "
+"ad esempio creato, venduto o scansionato."
+
+#: hodlers/templates/hodlers/hodlers.html:17
+msgid ""
+"Since the Protocol can’t function without <b class=getcolor>GET</b>, the "
+"token is stored by speculators who hope that it will raise in value as the "
+"protocol grows. Some hold the token for days, others for months and some "
+"even for years."
+msgstr ""
+"Poichè il protocollo non può funzionare senza <b class=getcolor>GET</b>, il "
+"token viene conservato dagli speculatori sperando che aumenti di valore man "
+"mano che l'uso del protocollo aumenta. Alcuni tengono il token per giorni, "
+"altri per mesi e alcuni anche per anni."
+
+#: hodlers/templates/hodlers/hodlers.html:20
+msgid ""
+"This page will try to display some statistics about the tokens outside of "
+"the protocol. The goal is to give insights in the token movement activity "
+"and some statistics of the holders."
+msgstr ""
+"Questa pagina proverà a visualizzare alcune statistiche sui token al di "
+"fuori del protocollo. L'obiettivo è quello di fornire approfondimenti "
+"sull'attività di movimento dei token e alcune statistiche dei titolari."
+
+#: hodlers/templates/hodlers/hodlers.html:36
+msgid "Amount of wallets with more than 5 GET tokens in it"
+msgstr "Quantità di portafogli con più di 5 token GET al suo interno"
+
+#: hodlers/templates/hodlers/hodlers.html:56
+msgid "Average GET tokens per active wallet"
+msgstr "Numero di Token GET medi per portafoglio attivo"
+
+#: hodlers/templates/hodlers/hodlers.html:76
+msgid "Amount of GET transactions in the last 24h"
+msgstr "Importo delle transazioni GET nelle ultime 24 ore"
+
+#: hodlers/templates/hodlers/hodlers.html:95
+msgid "Amount of GET tokens transfered in the last 24h"
+msgstr "Quantità di token GET trasferiti nelle ultime 24 ore"
+
+#: hodlers/templates/hodlers/hodlers.html:114
+msgid "Amount of GET tokens in wallets which haven't been touched for a year"
+msgstr "Quantità di GET nei portafogli che non vengono toccati da un anno"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:18
+msgid "Wallets > 5 GET"
+msgstr "Portafogli > 5 GET"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:57
+#: hodlers/templates/hodlers/hodlersgraph.html:128
+#: hodlers/templates/hodlers/hodlersgraph.html:198
+#: hodlers/templates/hodlers/hodlersgraph.html:268
+#: statechanges/templates/statechanges/statechangegraph.html:56
+msgid "Month"
+msgstr "Mese"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:89
+msgid "Token transactions"
+msgstr "Transazioni token"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:159
+msgid "Tokens moved"
+msgstr "Numero di token trasferiti"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:229
+msgid "Tokens on Exchanges"
+msgstr "Numero di token sugli exchange"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:299
+msgid "ranges"
+msgstr ""
+
+#: hodlers/templates/hodlers/hodlersgraph.html:326
+msgid "Token distribution"
+msgstr "Distribuzione dei token"
+
+#: shared/templates/shared/base.html:23
+msgid "GET Protocol Fansite"
+msgstr "GET Protocol Fansite"
+
+#: shared/templates/shared/base.html:27
+msgid "Fansite"
+msgstr ""
+
+#: shared/templates/shared/base.html:33 shared/templates/shared/base.html:54
+msgid "Home"
+msgstr "Home"
+
+#: shared/templates/shared/base.html:36 shared/templates/shared/base.html:56
+#: statechanges/templates/statechanges/statechanges.html:9
+msgid "Statechanges"
+msgstr "Cambi di stato"
+
+#: shared/templates/shared/base.html:39 shared/templates/shared/base.html:58
+msgid "Events"
+msgstr "Eventi"
+
+#: shared/templates/shared/base.html:42 shared/templates/shared/base.html:60
+msgid "TokenInfo"
+msgstr "Info sui Token"
+
+#: shared/templates/shared/base.html:75
+msgid "This site is created by and for the GET community."
+msgstr ""
+"Il sito è da un lato stato creato dalla community di GET, e dall'altro è "
+"destinato alla community di GET."
+
+#: shared/templates/shared/base.html:77
+msgid ""
+"Join the GET community on Telegram, we will welcome you, like you, love you "
+"and tell you everything you want to know about the GET Protocol project."
+msgstr ""
+"Unisciti alla community di GET su Telegram, sarai il benvenuto e ti diremo "
+"qualunque cosa tu voglia sapere riguardo il progetto GET Protocol."
+
+#: shared/templates/shared/base.html:81 shared/templates/shared/base.html:83
+msgid "Join GET Telegram"
+msgstr "Unisciti a GET Telegram"
+
+#: shared/templates/shared/base.html:87
+msgid ""
+"This website is not affiliated with the GET Protocol Foundation. All the "
+"information on this website is published in good faith and for general "
+"information purpose only. If you notice bugs or have suggestions please "
+"contact Deofex via the GET Protocol Telegram channel (see button above). If "
+"you are a website designer/developer and want to improve this site, speak to "
+"him or check the source on the GitHub."
+msgstr ""
+"Questo sito web non è affiliato alla GET Protocol Foundation. Tutte le "
+"informazioni su questo sito web sono pubblicate in buona fede e solo a scopo "
+"informativo. Se noti bug o hai suggerimenti, contatta Deofex tramite il "
+"canale Telegram di GET protocol (vedi pulsante sopra). Se sei un designer / "
+"sviluppatore di siti Web e desideri migliorare questo sito, parla con lui o "
+"consulta la fonte su GitHub."
 
 #: statechanges/graphinfo_statechanges.py:246
 #: statechanges/templates/statechanges/events.html:81
@@ -1305,64 +1458,6 @@ msgstr "Evento terminato"
 #: statechanges/templates/statechanges/statechanges.html:112
 msgid "Tickets unblocked"
 msgstr "Biglietti sbloccati"
-
-#: statechanges/templates/statechanges/base.html:23
-msgid "GET Protocol Fansite"
-msgstr "GET Protocol Fansite"
-
-#: statechanges/templates/statechanges/base.html:27
-msgid "Fansite"
-msgstr ""
-
-#: statechanges/templates/statechanges/base.html:33
-#: statechanges/templates/statechanges/base.html:51
-msgid "Home"
-msgstr "Home"
-
-#: statechanges/templates/statechanges/base.html:36
-#: statechanges/templates/statechanges/base.html:53
-#: statechanges/templates/statechanges/statechanges.html:9
-msgid "Statechanges"
-msgstr "Cambi di stato"
-
-#: statechanges/templates/statechanges/base.html:39
-#: statechanges/templates/statechanges/base.html:55
-msgid "Events"
-msgstr "Eventi"
-
-#: statechanges/templates/statechanges/base.html:70
-msgid "This site is created by and for the GET community."
-msgstr ""
-"Il sito è da un lato stato creato dalla community di GET, e dall'altro è "
-"destinato alla community di GET."
-
-#: statechanges/templates/statechanges/base.html:72
-msgid ""
-"Join the GET community on Telegram, we will welcome you, like you, love you "
-"and tell you everything you want to know about the GET Protocol project."
-msgstr ""
-"Unisciti alla community di GET su Telegram, sarai il benvenuto e ti diremo "
-"qualunque cosa tu voglia sapere riguardo il progetto GET Protocol."
-
-#: statechanges/templates/statechanges/base.html:74
-msgid "Join GET Telegram"
-msgstr "Unisciti a GET Telegram"
-
-#: statechanges/templates/statechanges/base.html:77
-msgid ""
-"This website is not affiliated with the GET Protocol Foundation. All the "
-"information on this website is published in good faith and for general "
-"information purpose only. If you notice bugs or have suggestions please "
-"contact Deofex via the GET Protocol Telegram channel (see button above). If "
-"you are a website designer/developer and want to improve this site, speak to "
-"him or check the source on the GitHub."
-msgstr ""
-"Questo sito web non è affiliato alla GET Protocol Foundation. Tutte le "
-"informazioni su questo sito web sono pubblicate in buona fede e solo a scopo "
-"informativo. Se noti bug o hai suggerimenti, contatta Deofex tramite il "
-"canale Telegram di GET protocol (vedi pulsante sopra). Se sei un designer / "
-"sviluppatore di siti Web e desideri migliorare questo sito, parla con lui o "
-"consulta la fonte su GitHub."
 
 #: statechanges/templates/statechanges/eventgraph.html:17
 msgid "New events published"
@@ -1738,10 +1833,6 @@ msgstr "Hash del biglietto:"
 #: statechanges/templates/statechanges/statechangegraph.html:17
 msgid "Statechanges per Month"
 msgstr "Cambi di stato in un mese"
-
-#: statechanges/templates/statechanges/statechangegraph.html:56
-msgid "Month"
-msgstr "Mese"
 
 #: statechanges/templates/statechanges/statechangegraph.html:83
 msgid "Statechanges per Quarter"

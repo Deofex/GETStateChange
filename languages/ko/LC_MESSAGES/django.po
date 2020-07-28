@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-18 05:09+0000\n"
-"PO-Revision-Date: 2020-06-25 12:51+0200\n"
+"POT-Creation-Date: 2020-07-17 14:45+0000\n"
+"PO-Revision-Date: 2020-07-28 07:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ko\n"
@@ -1176,25 +1176,174 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#: getsite/settings.py:137
+#: getsite/settings.py:139
 msgid "English"
 msgstr ""
 
-#: getsite/settings.py:138
+#: getsite/settings.py:140
 msgid "Dutch"
 msgstr ""
 
-#: getsite/settings.py:139
+#: getsite/settings.py:141
 msgid "Korean"
 msgstr ""
 
-#: getsite/settings.py:140
+#: getsite/settings.py:142
 msgid "Spanish"
 msgstr ""
 
-#: getsite/settings.py:141
+#: getsite/settings.py:143
 msgid "Itilian"
 msgstr ""
+
+#: hodlers/templates/hodlers/hodlers.html:8
+msgid "The GET Token"
+msgstr "겟(GET) 토큰"
+
+#: hodlers/templates/hodlers/hodlers.html:10
+msgid "The fuel of the protocol"
+msgstr "GET Protocol의 연료"
+
+#: hodlers/templates/hodlers/hodlers.html:14
+msgid ""
+"The <b class=getcolor>GET</b> token is required for each interaction in the "
+"<b class=getcolor>GET</b> Protocol. The token is the fuel of the system. It "
+"is needed for each statechange that occurs when a ticket is for example "
+"created, sold or scanned."
+msgstr ""
+"겟 토큰은 겟 프로토콜의 모든 상호작용에 사용됩니다. 티켓의 생성, 판매나 스캔 "
+"등 각각의 상태변환에 겟토큰이 연료로써 필요합니다."
+
+#: hodlers/templates/hodlers/hodlers.html:17
+msgid ""
+"Since the Protocol can’t function without <b class=getcolor>GET</b>, the "
+"token is stored by speculators who hope that it will raise in value as the "
+"protocol grows. Some hold the token for days, others for months and some "
+"even for years."
+msgstr ""
+"겟 토큰은 겟 프로토콜 운용에 필수적이기 때문에 프로젝트의 성장이 기대되는 만"
+"큼 사람들이 토큰을 구매하게 만듭니다. 누군가는 며칠, 누군가는 몇 달, 또 누군"
+"가는 몇 년동안 겟 토큰을 홀딩합니다."
+
+#: hodlers/templates/hodlers/hodlers.html:20
+msgid ""
+"This page will try to display some statistics about the tokens outside of "
+"the protocol. The goal is to give insights in the token movement activity "
+"and some statistics of the holders."
+msgstr ""
+"이 페이지에선 프로토콜 외부에서의 겟 토큰에 대한 몇몇 통계를 보여주고자 합니"
+"다. 주로 겟 토큰의 이동량과 홀더에 대한 정보를 제공합니다."
+
+#: hodlers/templates/hodlers/hodlers.html:36
+msgid "Amount of wallets with more than 5 GET tokens in it"
+msgstr "5개 이상의 겟 토큰을 보유한 지갑 수"
+
+#: hodlers/templates/hodlers/hodlers.html:56
+msgid "Average GET tokens per active wallet"
+msgstr "활동이 있는 지갑의 평균 겟 토큰 개수"
+
+#: hodlers/templates/hodlers/hodlers.html:76
+msgid "Amount of GET transactions in the last 24h"
+msgstr "최근 24시간동안 처리된 겟 트랜잭션 수"
+
+#: hodlers/templates/hodlers/hodlers.html:95
+msgid "Amount of GET tokens transfered in the last 24h"
+msgstr "최근 24시간동안 거래된 겟 토큰 개수"
+
+#: hodlers/templates/hodlers/hodlers.html:114
+msgid "Amount of GET tokens in wallets which haven't been touched for a year"
+msgstr "1년 이상 사용되지 않은 겟 지갑의 수"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:18
+msgid "Wallets > 5 GET"
+msgstr "5개 이상의 겟 토큰을 보유한 지갑 수"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:57
+#: hodlers/templates/hodlers/hodlersgraph.html:128
+#: hodlers/templates/hodlers/hodlersgraph.html:198
+#: hodlers/templates/hodlers/hodlersgraph.html:268
+#: statechanges/templates/statechanges/statechangegraph.html:56
+msgid "Month"
+msgstr "달"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:89
+msgid "Token transactions"
+msgstr "토큰 트랜잭션"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:159
+msgid "Tokens moved"
+msgstr "이동한 토큰 수"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:229
+msgid "Tokens on Exchanges"
+msgstr "거래소에 있는 토큰 수"
+
+#: hodlers/templates/hodlers/hodlersgraph.html:299
+msgid "ranges"
+msgstr ""
+
+#: hodlers/templates/hodlers/hodlersgraph.html:326
+msgid "Token distribution"
+msgstr "토큰 분배"
+
+#: shared/templates/shared/base.html:23
+msgid "GET Protocol Fansite"
+msgstr "겟(GET) 프로토콜 팬 사이트"
+
+#: shared/templates/shared/base.html:27
+msgid "Fansite"
+msgstr "팬 사이트"
+
+#: shared/templates/shared/base.html:33 shared/templates/shared/base.html:54
+msgid "Home"
+msgstr "HOME"
+
+#: shared/templates/shared/base.html:36 shared/templates/shared/base.html:56
+#: statechanges/templates/statechanges/statechanges.html:9
+msgid "Statechanges"
+msgstr "상태 변환"
+
+#: shared/templates/shared/base.html:39 shared/templates/shared/base.html:58
+msgid "Events"
+msgstr "이벤트"
+
+#: shared/templates/shared/base.html:42 shared/templates/shared/base.html:60
+msgid "TokenInfo"
+msgstr "토큰 정보"
+
+#: shared/templates/shared/base.html:75
+msgid "This site is created by and for the GET community."
+msgstr ""
+"이 사이트는 겟(GET) 커뮤니티를 위해, 그리고 겟(GET) 커뮤니티에 의해 만들어졌"
+"습니다."
+
+#: shared/templates/shared/base.html:77
+msgid ""
+"Join the GET community on Telegram, we will welcome you, like you, love you "
+"and tell you everything you want to know about the GET Protocol project."
+msgstr ""
+"텔레그램을 통해 겟(GET) 커뮤니티에 참여해보세요! 겟(GET) 프로토콜에 관해 알아"
+"보고 싶은 모든 분들에게 다양한 정보로 환영해드리겠습니다."
+
+#: shared/templates/shared/base.html:81 shared/templates/shared/base.html:83
+msgid "Join GET Telegram"
+msgstr "겟(GET) 텔레그램에 참여하기"
+
+#: shared/templates/shared/base.html:87
+msgid ""
+"This website is not affiliated with the GET Protocol Foundation. All the "
+"information on this website is published in good faith and for general "
+"information purpose only. If you notice bugs or have suggestions please "
+"contact Deofex via the GET Protocol Telegram channel (see button above). If "
+"you are a website designer/developer and want to improve this site, speak to "
+"him or check the source on the GitHub."
+msgstr ""
+"본 웹사이트는 겟(GET) 프로토콜 재단과 제휴되어 제작되지 않았으며, 본 웹사이트"
+"에 있는 모든 정보들은 일반적인 정보 목적으로 커뮤니티의 편의를 위해 작성됐습"
+"니다. 버그를 발견하시거나 제안할 사항이 있으신 경우, 겟(GET) 프로토콜 텔레그"
+"램 채널을 통해 Deofex에게 문의 바랍니다(위 버튼 참조). 혹시 여러분이 웹사이"
+"트 디자이너/개발자이고, 이 사이트를 더 개선해주고 싶으시다면, Deofex에 문의하"
+"거나, 깃헙(GitHub)의 소스를 확인해주시기 바랍니다."
 
 #: statechanges/graphinfo_statechanges.py:246
 #: statechanges/templates/statechanges/events.html:81
@@ -1290,64 +1439,6 @@ msgstr "참석"
 #: statechanges/templates/statechanges/statechanges.html:112
 msgid "Tickets unblocked"
 msgstr "잠금 해제된 티켓"
-
-#: statechanges/templates/statechanges/base.html:23
-msgid "GET Protocol Fansite"
-msgstr "겟(GET) 프로토콜 팬 사이트"
-
-#: statechanges/templates/statechanges/base.html:27
-msgid "Fansite"
-msgstr "팬 사이트"
-
-#: statechanges/templates/statechanges/base.html:33
-#: statechanges/templates/statechanges/base.html:51
-msgid "Home"
-msgstr "HOME"
-
-#: statechanges/templates/statechanges/base.html:36
-#: statechanges/templates/statechanges/base.html:53
-#: statechanges/templates/statechanges/statechanges.html:9
-msgid "Statechanges"
-msgstr "상태 변환"
-
-#: statechanges/templates/statechanges/base.html:39
-#: statechanges/templates/statechanges/base.html:55
-msgid "Events"
-msgstr "이벤트"
-
-#: statechanges/templates/statechanges/base.html:70
-msgid "This site is created by and for the GET community."
-msgstr ""
-"이 사이트는 겟(GET) 커뮤니티를 위해, 그리고 겟(GET) 커뮤니티에 의해 만들어졌"
-"습니다."
-
-#: statechanges/templates/statechanges/base.html:72
-msgid ""
-"Join the GET community on Telegram, we will welcome you, like you, love you "
-"and tell you everything you want to know about the GET Protocol project."
-msgstr ""
-"텔레그램을 통해 겟(GET) 커뮤니티에 참여해보세요! 겟(GET) 프로토콜에 관해 알아"
-"보고 싶은 모든 분들에게 다양한 정보로 환영해드리겠습니다."
-
-#: statechanges/templates/statechanges/base.html:74
-msgid "Join GET Telegram"
-msgstr "겟(GET) 텔레그램에 참여하기"
-
-#: statechanges/templates/statechanges/base.html:77
-msgid ""
-"This website is not affiliated with the GET Protocol Foundation. All the "
-"information on this website is published in good faith and for general "
-"information purpose only. If you notice bugs or have suggestions please "
-"contact Deofex via the GET Protocol Telegram channel (see button above). If "
-"you are a website designer/developer and want to improve this site, speak to "
-"him or check the source on the GitHub."
-msgstr ""
-"본 웹사이트는 겟(GET) 프로토콜 재단과 제휴되어 제작되지 않았으며, 본 웹사이트"
-"에 있는 모든 정보들은 일반적인 정보 목적으로 커뮤니티의 편의를 위해 작성됐습"
-"니다. 버그를 발견하시거나 제안할 사항이 있으신 경우, 겟(GET) 프로토콜 텔레그"
-"램 채널을 통해 Deofex에게 문의 바랍니다(위 버튼 참조). 혹시 여러분이 웹사이"
-"트 디자이너/개발자이고, 이 사이트를 더 개선해주고 싶으시다면, Deofex에 문의하"
-"거나, 깃헙(GitHub)의 소스를 확인해주시기 바랍니다."
 
 #: statechanges/templates/statechanges/eventgraph.html:17
 msgid "New events published"
@@ -1720,10 +1811,6 @@ msgstr "티켓 해시:"
 #: statechanges/templates/statechanges/statechangegraph.html:17
 msgid "Statechanges per Month"
 msgstr "월 별 상태 변환 수"
-
-#: statechanges/templates/statechanges/statechangegraph.html:56
-msgid "Month"
-msgstr "달"
 
 #: statechanges/templates/statechanges/statechangegraph.html:83
 msgid "Statechanges per Quarter"
