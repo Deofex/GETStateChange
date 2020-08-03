@@ -230,7 +230,7 @@ def get_afterblocknumber():
     return afterblocknumber
 
 
-def get_ticket(hash,previoushash):
+def get_ticket(hash,previoushash,block):
     '''Function which lookup a ticket'''
     # If the previous hash is an event, than it means that the current
     # statechange is a new ticket. Therefor a new ticket have to be created
@@ -244,7 +244,8 @@ def get_ticket(hash,previoushash):
         event = Event.objects.get(hash=previoushash)
         Ticket.objects.create(
             hash = hash,
-            event = Event.objects.get(hash=previoushash)
+            event = Event.objects.get(hash=previoushash),
+            lastupdate = block.date,
         )
         ticket = Ticket.objects.get(hash=hash)
     else:
@@ -270,7 +271,7 @@ def new_statechange(hash,previoushash,firing,block):
 
         # Lookup the corresponding event
         try:
-            ticket = get_ticket(hash,previoushash)
+            ticket = get_ticket(hash,previoushash,block)
         except StateChange.DoesNotExist as e:
             logger.error("Failed to get the ticket corresponding to hash: " +\
                 "{} and previoushash {}".format(hash,previoushash))
@@ -281,7 +282,7 @@ def new_statechange(hash,previoushash,firing,block):
         #  valid chain.
         if ticket.pk == 'catchall':
             previoushash = 'catchall'
-            ticket = get_ticket(hash,previoushash)
+            ticket = get_ticket(hash,previoushash,block)
             firing = '999'
 
         # Create the state change object
@@ -292,6 +293,9 @@ def new_statechange(hash,previoushash,firing,block):
             block = block,
             ticket = ticket,
         )
+
+        # Update the last update time of the ticket
+        ticket.updatetime(block.date)
 
         # Get Event
         event = statechangeobject.ticket.event
@@ -418,14 +422,15 @@ def checkcatchallticket():
 
         event = Event.objects.create(
             hash = "TheUnknownStateChangesParadise",
-            block = block ,
+            block = block,
             name = "The unknown Statechange paradise",
             lastupdate = block.date,
         )
 
         ticket = Ticket.objects.create(
             hash = "catchall",
-            event = event
+            event = event,
+            lastupdate = block.date,
         )
 
         statechangeobject = StateChange.objects.create(

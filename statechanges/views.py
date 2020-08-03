@@ -144,10 +144,10 @@ def page_events(request):
 def page_singleevent(request,eventhash):
     # Get all events
     event = Event.objects.get(hash=eventhash)
-    # Count the amount of tickets corresponding to the event
-    ticketcount = event.ticket_set.all().count()
     # Get a list with all tickets
-    ticket_list = event.ticket_set.all()
+    ticket_list = event.ticket_set.order_by('-lastupdate')
+    # Count the amount of tickets corresponding to the event
+    ticketcount = ticket_list.count()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
     ticket_paginator = Paginator(ticket_list,10)
 
