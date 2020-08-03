@@ -18,7 +18,7 @@ def page_hodlers(request):
            ]
 
     # Average of the addresses, without the earlier specified excludes
-    average = GETAddress.objects.exclude(balance__lt=1).exclude(
+    average = GETAddress.objects.exclude(balance__lt=5).exclude(
         address__in=ewl).aggregate(Avg('balance'))['balance__avg']
 
     # GET Transactions last 24 hours
@@ -34,6 +34,11 @@ def page_hodlers(request):
     if transactions24htotal == None:
         transactions24htotal = 0
 
+    # Calculate the amount of the tokens which haven't been touched for a year
+    yearago = datetime.now() - timedelta(days=365)
+    untouchedget1y = GETAddress.objects.exclude(
+        lastupdate__gt=yearago).aggregate(Sum('balance'))['balance__sum']
+
     return render(request, 'hodlers/hodlers.html', {
         'totalwalletamount': GETAddress.objects.exclude(balance__lte=5).count(),
         'averagegetperwallet': "{0:.0f}".format(average),
@@ -44,4 +49,6 @@ def page_hodlers(request):
         'amountoftokensmoved': get_amountoftokensmovedgraphinfo,
         'tokenonexchanges': get_tokensonexchangesgraphinfo,
         'tokendistribution': get_tokendistribution,
+        'untouchedget1y': "{0:.0f}".format(untouchedget1y),
+        'navbar': 'page_hodlers',
     })
