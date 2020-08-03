@@ -380,10 +380,10 @@ def process_statechange(statechange,block):
                 block = block,
                 )
         except StateChange.DoesNotExist:
-            # When a hash can't be imported this is caused that the previous
-            # hash has never been uploaded to IPFS/published in the blockchain.
-            # The Statechange is invalid and will be added to the catch all
-            # address.
+            # When a hash can't be imported this might be caused that the
+            # previous hash has never been uploaded to IPFS/published in the
+            # blockchain. The Statechange is invalid and will be added to the
+            # catch all address.
             logger.warning("Failed to add hash {}, in block {}. ".format(
                 statechange.hash, block.blocknumber) + \
                 "because previous hash can't be found. Moved to catchall."
