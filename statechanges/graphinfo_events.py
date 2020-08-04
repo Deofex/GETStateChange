@@ -3,6 +3,8 @@ from datetime import datetime,timedelta
 from .models import Block,Event
 from .graphinfo_shared import GraphInfo
 
+from .graphinfo_shared import GraphInfo, DoubleGraphInfo, get_monthtimerange
+
 # This function creates the info for the daily wiring graph
 def get_wiringgraphinfo():
     currentday = datetime.now().day
