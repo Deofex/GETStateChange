@@ -124,7 +124,8 @@ def get_daygraphinfo():
     for i in range(1,31):
         # Get all statechanges batches in the timerange
         sumstatechanges = Block.objects.filter(
-            date__range=[startdate,enddate]).values('statechange').count()
+            date__range=[startdate,enddate]).aggregate(Sum(
+                'totalsum'))['totalsum__sum']
 
         # Create the label from the date in the following format day-month-year
         label = startdate.strftime("%d-%m-%Y")

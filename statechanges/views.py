@@ -6,7 +6,8 @@ from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
     get_quartergraphinfo,get_statechangetypeslast30days,get_paginationnrs
 from .graphinfo_home import get_buybackgraphinfo,\
     get_statechangesfiringlast24h,get_eventsactivelast24h,get_burngraphinfo
-from .graphinfo_events import get_wiringgraphinfo, get_eventsized30days
+from .graphinfo_events import get_wiringgraphinfo, get_eventsized30days, \
+    get_monthgraphticketssoldinfo
 
 # Create your views here.
 def page_statechanges(request):
@@ -130,13 +131,12 @@ def page_events(request):
         event_paginator.num_pages
     )
 
-    # Get information for the new event chart
-    wiringgraphinfo = get_wiringgraphinfo()
     return render(request,'statechanges/events.html',{
         'pageevents':pageevents,
         'pagenrs':pagenrs,
-        'wiringgraphinfo':wiringgraphinfo,
-        'eventsized30days':get_eventsized30days,
+        'wiringgraphinfo':get_wiringgraphinfo(),
+        'eventsized30days':get_eventsized30days(),
+        'monthgraphticketssoldinfo':get_monthgraphticketssoldinfo,
         'navbar':'page_events',
     })
 

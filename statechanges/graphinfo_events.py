@@ -56,3 +56,31 @@ def get_eventsized30days():
         GraphInfo('1000 plus',tp),
     ]
     return graphinfo
+
+# This function creates the info for the monthly statechanges graph
+def get_monthgraphticketssoldinfo():
+    # Get the last 12 time ranges
+    timeranges = get_monthtimerange()
+    # Create an empty list to store the graph info in
+    graphinfo = []
+    # Foreach timerange retrieve the amount of statechanges and translate the
+    # month number and save both in the created list and return this object.
+    for timerange in timeranges:
+        # Get all statechanges in the timerange
+        sumstatechanges = Block.objects.filter(
+            date__range=[timerange.startdate,timerange.enddate]).aggregate(Sum(
+                'f2sum'))['f2sum__sum']
+
+        # Create the label from the date in the following format day-month-year
+        label = timerange.startdate.strftime("%m-%Y")
+
+        # Add the sum of the state changes and period name in an object and add
+        # this to the list
+        if sumstatechanges != None:
+            graphinfo.append(GraphInfo(
+                label,
+                sumstatechanges
+            ))
+
+    # Return the list with the graph info
+    return graphinfo
