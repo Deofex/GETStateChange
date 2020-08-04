@@ -77,7 +77,7 @@ def get_eventsactivelast24h():
 
     # Query the amount of events active in the last 24 hours
     activeevents = Event.objects.filter(
-        lastupdate__range=[startdate,enddate]).count()
+        lastupdate__range=[startdate,enddate]).exclude(totalsum=0).count()
 
     # Return the amount of events which were active alst 24 hours
     return activeevents
