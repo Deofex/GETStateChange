@@ -59,6 +59,7 @@
                             </div>
                             <div class="col-9">
                                 <p><b>{% trans 'Creation date:' %}</b> {{ pageevent.block.date |date:"d-m-Y"}}</p>
+                                <p><b>{% trans 'Last activity:' %}</b> {{ pageevent.lastupdate |date:"d-m-Y"}}</p>
                                 <p><b>{% trans 'Hash:'%}</b> {{ pageevent.hash }}</p>
                             </div>
                             <div class="col-2">
