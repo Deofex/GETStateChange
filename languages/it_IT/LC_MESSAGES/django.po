@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-17 14:45+0000\n"
-"PO-Revision-Date: 2020-07-28 07:58+0200\n"
+"POT-Creation-Date: 2020-08-04 06:20+0000\n"
+"PO-Revision-Date: 2020-08-04 08:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1298,6 +1298,7 @@ msgid "Tokens on Exchanges"
 msgstr "Numero di token sugli exchange"
 
 #: hodlers/templates/hodlers/hodlersgraph.html:299
+#: statechanges/templates/statechanges/eventgraph.html:76
 msgid "ranges"
 msgstr ""
 
@@ -1318,6 +1319,7 @@ msgid "Home"
 msgstr "Home"
 
 #: shared/templates/shared/base.html:36 shared/templates/shared/base.html:56
+#: statechanges/templates/statechanges/events.html:65
 #: statechanges/templates/statechanges/statechanges.html:9
 msgid "Statechanges"
 msgstr "Cambi di stato"
@@ -1365,52 +1367,52 @@ msgstr ""
 "consulta la fonte su GitHub."
 
 #: statechanges/graphinfo_statechanges.py:246
-#: statechanges/templates/statechanges/events.html:81
+#: statechanges/templates/statechanges/events.html:82
 #: statechanges/templates/statechanges/statechanges.html:93
 msgid "Tickets created"
 msgstr "Biglietti creati"
 
 #: statechanges/graphinfo_statechanges.py:247
-#: statechanges/templates/statechanges/events.html:82
+#: statechanges/templates/statechanges/events.html:83
 #: statechanges/templates/statechanges/statechanges.html:94
 msgid "Tickets blocked"
 msgstr "Biglietti bloccati"
 
 #: statechanges/graphinfo_statechanges.py:248
-#: statechanges/templates/statechanges/events.html:83
+#: statechanges/templates/statechanges/events.html:84
 #: statechanges/templates/statechanges/statechanges.html:95
 msgid "Tickets sold in the primary market"
 msgstr "Biglietti venduti nel mercato primario"
 
 #: statechanges/graphinfo_statechanges.py:249
-#: statechanges/templates/statechanges/events.html:85
+#: statechanges/templates/statechanges/events.html:86
 #: statechanges/templates/statechanges/statechanges.html:97
 msgid "Tickets sold in secondary market"
 msgstr "Biglietti venduti nel mercato secondario"
 
 #: statechanges/graphinfo_statechanges.py:250
-#: statechanges/templates/statechanges/events.html:87
+#: statechanges/templates/statechanges/events.html:88
 #: statechanges/templates/statechanges/singleevent.html:30
 #: statechanges/templates/statechanges/statechanges.html:99
 msgid "Tickets bought back"
 msgstr "Biglietti riacquistati"
 
 #: statechanges/graphinfo_statechanges.py:251
-#: statechanges/templates/statechanges/events.html:88
+#: statechanges/templates/statechanges/events.html:89
 #: statechanges/templates/statechanges/singleevent.html:33
 #: statechanges/templates/statechanges/statechanges.html:100
 msgid "Tickets cancelled"
 msgstr "Biglietti annullati"
 
 #: statechanges/graphinfo_statechanges.py:252
-#: statechanges/templates/statechanges/events.html:89
+#: statechanges/templates/statechanges/events.html:90
 #: statechanges/templates/statechanges/singleblock.html:58
 #: statechanges/templates/statechanges/singleevent.html:106
 msgid "Ticket put for sale"
 msgstr "Biglietto messo in vendita"
 
 #: statechanges/graphinfo_statechanges.py:253
-#: statechanges/templates/statechanges/events.html:92
+#: statechanges/templates/statechanges/events.html:93
 #: statechanges/templates/statechanges/singleblock.html:61
 #: statechanges/templates/statechanges/singleevent.html:39
 #: statechanges/templates/statechanges/singleevent.html:109
@@ -1419,32 +1421,32 @@ msgid "No Show"
 msgstr "Evento annullato"
 
 #: statechanges/graphinfo_statechanges.py:254
-#: statechanges/templates/statechanges/events.html:93
+#: statechanges/templates/statechanges/events.html:94
 #: statechanges/templates/statechanges/statechanges.html:106
 msgid "Not resold"
 msgstr "Non rivenduto"
 
 #: statechanges/graphinfo_statechanges.py:255
-#: statechanges/templates/statechanges/events.html:94
+#: statechanges/templates/statechanges/events.html:95
 #: statechanges/templates/statechanges/statechanges.html:107
 msgid "Not sold in primary market"
 msgstr "Non venduto nel mercato primario"
 
 #: statechanges/graphinfo_statechanges.py:256
-#: statechanges/templates/statechanges/events.html:95
+#: statechanges/templates/statechanges/events.html:96
 #: statechanges/templates/statechanges/statechanges.html:108
 msgid "Not sold in secondary market"
 msgstr "Non venduto nel mercato secondario"
 
 #: statechanges/graphinfo_statechanges.py:257
-#: statechanges/templates/statechanges/events.html:97
+#: statechanges/templates/statechanges/events.html:98
 #: statechanges/templates/statechanges/singleevent.html:51
 #: statechanges/templates/statechanges/statechanges.html:110
 msgid "Tickets scanned"
 msgstr "Biglietto scansionato"
 
 #: statechanges/graphinfo_statechanges.py:258
-#: statechanges/templates/statechanges/events.html:98
+#: statechanges/templates/statechanges/events.html:99
 #: statechanges/templates/statechanges/singleblock.html:76
 #: statechanges/templates/statechanges/singleevent.html:54
 #: statechanges/templates/statechanges/singleevent.html:124
@@ -1453,7 +1455,7 @@ msgid "Show over"
 msgstr "Evento terminato"
 
 #: statechanges/graphinfo_statechanges.py:259
-#: statechanges/templates/statechanges/events.html:99
+#: statechanges/templates/statechanges/events.html:100
 #: statechanges/templates/statechanges/singleevent.html:57
 #: statechanges/templates/statechanges/statechanges.html:112
 msgid "Tickets unblocked"
@@ -1467,6 +1469,10 @@ msgstr "Nuovi eventi pubblicati"
 #: statechanges/templates/statechanges/statechangegraph.html:182
 msgid "Last 30 days"
 msgstr "Ultimi 30 giorni"
+
+#: statechanges/templates/statechanges/eventgraph.html:103
+msgid "Statechanges per event active in last 30 days"
+msgstr ""
 
 #: statechanges/templates/statechanges/events.html:8
 msgid "The places where GET flows"
@@ -1507,42 +1513,42 @@ msgid "Total Statechanges"
 msgstr "Cambi di stato totali"
 
 #: statechanges/templates/statechanges/events.html:61
-msgid "Creation date:"
-msgstr "Data di creazione:"
+msgid "Creation date"
+msgstr "Data di creazione"
 
 #: statechanges/templates/statechanges/events.html:62
-msgid "Hash:"
-msgstr "Hash:"
+msgid "Last activity"
+msgstr ""
 
-#: statechanges/templates/statechanges/events.html:66
-msgid "State Changes:"
-msgstr "Cambi di stato:"
+#: statechanges/templates/statechanges/events.html:63
+msgid "Hash"
+msgstr "Hash"
 
-#: statechanges/templates/statechanges/events.html:105
+#: statechanges/templates/statechanges/events.html:106
 msgid "Show tickets of the event."
 msgstr "Mostra i biglietti dell'evento."
 
-#: statechanges/templates/statechanges/events.html:114
+#: statechanges/templates/statechanges/events.html:115
 #: statechanges/templates/statechanges/singleblock.html:103
 #: statechanges/templates/statechanges/singleevent.html:142
 msgid "First"
 msgstr "Inizio"
 
-#: statechanges/templates/statechanges/events.html:115
+#: statechanges/templates/statechanges/events.html:116
 #: statechanges/templates/statechanges/singleblock.html:105
 #: statechanges/templates/statechanges/singleevent.html:143
 #: statechanges/templates/statechanges/statechanges.html:133
 msgid "Previous"
 msgstr "Precedente"
 
-#: statechanges/templates/statechanges/events.html:128
+#: statechanges/templates/statechanges/events.html:129
 #: statechanges/templates/statechanges/singleblock.html:118
 #: statechanges/templates/statechanges/singleevent.html:156
 #: statechanges/templates/statechanges/statechanges.html:146
 msgid "Next"
 msgstr "Successivo"
 
-#: statechanges/templates/statechanges/events.html:130
+#: statechanges/templates/statechanges/events.html:131
 #: statechanges/templates/statechanges/singleblock.html:120
 #: statechanges/templates/statechanges/singleevent.html:158
 #: statechanges/templates/statechanges/statechanges.html:148
@@ -1906,3 +1912,11 @@ msgstr "Circuiti"
 #: statechanges/templates/statechanges/statechanges.html:122
 msgid "Get detailed block information"
 msgstr "Ottieni informazioni dettagliate del blocco"
+
+#, fuzzy
+#~| msgid "Statechanges"
+#~ msgid "Statechanges:"
+#~ msgstr "Cambi di stato"
+
+#~ msgid "State Changes:"
+#~ msgstr "Cambi di stato:"
