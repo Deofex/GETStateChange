@@ -1,6 +1,6 @@
 from django.db.models import Sum
 from datetime import datetime,timedelta
-from .models import Block
+from .models import Block,Event
 from .graphinfo_shared import GraphInfo
 
 # This function creates the info for the daily wiring graph
@@ -34,4 +34,23 @@ def get_wiringgraphinfo():
     graphinfo.reverse()
 
     # Return the list with the graph info
+    return graphinfo
+
+def get_eventsized30days():
+    today = datetime.now()
+    thirtydaysago = today - timedelta(days=30)
+    events = Event.objects.filter(lastupdate__gt = thirtydaysago).exclude(
+        hash = 'TheUnknownStateChangesParadise')
+    zf = events.filter(totalsum__range=[1,49]).count()
+    fh = events.filter(totalsum__range=[50,99]).count()
+    htf = events.filter(totalsum__range=[100,249]).count()
+    tft = events.filter(totalsum__range=[250,999]).count()
+    tp = events.filter(totalsum__gt=1000).count()
+    graphinfo = [
+        GraphInfo('1-50', zf),
+        GraphInfo('50-100',fh),
+        GraphInfo('100-250',htf),
+        GraphInfo('250,1000',tft),
+        GraphInfo('1000 plus',tp),
+    ]
     return graphinfo

@@ -6,7 +6,7 @@ from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
     get_quartergraphinfo,get_statechangetypeslast30days,get_paginationnrs
 from .graphinfo_home import get_buybackgraphinfo,\
     get_statechangesfiringlast24h,get_eventsactivelast24h,get_burngraphinfo
-from .graphinfo_events import get_wiringgraphinfo
+from .graphinfo_events import get_wiringgraphinfo, get_eventsized30days
 
 # Create your views here.
 def page_statechanges(request):
@@ -60,7 +60,6 @@ def page_statechanges(request):
         'burnbackvalue': burnbackvalue,
         'navbar':'page_statechanges'
         })
-
 
 
 # Create your views here.
@@ -137,7 +136,8 @@ def page_events(request):
         'pageevents':pageevents,
         'pagenrs':pagenrs,
         'wiringgraphinfo':wiringgraphinfo,
-        'navbar':'page_events'
+        'eventsized30days':get_eventsized30days,
+        'navbar':'page_events',
     })
 
 # Page for a single event
