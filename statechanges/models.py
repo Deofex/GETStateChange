@@ -300,7 +300,7 @@ class Ticket(models.Model):
     def updatetime(self,updatedate):
         if self.lastupdate < updatedate:
             self.lastupdate = updatedate
-            self.save
+            self.save()
 
     def __str__(self):
         return str(self.hash)
