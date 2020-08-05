@@ -241,7 +241,6 @@ def get_ticket(hash,previoushash,block):
     if Event.objects.filter(hash=previoushash).exists():
         logger.info("Ticket with hash {} not found, create a new one".format(
             previoushash))
-        event = Event.objects.get(hash=previoushash)
         Ticket.objects.create(
             hash = hash,
             event = Event.objects.get(hash=previoushash),
@@ -252,7 +251,7 @@ def get_ticket(hash,previoushash,block):
         previousstate = StateChange.objects.get(hash=previoushash)
         ticket = previousstate.ticket
         logger.info(
-            "Existing ticket found, statechange {} will be added.".format(
+            "Existing ticket {} found, statechange will be added.".format(
                 ticket))
 
     return ticket
