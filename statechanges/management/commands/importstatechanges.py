@@ -1,4 +1,5 @@
 import datetime
+import time
 import requests
 import json
 
@@ -114,8 +115,21 @@ def get_url(url):
 # format.
 def get_json_from_url(url):
     '''Function to retrieve a JSON file from an URL'''
-    content = get_url(url)
-    js = json.loads(content)
+    # Retry 100 times to get the url, otherwise break
+    retries = 0
+    while True:
+        try:
+            content = get_url(url)
+            js = json.loads(content)
+        except:
+            retries += 1
+            if retries == 100:
+                logger.info("URL {} cannott be parsed, end script".format(url))
+                raise Exception('URL cannot be parsed, end script')
+            logger.info("URL {} cannott be parsed, retry".format(url))
+            time.sleep(5)
+            continue
+        break
     return js
 
 
