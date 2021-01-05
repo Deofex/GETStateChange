@@ -1,4 +1,5 @@
 import datetime
+import time
 import requests
 import json
 
@@ -114,8 +115,21 @@ def get_url(url):
 # format.
 def get_json_from_url(url):
     '''Function to retrieve a JSON file from an URL'''
-    content = get_url(url)
-    js = json.loads(content)
+    # Retry 100 times to get the url, otherwise break
+    retries = 0
+    while True:
+        try:
+            content = get_url(url)
+            js = json.loads(content)
+        except:
+            retries += 1
+            if retries == 100:
+                logger.info("URL {} cannott be parsed, end script".format(url))
+                raise Exception('URL cannot be parsed, end script')
+            logger.info("URL {} cannott be parsed, retry".format(url))
+            time.sleep(5)
+            continue
+        break
     return js
 
 
@@ -230,7 +244,7 @@ def get_afterblocknumber():
     return afterblocknumber
 
 
-def get_ticket(hash,previoushash):
+def get_ticket(hash,previoushash,block):
     '''Function which lookup a ticket'''
     # If the previous hash is an event, than it means that the current
     # statechange is a new ticket. Therefor a new ticket have to be created
@@ -241,17 +255,17 @@ def get_ticket(hash,previoushash):
     if Event.objects.filter(hash=previoushash).exists():
         logger.info("Ticket with hash {} not found, create a new one".format(
             previoushash))
-        event = Event.objects.get(hash=previoushash)
         Ticket.objects.create(
             hash = hash,
-            event = Event.objects.get(hash=previoushash)
+            event = Event.objects.get(hash=previoushash),
+            lastupdate = block.date,
         )
         ticket = Ticket.objects.get(hash=hash)
     else:
         previousstate = StateChange.objects.get(hash=previoushash)
         ticket = previousstate.ticket
         logger.info(
-            "Existing ticket found, statechange {} will be added.".format(
+            "Existing ticket {} found, statechange will be added.".format(
                 ticket))
 
     return ticket
@@ -270,7 +284,7 @@ def new_statechange(hash,previoushash,firing,block):
 
         # Lookup the corresponding event
         try:
-            ticket = get_ticket(hash,previoushash)
+            ticket = get_ticket(hash,previoushash,block)
         except StateChange.DoesNotExist as e:
             logger.error("Failed to get the ticket corresponding to hash: " +\
                 "{} and previoushash {}".format(hash,previoushash))
@@ -281,7 +295,7 @@ def new_statechange(hash,previoushash,firing,block):
         #  valid chain.
         if ticket.pk == 'catchall':
             previoushash = 'catchall'
-            ticket = get_ticket(hash,previoushash)
+            ticket = get_ticket(hash,previoushash,block)
             firing = '999'
 
         # Create the state change object
@@ -292,6 +306,9 @@ def new_statechange(hash,previoushash,firing,block):
             block = block,
             ticket = ticket,
         )
+
+        # Update the last update time of the ticket
+        ticket.updatetime(block.date)
 
         # Get Event
         event = statechangeobject.ticket.event
@@ -380,10 +397,10 @@ def process_statechange(statechange,block):
                 block = block,
                 )
         except StateChange.DoesNotExist:
-            # When a hash can't be imported this is caused that the previous
-            # hash has never been uploaded to IPFS/published in the blockchain.
-            # The Statechange is invalid and will be added to the catch all
-            # address.
+            # When a hash can't be imported this might be caused that the
+            # previous hash has never been uploaded to IPFS/published in the
+            # blockchain. The Statechange is invalid and will be added to the
+            # catch all address.
             logger.warning("Failed to add hash {}, in block {}. ".format(
                 statechange.hash, block.blocknumber) + \
                 "because previous hash can't be found. Moved to catchall."
@@ -418,14 +435,15 @@ def checkcatchallticket():
 
         event = Event.objects.create(
             hash = "TheUnknownStateChangesParadise",
-            block = block ,
+            block = block,
             name = "The unknown Statechange paradise",
             lastupdate = block.date,
         )
 
         ticket = Ticket.objects.create(
             hash = "catchall",
-            event = event
+            event = event,
+            lastupdate = block.date,
         )
 
         statechangeobject = StateChange.objects.create(

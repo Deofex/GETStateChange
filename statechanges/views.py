@@ -6,7 +6,8 @@ from .graphinfo_statechanges import get_monthgraphinfo,get_daygraphinfo,\
     get_quartergraphinfo,get_statechangetypeslast30days,get_paginationnrs
 from .graphinfo_home import get_buybackgraphinfo,\
     get_statechangesfiringlast24h,get_eventsactivelast24h,get_burngraphinfo
-from .graphinfo_events import get_wiringgraphinfo
+from .graphinfo_events import get_wiringgraphinfo, get_eventsized30days, \
+    get_monthgraphticketssoldinfo
 
 # Create your views here.
 def page_statechanges(request):
@@ -60,7 +61,6 @@ def page_statechanges(request):
         'burnbackvalue': burnbackvalue,
         'navbar':'page_statechanges'
         })
-
 
 
 # Create your views here.
@@ -131,23 +131,23 @@ def page_events(request):
         event_paginator.num_pages
     )
 
-    # Get information for the new event chart
-    wiringgraphinfo = get_wiringgraphinfo()
     return render(request,'statechanges/events.html',{
         'pageevents':pageevents,
         'pagenrs':pagenrs,
-        'wiringgraphinfo':wiringgraphinfo,
-        'navbar':'page_events'
+        'wiringgraphinfo':get_wiringgraphinfo(),
+        'eventsized30days':get_eventsized30days(),
+        'monthgraphticketssoldinfo':get_monthgraphticketssoldinfo,
+        'navbar':'page_events',
     })
 
 # Page for a single event
 def page_singleevent(request,eventhash):
     # Get all events
     event = Event.objects.get(hash=eventhash)
-    # Count the amount of tickets corresponding to the event
-    ticketcount = event.ticket_set.all().count()
     # Get a list with all tickets
-    ticket_list = event.ticket_set.all()
+    ticket_list = event.ticket_set.order_by('-lastupdate')
+    # Count the amount of tickets corresponding to the event
+    ticketcount = ticket_list.count()
     # Paginate the list https://docs.djangoproject.com/en/3.0/topics/pagination/
     ticket_paginator = Paginator(ticket_list,10)
 

@@ -281,14 +281,26 @@ class Event(models.Model):
 
 class Ticket(models.Model):
     '''A single ticket contain multiple statechanges'''
+    # The hash of the ticket (firing 0 hash)
     hash = models.CharField(
         max_length=100,
         primary_key=True,
     )
+    # The event which correspond to the ticket
     event = models.ForeignKey(
         Event,
         on_delete=models.CASCADE,
     )
+
+    # The last update time of the ticket
+    lastupdate = models.DateTimeField(
+        default=timezone.now
+    )
+
+    def updatetime(self,updatedate):
+        if self.lastupdate < updatedate:
+            self.lastupdate = updatedate
+            self.save()
 
     def __str__(self):
         return str(self.hash)

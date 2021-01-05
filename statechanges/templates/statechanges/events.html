@@ -58,13 +58,14 @@
                                 <p><i class="fa fa-calendar getcolor"></i></p>
                             </div>
                             <div class="col-9">
-                                <p><b>{% trans 'Creation date:' %}</b> {{ pageevent.block.date |date:"d-m-Y"}}</p>
-                                <p><b>{% trans 'Hash:'%}</b> {{ pageevent.hash }}</p>
+                                <p><b>{% trans 'Hash'%}:</b> {{ pageevent.hash }}</p>
+                                <p><b>{% trans 'Creation date' %}:</b> {{ pageevent.block.date |date:"d-m-Y"}}</p>
+                                <p><b>{% trans 'Last activity' %}:</b> {{ pageevent.lastupdate |date:"d-m-Y"}}</p>
+                                <div class="d-sm-none">
+                                    <p><b>{% trans 'Statechanges' %}:</b> {{ pageevent.totalsum }}</p>
+                                </div>
                             </div>
                             <div class="col-2">
-                                <div class="d-sm-none">
-                                    <p><b>{% trans 'State Changes:' %}</b> {{ pageevent.totalsum }}</p>
-                                </div>
                                 <div class="d-none d-sm-block">
                                     <p>{{ pageevent.totalsum }}</p>
                                 </div>
@@ -131,6 +132,22 @@
             </li>
             {% endif %}
         </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="EventSize30Days"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card graph">
+            <div class="card-body fixmidsize">
+                <canvas id="ChartTicketsSoldPerMonth"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 

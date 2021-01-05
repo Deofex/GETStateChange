@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-17 14:45+0000\n"
-"PO-Revision-Date: 2020-07-17 16:46+0200\n"
+"POT-Creation-Date: 2020-08-04 06:20+0000\n"
+"PO-Revision-Date: 2020-08-04 08:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -1278,7 +1278,7 @@ msgstr "Aantal GET tokens welke getransfereerd zijn in de laatste 24u"
 #: hodlers/templates/hodlers/hodlers.html:114
 msgid "Amount of GET tokens in wallets which haven't been touched for a year"
 msgstr ""
-"Aantal GET tokens in wallets welke het afgelopen jaar niet zijn gebruikt."
+"Aantal GET tokens in wallets welke het afgelopen jaar niet zijn gebruikt"
 
 #: hodlers/templates/hodlers/hodlersgraph.html:18
 msgid "Wallets > 5 GET"
@@ -1305,6 +1305,7 @@ msgid "Tokens on Exchanges"
 msgstr "Tokens op Exchanges"
 
 #: hodlers/templates/hodlers/hodlersgraph.html:299
+#: statechanges/templates/statechanges/eventgraph.html:76
 msgid "ranges"
 msgstr ""
 
@@ -1325,6 +1326,7 @@ msgid "Home"
 msgstr ""
 
 #: shared/templates/shared/base.html:36 shared/templates/shared/base.html:56
+#: statechanges/templates/statechanges/events.html:65
 #: statechanges/templates/statechanges/statechanges.html:9
 msgid "Statechanges"
 msgstr ""
@@ -1372,52 +1374,52 @@ msgstr ""
 "website op GitHub."
 
 #: statechanges/graphinfo_statechanges.py:246
-#: statechanges/templates/statechanges/events.html:81
+#: statechanges/templates/statechanges/events.html:82
 #: statechanges/templates/statechanges/statechanges.html:93
 msgid "Tickets created"
 msgstr "Tickets aangemaakt"
 
 #: statechanges/graphinfo_statechanges.py:247
-#: statechanges/templates/statechanges/events.html:82
+#: statechanges/templates/statechanges/events.html:83
 #: statechanges/templates/statechanges/statechanges.html:94
 msgid "Tickets blocked"
 msgstr "Tickets geblokkeerd"
 
 #: statechanges/graphinfo_statechanges.py:248
-#: statechanges/templates/statechanges/events.html:83
+#: statechanges/templates/statechanges/events.html:84
 #: statechanges/templates/statechanges/statechanges.html:95
 msgid "Tickets sold in the primary market"
 msgstr "Tickets verkocht in de primaire markt"
 
 #: statechanges/graphinfo_statechanges.py:249
-#: statechanges/templates/statechanges/events.html:85
+#: statechanges/templates/statechanges/events.html:86
 #: statechanges/templates/statechanges/statechanges.html:97
 msgid "Tickets sold in secondary market"
 msgstr "Tickets verkocht in de tweedehands markt"
 
 #: statechanges/graphinfo_statechanges.py:250
-#: statechanges/templates/statechanges/events.html:87
+#: statechanges/templates/statechanges/events.html:88
 #: statechanges/templates/statechanges/singleevent.html:30
 #: statechanges/templates/statechanges/statechanges.html:99
 msgid "Tickets bought back"
 msgstr "Tickets terug gekocht"
 
 #: statechanges/graphinfo_statechanges.py:251
-#: statechanges/templates/statechanges/events.html:88
+#: statechanges/templates/statechanges/events.html:89
 #: statechanges/templates/statechanges/singleevent.html:33
 #: statechanges/templates/statechanges/statechanges.html:100
 msgid "Tickets cancelled"
 msgstr "Tickets geannuleerd"
 
 #: statechanges/graphinfo_statechanges.py:252
-#: statechanges/templates/statechanges/events.html:89
+#: statechanges/templates/statechanges/events.html:90
 #: statechanges/templates/statechanges/singleblock.html:58
 #: statechanges/templates/statechanges/singleevent.html:106
 msgid "Ticket put for sale"
 msgstr "Ticket te koop aangeboden"
 
 #: statechanges/graphinfo_statechanges.py:253
-#: statechanges/templates/statechanges/events.html:92
+#: statechanges/templates/statechanges/events.html:93
 #: statechanges/templates/statechanges/singleblock.html:61
 #: statechanges/templates/statechanges/singleevent.html:39
 #: statechanges/templates/statechanges/singleevent.html:109
@@ -1426,32 +1428,32 @@ msgid "No Show"
 msgstr "Geen show"
 
 #: statechanges/graphinfo_statechanges.py:254
-#: statechanges/templates/statechanges/events.html:93
+#: statechanges/templates/statechanges/events.html:94
 #: statechanges/templates/statechanges/statechanges.html:106
 msgid "Not resold"
 msgstr "Niet doorverkocht"
 
 #: statechanges/graphinfo_statechanges.py:255
-#: statechanges/templates/statechanges/events.html:94
+#: statechanges/templates/statechanges/events.html:95
 #: statechanges/templates/statechanges/statechanges.html:107
 msgid "Not sold in primary market"
 msgstr "Niet verkocht in de primaire markt"
 
 #: statechanges/graphinfo_statechanges.py:256
-#: statechanges/templates/statechanges/events.html:95
+#: statechanges/templates/statechanges/events.html:96
 #: statechanges/templates/statechanges/statechanges.html:108
 msgid "Not sold in secondary market"
 msgstr "Niet verkocht in de tweedehands markt"
 
 #: statechanges/graphinfo_statechanges.py:257
-#: statechanges/templates/statechanges/events.html:97
+#: statechanges/templates/statechanges/events.html:98
 #: statechanges/templates/statechanges/singleevent.html:51
 #: statechanges/templates/statechanges/statechanges.html:110
 msgid "Tickets scanned"
 msgstr "Tickets gescand"
 
 #: statechanges/graphinfo_statechanges.py:258
-#: statechanges/templates/statechanges/events.html:98
+#: statechanges/templates/statechanges/events.html:99
 #: statechanges/templates/statechanges/singleblock.html:76
 #: statechanges/templates/statechanges/singleevent.html:54
 #: statechanges/templates/statechanges/singleevent.html:124
@@ -1460,7 +1462,7 @@ msgid "Show over"
 msgstr "Show voorbij"
 
 #: statechanges/graphinfo_statechanges.py:259
-#: statechanges/templates/statechanges/events.html:99
+#: statechanges/templates/statechanges/events.html:100
 #: statechanges/templates/statechanges/singleevent.html:57
 #: statechanges/templates/statechanges/statechanges.html:112
 msgid "Tickets unblocked"
@@ -1474,6 +1476,10 @@ msgstr "Nieuwe events gepubliceerd"
 #: statechanges/templates/statechanges/statechangegraph.html:182
 msgid "Last 30 days"
 msgstr "Laatste 30 dagen"
+
+#: statechanges/templates/statechanges/eventgraph.html:103
+msgid "Statechanges per event active in last 30 days"
+msgstr "Statechanges per event actief in de laatste 30 dagen"
 
 #: statechanges/templates/statechanges/events.html:8
 msgid "The places where GET flows"
@@ -1515,42 +1521,42 @@ msgid "Total Statechanges"
 msgstr "Totaal aantal StateChanges"
 
 #: statechanges/templates/statechanges/events.html:61
-msgid "Creation date:"
-msgstr "Creatie datum:"
+msgid "Creation date"
+msgstr "Creatie datum"
 
 #: statechanges/templates/statechanges/events.html:62
-msgid "Hash:"
+msgid "Last activity"
+msgstr "Laatste activiteit"
+
+#: statechanges/templates/statechanges/events.html:63
+msgid "Hash"
 msgstr ""
 
-#: statechanges/templates/statechanges/events.html:66
-msgid "State Changes:"
-msgstr ""
-
-#: statechanges/templates/statechanges/events.html:105
+#: statechanges/templates/statechanges/events.html:106
 msgid "Show tickets of the event."
 msgstr "Laat de tickets van het evenement zien."
 
-#: statechanges/templates/statechanges/events.html:114
+#: statechanges/templates/statechanges/events.html:115
 #: statechanges/templates/statechanges/singleblock.html:103
 #: statechanges/templates/statechanges/singleevent.html:142
 msgid "First"
 msgstr "Eerste"
 
-#: statechanges/templates/statechanges/events.html:115
+#: statechanges/templates/statechanges/events.html:116
 #: statechanges/templates/statechanges/singleblock.html:105
 #: statechanges/templates/statechanges/singleevent.html:143
 #: statechanges/templates/statechanges/statechanges.html:133
 msgid "Previous"
 msgstr "Vorige"
 
-#: statechanges/templates/statechanges/events.html:128
+#: statechanges/templates/statechanges/events.html:129
 #: statechanges/templates/statechanges/singleblock.html:118
 #: statechanges/templates/statechanges/singleevent.html:156
 #: statechanges/templates/statechanges/statechanges.html:146
 msgid "Next"
 msgstr "Volgende"
 
-#: statechanges/templates/statechanges/events.html:130
+#: statechanges/templates/statechanges/events.html:131
 #: statechanges/templates/statechanges/singleblock.html:120
 #: statechanges/templates/statechanges/singleevent.html:158
 #: statechanges/templates/statechanges/statechanges.html:148
@@ -1913,6 +1919,11 @@ msgstr ""
 #: statechanges/templates/statechanges/statechanges.html:122
 msgid "Get detailed block information"
 msgstr "Krijg gedetailleerde block informatie"
+
+#, fuzzy
+#~| msgid "Total Statechanges"
+#~ msgid "Statechanges:"
+#~ msgstr "Totaal aantal StateChanges"
 
 #, fuzzy
 #~| msgid "No Show:"

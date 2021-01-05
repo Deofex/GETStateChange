@@ -58,3 +58,126 @@
     }
     });
 </script>
+
+<script>
+    var ctx = document.getElementById('EventSize30Days').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                {% for info in eventsized30days %}
+            '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+        ],
+    datasets: [{
+        label: '{% trans 'ranges' %}',
+        backgroundColor: [
+            '#01c696',
+            '#00ad9b',
+            '#009397',
+            '#00798a',
+            '#206074',
+            '#2f4858',
+            '#afe67b',
+            '#f9f871',
+        ],
+        borderColor: '#01C696',
+        data: [
+            {% for info in eventsized30days %}
+                '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        title: {
+            display: true,
+                text: '{% trans 'Statechanges per event active in last 30 days' %}'
+        },
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+        },
+        animation: {
+            animateScale: true,
+                animateRotate: true
+        }
+    }
+});
+</script>
+
+<script>
+    var ctx = document.getElementById('ChartTicketsSoldPerMonth').getContext('2d');
+    Chart.defaults.global.defaultFontColor = '#ffffff';
+    Chart.defaults.global.defaultFontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
+    Chart.defaults.global.defaultFontSize = 16;
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for info in monthgraphticketssoldinfo %}
+                '{{info.periodname}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+            ],
+    datasets: [{
+        label: '{% trans 'Tickets sold per month' %}',
+        backgroundColor: '#000000',
+        borderColor: '#01C696',
+        data: [
+            {% for info in monthgraphticketssoldinfo %}
+                    '{{info.value}}'{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+                ],
+    pointBorderColor: '#01C696',
+        pointBackgroundColor: '#ffffff',
+            fontColor: '#ffffff',
+            }]
+        },
+
+    // Configuration options go here
+    options: {
+        maintainAspectRatio: false,
+            responsive: true,
+                tooltips: {
+            mode: 'index',
+                intersect: false,
+            },
+        hover: {
+            mode: 'nearest',
+                intersect: true
+        },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    format: 'MM/YYYY',
+                    unit: 'month',
+                    displayFormats: {
+                        month: 'MMM-YYYY',
+                    }
+                },
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '{% trans 'Month' %}'
+                }
+            }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+        }
+    }
+    });
+</script>
