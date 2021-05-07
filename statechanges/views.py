@@ -82,9 +82,9 @@ def page_home(request):
     # GET price
     geteurprice = CryptoPrice.objects.filter(name="GET")[0].price_eur
     # Amount of change changes:
-    statechangesbuyback = (float(buybackinfo[-1].value) / 0.07)
+    statechangesbuyback = (float(buybackinfo[-1].value) / 0.10)
     # Burn back value (statechanges x 0.07)
-    burnbackvalue = statechangesbuyback * 0.07
+    burnbackvalue = statechangesbuyback * 0.10
     # GET burned:
     getburned = burnbackvalue / geteurprice
     # Open market burned:
