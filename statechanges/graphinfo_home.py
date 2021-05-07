@@ -31,7 +31,7 @@ def get_buybackgraphinfo():
         # Create the label from the date in the following format day-month-year
         label = startdate.strftime("%d-%m-%Y")
 
-        buybackvalue = "{0:.0f}".format(sumstatechanges * 0.07)
+        buybackvalue = "{0:.0f}".format(sumstatechanges * 0.10)
         # Add the label and statestatechange to the array
         graphinfo.append(GraphInfo(
             label,
