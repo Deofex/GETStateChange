@@ -94,7 +94,7 @@ def get_burngraphinfo():
         label = transaction.date.strftime("%d-%m-%Y")
         # Supply = Supply - the amount of GET burned
         supply = supply - transaction.getburned
-        procentburned = (totalsupply - supply) / (supply / 100)
+        procentburned = (totalsupply - supply) / (totalsupply / 100)
         #Add the graph information
         graphinfo.append(DoubleGraphInfo(
                 label,
