@@ -16,7 +16,8 @@ def get_wiringgraphinfo():
         sumwirings = (Block.objects.filter(
             date__range=[startdate,enddate]).values("wsum").aggregate(
             Sum("wsum"))).popitem()[1]
-
+        if sumwirings == None:
+            sumwirings = 0
         # Create the label from the date in the following format day-month-year
         label = startdate.strftime("%d-%m-%Y")
 
